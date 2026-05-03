@@ -1,1 +1,3 @@
-export default function OnboardingScreen() { return <div>Onboarding</div> }
+export const OnboardingScreen = () => {
+  return <div>Onboarding</div>;
+};

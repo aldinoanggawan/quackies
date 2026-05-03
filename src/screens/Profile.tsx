@@ -1,1 +1,3 @@
-export default function ProfileScreen() { return <div>Profile</div> }
+export const ProfileScreen = () => {
+  return <div>Profile</div>;
+};
