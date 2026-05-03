@@ -1,3 +1,3 @@
-export default function WaterScreen() {
+export const WaterScreen = () => {
   return <div>Water</div>;
-}
+};

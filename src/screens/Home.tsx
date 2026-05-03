@@ -1,3 +1,3 @@
-export default function HomeScreen() {
+export const HomeScreen = () => {
   return <div>Home</div>;
-}
+};

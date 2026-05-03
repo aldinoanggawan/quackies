@@ -1,3 +1,3 @@
-export default function ProgressScreen() {
+export const ProgressScreen = () => {
   return <div>Progress</div>;
-}
+};

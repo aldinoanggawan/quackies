@@ -1,3 +1,3 @@
-export default function LogScreen() {
+export const LogScreen = () => {
   return <div>Log</div>;
-}
+};

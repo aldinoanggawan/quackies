@@ -6,7 +6,7 @@ const Placeholder = ({ name }: { name: string }) => (
   </div>
 );
 
-export default function App() {
+export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -20,4 +20,4 @@ export default function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
