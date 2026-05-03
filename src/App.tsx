@@ -1,10 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const Placeholder = ({ name }: { name: string }) => (
   <div className="flex items-center justify-center min-h-screen text-[var(--color-muted)]">
     {name}
   </div>
-)
+);
 
 export default function App() {
   return (
@@ -19,5 +19,5 @@ export default function App() {
         <Route path="/profile" element={<Placeholder name="Profile" />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

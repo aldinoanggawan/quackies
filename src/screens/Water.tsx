@@ -1,1 +1,3 @@
-export default function WaterScreen() { return <div>Water</div> }
+export default function WaterScreen() {
+  return <div>Water</div>;
+}

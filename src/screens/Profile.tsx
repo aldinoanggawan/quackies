@@ -1,1 +1,3 @@
-export default function ProfileScreen() { return <div>Profile</div> }
+export default function ProfileScreen() {
+  return <div>Profile</div>;
+}
