@@ -191,7 +191,10 @@ export const StayHydrated = () => {
         </div>
       </div>
 
-      <OnboardingCTA color={COLOR_TEAL} onClick={() => navigate('/onboarding/4')} />
+      <OnboardingCTA
+        color={COLOR_TEAL}
+        onClick={() => navigate('/onboarding/4')}
+      />
     </ScreenContainer>
   );
 };

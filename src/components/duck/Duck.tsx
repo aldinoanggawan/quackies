@@ -624,7 +624,12 @@ export const Duck = ({
                       ease: 'easeOut',
                     }}
                   >
-                    <circle cx={50} cy={54} r={2.5} fill={colors[i % colors.length]} />
+                    <circle
+                      cx={50}
+                      cy={54}
+                      r={2.5}
+                      fill={colors[i % colors.length]}
+                    />
                   </motion.g>
                 );
               })}
