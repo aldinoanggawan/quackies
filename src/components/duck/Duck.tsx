@@ -572,9 +572,12 @@ export const Duck = ({
   return (
     <motion.div
       className={className}
-      style={{ display: 'inline-block', width: size, height: size * 1.08 }}
-      animate={{ y: [0, -4, 0] }}
-      transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+      style={{
+        display: 'inline-block',
+        width: size,
+        height: size,
+        overflow: 'visible',
+      }}
     >
       <AnimatePresence mode="wait">
         <motion.div
@@ -582,6 +585,7 @@ export const Duck = ({
           initial={{ scale: 0.92 }}
           animate={{ scale: [0.92, 1.05, 1] }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
+          style={{ position: 'relative', translateY: -0.125 * size }}
         >
           <svg
             viewBox="0 0 100 108"
@@ -643,7 +647,7 @@ export const Duck = ({
               {[0, 1, 2].map((i) => (
                 <motion.circle
                   key={i}
-                  cx={87.3 + i * 4}
+                  cx={87.3}
                   cy={16.6}
                   r={3.5 - i * 0.5}
                   fill="rgba(168, 216, 240, 0.3)"
