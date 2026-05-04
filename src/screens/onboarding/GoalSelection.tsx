@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Duck, type DuckEmotion } from '../../components/duck/Duck';
-import { Button } from '../../components/Button';
+import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
@@ -232,7 +232,7 @@ export const GoalSelection = () => {
           justifyContent: 'center',
           marginTop: 52,
           flex: 1,
-          alignItems:'flex-start',
+          alignItems: 'flex-start',
           paddingBottom: 8,
         }}
       >
@@ -244,14 +244,7 @@ export const GoalSelection = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.58 }}
-        style={{ marginTop: 16 }}
-      >
-        <Button onClick={handleNext}>Let's go →</Button>
-      </motion.div>
+      <OnboardingCTA onClick={handleNext} label="Let's go →" />
     </ScreenContainer>
   );
 };

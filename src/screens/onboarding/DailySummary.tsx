@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Duck } from '../../components/duck/Duck';
-import { Button } from '../../components/Button';
+import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
 import {
@@ -242,7 +242,7 @@ export const DailySummary = () => {
         </div>
       </div>
 
-      <Button onClick={() => navigate('/onboarding/5')}>Next →</Button>
+      <OnboardingCTA onClick={() => navigate('/onboarding/5')} />
     </ScreenContainer>
   );
 };
