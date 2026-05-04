@@ -18,7 +18,7 @@ export const ProgressDots = ({
         padding: '20px 0 8px',
       }}
     >
-      {Array.from({ length: 4 }).map((_, i) => (
+      {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}
           style={{

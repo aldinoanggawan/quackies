@@ -32,7 +32,7 @@ export const MeetYourPal = () => {
 
   const handleNext = () => {
     setPalName(name.trim() || 'Quackers');
-    navigate('/home');
+    navigate('/onboarding/6');
   };
 
   return (
