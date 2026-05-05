@@ -4,16 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Duck, type DuckEmotion } from '../../components/duck/Duck';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
+import { SelectionCard } from '../../components/SelectionCard';
 import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
 import { useOnboarding } from '../../store/useOnboarding';
-import {
-  COLOR_PRIMARY,
-  COLOR_BG,
-  COLOR_BORDER,
-  COLOR_RED,
-  COLOR_TEAL,
-} from '../../colors';
+import { COLOR_PRIMARY, COLOR_RED, COLOR_TEAL } from '../../colors';
 
 type GoalId = 'lose' | 'maintain' | 'gain';
 
@@ -138,91 +133,18 @@ export const GoalSelection = () => {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {GOALS.map((goal, i) => {
-          const isSelected = selected === goal.id;
-          return (
-            <motion.button
+        {GOALS.map((goal, i) => (
+          <SelectionCard
               key={goal.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 + i * 0.08 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            isSelected={selected === goal.id}
               onClick={() => setSelected(goal.id)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
-                background: isSelected ? COLOR_BG : 'white',
-                border: `2px solid ${isSelected ? COLOR_PRIMARY : COLOR_BORDER}`,
-                borderRadius: 20,
-                padding: '16px 20px',
-                cursor: 'pointer',
-                textAlign: 'left',
-                fontFamily: 'inherit',
-                transition: 'border-color 0.2s, background 0.2s',
-              }}
-            >
-              {/* Icon */}
-              <div
-                style={{
-                  width: 52,
-                  height: 52,
-                  borderRadius: 14,
-                  background: goal.iconBg,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                }}
-              >
-                {goal.icon}
-              </div>
-
-              {/* Text */}
-              <div style={{ flex: 1 }}>
-                <Typography
-                  variant="label-strong"
-                  as="div"
-                  style={{ fontSize: 16, marginBottom: 4 }}
-                >
-                  {goal.label}
-                </Typography>
-                <Typography variant="label" color="var(--color-muted)">
-                  {goal.subtitle}
-                </Typography>
-              </div>
-
-              {/* Radio indicator */}
-              <div
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: '50%',
-                  border: `2px solid ${isSelected ? COLOR_PRIMARY : COLOR_BORDER}`,
-                  background: isSelected ? COLOR_PRIMARY : 'transparent',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                  transition: 'all 0.2s',
-                }}
-              >
-                {isSelected && (
-                  <svg viewBox="0 0 12 12" width={12} height={12} fill="none">
-                    <path
-                      d="M2 6l3 3 5-5"
-                      stroke="white"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                )}
-              </div>
-            </motion.button>
-          );
-        })}
+            icon={goal.icon}
+            iconBg={goal.iconBg}
+            label={goal.label}
+            subtitle={goal.subtitle}
+            animationDelay={0.1 + i * 0.08}
+          />
+        ))}
       </div>
 
       {/* Duck */}
