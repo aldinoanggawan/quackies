@@ -113,7 +113,11 @@ export const Stepper = ({
           type="button"
           aria-label={`Decrease ${label.toLowerCase()}`}
           onClick={() => update(-1)}
-          style={buttonStyle}
+          disabled={value <= min}
+          style={{
+            ...buttonStyle,
+            ...(value <= min ? { opacity: 0.3, cursor: 'default' } : {}),
+          }}
         >
           <StepperIcon type="minus" />
         </button>
@@ -181,7 +185,11 @@ export const Stepper = ({
           type="button"
           aria-label={`Increase ${label.toLowerCase()}`}
           onClick={() => update(1)}
-          style={buttonStyle}
+          disabled={value >= max}
+          style={{
+            ...buttonStyle,
+            ...(value >= max ? { opacity: 0.3, cursor: 'default' } : {}),
+          }}
         >
           <StepperIcon type="plus" />
         </button>
