@@ -2,13 +2,16 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Duck, type DuckEmotion } from '../../components/duck/Duck';
+import { GainIcon } from '../../components/icons/GainIcon';
+import { LoseIcon } from '../../components/icons/LoseIcon';
+import { MaintainIcon } from '../../components/icons/MaintainIcon';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { SelectionCard } from '../../components/SelectionCard';
 import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
 import { useOnboarding } from '../../store/useOnboarding';
-import { COLOR_PRIMARY, COLOR_RED, COLOR_TEAL } from '../../colors';
+import { COLOR_PRIMARY } from '../../colors';
 
 type GoalId = 'lose' | 'maintain' | 'gain';
 
@@ -20,57 +23,6 @@ interface Goal {
   icon: React.ReactNode;
   iconBg: string;
 }
-
-const LoseIcon = () => (
-  <svg viewBox="0 0 24 24" width={28} height={28} fill="none">
-    <path
-      d="M12 5v14M12 19l-5-5M12 19l5-5"
-      stroke={COLOR_RED}
-      strokeWidth={2.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const MaintainIcon = () => (
-  <svg viewBox="0 0 24 24" width={28} height={28} fill="none">
-    <path
-      d="M12 3l1.5 4h4l-3.2 2.4 1.2 4L12 11l-3.5 2.4 1.2-4L6.5 7h4L12 3z"
-      fill={COLOR_TEAL}
-    />
-    <line
-      x1="6"
-      y1="16"
-      x2="18"
-      y2="16"
-      stroke={COLOR_TEAL}
-      strokeWidth={2}
-      strokeLinecap="round"
-    />
-    <line
-      x1="8"
-      y1="20"
-      x2="16"
-      y2="20"
-      stroke={COLOR_TEAL}
-      strokeWidth={2}
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-const GainIcon = () => (
-  <svg viewBox="0 0 24 24" width={28} height={28} fill="none">
-    <path
-      d="M12 19V5M12 5l-5 5M12 5l5 5"
-      stroke="#4A90D9"
-      strokeWidth={2.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const GOALS: Goal[] = [
   {

@@ -2,6 +2,9 @@ import { useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Duck } from '../../components/duck/Duck';
+import { FemaleIcon } from '../../components/icons/FemaleIcon';
+import { MaleIcon } from '../../components/icons/MaleIcon';
+import { StepperIcon } from '../../components/icons/StepperIcon';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
@@ -92,32 +95,6 @@ const calculateTdee = ({
   const bmr = calculateBmr({ age, heightCm, weightKg, sex });
   return Math.round(bmr * ACTIVITY_MULTIPLIERS[activityLevel]);
 };
-
-const StepperIcon = ({ type }: { type: 'minus' | 'plus' }) => (
-  <svg
-    viewBox="0 0 18 18"
-    width={18}
-    height={18}
-    aria-hidden="true"
-    focusable="false"
-    style={{ display: 'block' }}
-  >
-    <path
-      d="M4.5 9h9"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-    />
-    {type === 'plus' && (
-      <path
-        d="M9 4.5v9"
-        stroke="currentColor"
-        strokeWidth={2}
-        strokeLinecap="round"
-      />
-    )}
-  </svg>
-);
 
 const Stepper = ({
   label,
@@ -301,64 +278,8 @@ const stepperButtonStyle: React.CSSProperties = {
   appearance: 'none',
 };
 
-const SexIcon = ({ sex }: { sex: Sex }) => {
-  if (sex === 'male') {
-    return (
-      <svg
-        viewBox="0 0 24 24"
-        width={24}
-        height={24}
-        aria-hidden="true"
-        focusable="false"
-        style={{ display: 'block' }}
-      >
-        <circle
-          cx="9"
-          cy="15"
-          r="5"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.2}
-        />
-        <path
-          d="M12.7 11.3 19 5m0 0h-5.2M19 5v5.2"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2.2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width={24}
-      height={24}
-      aria-hidden="true"
-      focusable="false"
-      style={{ display: 'block' }}
-    >
-      <circle
-        cx="12"
-        cy="8"
-        r="5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={2.2}
-      />
-      <path
-        d="M12 13v7M8.5 17h7"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={2.2}
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-};
+const SexIcon = ({ sex }: { sex: Sex }) =>
+  sex === 'male' ? <MaleIcon /> : <FemaleIcon />;
 
 export const ProfileSetup = () => {
   const navigate = useNavigate();
