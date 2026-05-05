@@ -9,7 +9,7 @@ import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
 import { useOnboarding } from '../../store/useOnboarding';
-import type { ActivityLevel, PaceId, Sex } from '../../store/useOnboarding';
+import type { ActivityLevel, Sex } from '../../store/useOnboarding';
 import {
   COLOR_BORDER,
   COLOR_DARK,
@@ -18,13 +18,7 @@ import {
   COLOR_PRIMARY_BORDER,
   COLOR_PRIMARY_CARD_BG,
 } from '../../colors';
-
-const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
-  sedentary: 1.2,
-  light: 1.375,
-  moderate: 1.55,
-  very: 1.725,
-};
+import { calculateDailyBudget, calculateTdee } from '../../lib/tdee';
 
 const ACTIVITY_OPTIONS: {
   id: ActivityLevel;
@@ -57,44 +51,6 @@ const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
 const formatWeight = (value: number) => value.toFixed(1);
-
-const PACE_RATIO: Record<PaceId, number> = {
-  slow: 0.15,
-  balanced: 0.2,
-  fast: 0.25,
-};
-
-const calculateBmr = ({
-  age,
-  heightCm,
-  weightKg,
-  sex,
-}: {
-  age: number;
-  heightCm: number;
-  weightKg: number;
-  sex: Sex;
-}) => {
-  const sexAdjustment = sex === 'male' ? 5 : -161;
-  return 10 * weightKg + 6.25 * heightCm - 5 * age + sexAdjustment;
-};
-
-const calculateTdee = ({
-  age,
-  heightCm,
-  weightKg,
-  sex,
-  activityLevel,
-}: {
-  age: number;
-  heightCm: number;
-  weightKg: number;
-  sex: Sex;
-  activityLevel: ActivityLevel;
-}) => {
-  const bmr = calculateBmr({ age, heightCm, weightKg, sex });
-  return Math.round(bmr * ACTIVITY_MULTIPLIERS[activityLevel]);
-};
 
 const Stepper = ({
   label,
@@ -300,18 +256,10 @@ export const ProfileSetup = () => {
     [activityLevel, age, heightCm, sex, weightKg],
   );
 
-  const bmi = weightKg / (heightCm / 100) ** 2;
-  const isLean = bmi < 19;
-  const ratio = PACE_RATIO[pace] ?? 0.2;
-  let delta = Math.round(tdee * ratio);
-  if (goal === 'lose' && isLean) delta = Math.min(delta, 250);
-  const rawAdjustment =
-    goal === 'maintain' ? 0 : goal === 'gain' ? delta : -delta;
-  const minKcal = sex === 'female' ? 1300 : 1500;
-  const dailyBudgetKcal =
-    goal === 'lose'
-      ? Math.max(minKcal, tdee + rawAdjustment)
-      : tdee + rawAdjustment;
+  const { dailyBudgetKcal, rawAdjustment } = useMemo(
+    () => calculateDailyBudget({ tdee, weightKg, heightCm, sex, goal, pace }),
+    [tdee, weightKg, heightCm, sex, goal, pace],
+  );
   const goalLabel =
     goal === 'gain'
       ? 'Gain weight'
