@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { PulsingDuck } from '../../components/PulsingDuck';
-import { Button } from '../../components/Button';
+import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { SCREEN_MAX_WIDTH } from '../../constants';
 import { Typography } from '../../components/ui/Typography';
 import {
@@ -197,36 +197,27 @@ export const Splash = () => {
         </motion.div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.58 }}
-          style={{ width: '100%' }}
+        <OnboardingCTA
+          onClick={() => navigate('/onboarding/2')}
+          label="Get started →"
+        />
+        <Typography
+          variant="body"
+          as="p"
+          color="var(--color-muted)"
+          style={{ textAlign: 'center', margin: '16px 0 0' }}
         >
-          <Button
-            onClick={() => navigate('/onboarding/2')}
-            style={{ marginBottom: 16 }}
+          Already have an account?{' '}
+          <span
+            style={{
+              color: COLOR_PRIMARY,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
           >
-            Get started →
-          </Button>
-          <Typography
-            variant="body"
-            as="p"
-            color="var(--color-muted)"
-            style={{ textAlign: 'center', margin: 0 }}
-          >
-            Already have an account?{' '}
-            <span
-              style={{
-                color: COLOR_PRIMARY,
-                fontWeight: 600,
-                cursor: 'pointer',
-              }}
-            >
-              Log in
-            </span>
-          </Typography>
-        </motion.div>
+            Log in
+          </span>
+        </Typography>
       </div>
     </div>
   );

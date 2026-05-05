@@ -610,15 +610,11 @@ export const Duck = ({
                   '#8B5CF6',
                 ];
                 return (
-                  <motion.circle
+                  <motion.g
                     key={i}
-                    cx={50}
-                    cy={54}
-                    r={2.5}
-                    fill={colors[i % colors.length]}
                     animate={{
-                      cx: 50 + Math.cos(rad) * 35,
-                      cy: 54 + Math.sin(rad) * 35,
+                      x: Math.cos(rad) * 35,
+                      y: Math.sin(rad) * 35,
                       opacity: [1, 0],
                     }}
                     transition={{
@@ -627,7 +623,14 @@ export const Duck = ({
                       delay: i * 0.1,
                       ease: 'easeOut',
                     }}
-                  />
+                  >
+                    <circle
+                      cx={50}
+                      cy={54}
+                      r={2.5}
+                      fill={colors[i % colors.length]}
+                    />
+                  </motion.g>
                 );
               })}
           </svg>
@@ -645,22 +648,25 @@ export const Duck = ({
               }}
             >
               {[0, 1, 2].map((i) => (
-                <motion.circle
+                <motion.g
                   key={i}
-                  cx={87.3}
-                  cy={16.6}
-                  r={3.5 - i * 0.5}
-                  fill="rgba(168, 216, 240, 0.3)"
-                  stroke="#A8D8F0"
-                  strokeWidth="1.5"
-                  animate={{ cy: [16.6, -5], opacity: [1, 0] }}
+                  animate={{ y: [0, -21.6], opacity: [1, 0] }}
                   transition={{
                     duration: 1.5,
                     repeat: Infinity,
                     delay: i * 0.4,
                     ease: 'easeOut',
                   }}
-                />
+                >
+                  <circle
+                    cx={87.3}
+                    cy={16.6}
+                    r={3.5 - i * 0.5}
+                    fill="rgba(168, 216, 240, 0.3)"
+                    stroke="#A8D8F0"
+                    strokeWidth="1.5"
+                  />
+                </motion.g>
               ))}
             </svg>
           )}

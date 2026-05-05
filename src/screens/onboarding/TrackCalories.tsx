@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Duck } from '../../components/duck/Duck';
-import { Button } from '../../components/Button';
+import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
 import {
@@ -208,7 +208,7 @@ export const TrackCalories = () => {
         </div>
       </div>
 
-      <Button onClick={() => navigate('/onboarding/3')}>Next →</Button>
+      <OnboardingCTA onClick={() => navigate('/onboarding/3')} />
     </ScreenContainer>
   );
 };

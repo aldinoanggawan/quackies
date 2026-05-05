@@ -6,6 +6,9 @@ import { TrackCalories } from './screens/onboarding/TrackCalories';
 import { StayHydrated } from './screens/onboarding/StayHydrated';
 import { DailySummary } from './screens/onboarding/DailySummary';
 import { MeetYourPal } from './screens/onboarding/MeetYourPal';
+import { GoalSelection } from './screens/onboarding/GoalSelection';
+import { PaceSelection } from './screens/onboarding/PaceSelection';
+import { ProfileSetup } from './screens/onboarding/ProfileSetup';
 import { HomeScreen } from './screens/Home';
 
 const Placeholder = ({ name }: { name: string }) => (
@@ -35,6 +38,9 @@ export const App = () => {
             <Route path="3" element={<StayHydrated />} />
             <Route path="4" element={<DailySummary />} />
             <Route path="5" element={<MeetYourPal />} />
+            <Route path="6" element={<GoalSelection />} />
+            <Route path="7" element={<PaceSelection />} />
+            <Route path="8" element={<ProfileSetup />} />
           </Route>
           <Route path="/home" element={<HomeScreen />} />
           <Route path="/log" element={<Placeholder name="Log" />} />

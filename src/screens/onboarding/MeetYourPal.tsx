@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { PulsingDuck } from '../../components/PulsingDuck';
 import { useOnboarding } from '../../store/useOnboarding';
-import { Button } from '../../components/Button';
+import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
 import {
@@ -32,7 +32,7 @@ export const MeetYourPal = () => {
 
   const handleNext = () => {
     setPalName(name.trim() || 'Quackers');
-    navigate('/home');
+    navigate('/onboarding/6');
   };
 
   return (
@@ -185,9 +185,7 @@ export const MeetYourPal = () => {
         </div>
       </div>
 
-      <Button onClick={handleNext} style={{ marginTop: 20 }}>
-        Next →
-      </Button>
+      <OnboardingCTA onClick={handleNext} />
     </ScreenContainer>
   );
 };
