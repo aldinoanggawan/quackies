@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import {
-  OnboardingContext,
-  type Goal,
-  type PaceId,
-  type ProfileSetup,
-} from './useOnboarding';
+import type { Goal, PaceId } from '../types/models';
+import { OnboardingContext, type ProfileSetup } from './useOnboarding';
 
 export const OnboardingProvider = ({
   children,

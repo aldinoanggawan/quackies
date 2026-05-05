@@ -9,7 +9,7 @@ import { ScreenContainer } from '../../components/ScreenContainer';
 import { Stepper } from '../../components/Stepper';
 import { Typography } from '../../components/ui/Typography';
 import { useOnboarding } from '../../store/useOnboarding';
-import type { ActivityLevel, Sex } from '../../store/useOnboarding';
+import type { ActivityLevel, Sex } from '../../types/models';
 import {
   COLOR_BORDER,
   COLOR_DARK,

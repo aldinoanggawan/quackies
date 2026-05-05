@@ -8,7 +8,7 @@ import { SelectionCard } from '../../components/SelectionCard';
 import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
 import { useOnboarding } from '../../store/useOnboarding';
-import type { PaceId } from '../../store/useOnboarding';
+import type { PaceId } from '../../types/models';
 import { COLOR_PRIMARY } from '../../colors';
 
 interface Pace {
