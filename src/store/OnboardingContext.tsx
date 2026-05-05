@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { OnboardingContext } from './useOnboarding';
+import {
+  OnboardingContext,
+  type PaceId,
+  type ProfileSetup,
+} from './useOnboarding';
 
 export const OnboardingProvider = ({
   children,
@@ -8,9 +12,22 @@ export const OnboardingProvider = ({
 }) => {
   const [palName, setPalName] = useState('');
   const [goal, setGoal] = useState('');
+  const [pace, setPace] = useState<PaceId>('balanced');
+  const [profile, setProfile] = useState<ProfileSetup | null>(null);
 
   return (
-    <OnboardingContext.Provider value={{ palName, setPalName, goal, setGoal }}>
+    <OnboardingContext.Provider
+      value={{
+        palName,
+        setPalName,
+        goal,
+        setGoal,
+        pace,
+        setPace,
+        profile,
+        setProfile,
+      }}
+    >
       {children}
     </OnboardingContext.Provider>
   );

@@ -1,11 +1,14 @@
 import { COLOR_PRIMARY } from '../colors';
+import { ONBOARDING_TOTAL_STEPS } from '../constants';
 
 export const ProgressDots = ({
   current,
+  total = ONBOARDING_TOTAL_STEPS,
   activeColor = COLOR_PRIMARY,
   inactiveColor = 'var(--color-border)',
 }: {
   current: number;
+  total?: number;
   activeColor?: string;
   inactiveColor?: string;
 }) => {
@@ -18,7 +21,7 @@ export const ProgressDots = ({
         padding: '20px 0 8px',
       }}
     >
-      {Array.from({ length: 5 }).map((_, i) => (
+      {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
           style={{

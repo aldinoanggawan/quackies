@@ -108,12 +108,12 @@ export const GoalSelection = () => {
 
   const handleNext = () => {
     setGoal(selected);
-    navigate('/home');
+    navigate(selected === 'maintain' ? '/onboarding/8' : '/onboarding/7');
   };
 
   return (
     <ScreenContainer>
-      <ProgressDots current={5} />
+      <ProgressDots current={5} total={selected === 'maintain' ? 5 : 6} />
 
       <div style={{ paddingTop: 16 }}>
         <Typography
@@ -121,7 +121,7 @@ export const GoalSelection = () => {
           color={COLOR_PRIMARY}
           style={{ display: 'block', marginBottom: 8 }}
         >
-          Step 5 of 5
+          Step 5 of {selected === 'maintain' ? 5 : 6}
         </Typography>
         <Typography
           variant="heading"
@@ -135,9 +135,9 @@ export const GoalSelection = () => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         {GOALS.map((goal, i) => (
           <SelectionCard
-              key={goal.id}
+            key={goal.id}
             isSelected={selected === goal.id}
-              onClick={() => setSelected(goal.id)}
+            onClick={() => setSelected(goal.id)}
             icon={goal.icon}
             iconBg={goal.iconBg}
             label={goal.label}
