@@ -4,6 +4,7 @@ type Variant =
   | 'display'
   | 'heading-lg'
   | 'heading'
+  | 'subheading'
   | 'body'
   | 'input-label'
   | 'input'
@@ -15,6 +16,7 @@ const STYLES: Record<Variant, React.CSSProperties> = {
   display: { fontSize: 48, fontWeight: 700 },
   'heading-lg': { fontSize: 34, fontWeight: 800 },
   heading: { fontSize: 30, fontWeight: 800 },
+  subheading: { fontSize: 18, fontWeight: 700 },
   body: { fontSize: 15, fontWeight: 400 },
   'input-label': { fontSize: 15, fontWeight: 500 },
   input: { fontSize: 17, fontWeight: 500 },
@@ -27,6 +29,7 @@ const DEFAULTS: Record<Variant, string> = {
   display: 'span',
   'heading-lg': 'h2',
   heading: 'h2',
+  subheading: 'p',
   body: 'p',
   'input-label': 'label',
   input: 'span',
