@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { Duck } from '../components/duck/Duck';
 import type { DuckEmotion } from '../components/duck/Duck';
+import { useAuth } from '../hooks/useAuth';
+import { Button } from '../components/Button';
 
 const emotions: DuckEmotion[] = [
   'happy',
@@ -15,6 +18,14 @@ const emotions: DuckEmotion[] = [
 ];
 
 export const HomeScreen = () => {
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
+
   return (
     <div
       style={{
@@ -50,6 +61,7 @@ export const HomeScreen = () => {
           </div>
         ))}
       </div>
+      <Button onClick={handleSignOut}>Sign out</Button>
     </div>
   );
 };
