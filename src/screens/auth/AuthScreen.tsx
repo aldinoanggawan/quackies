@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Duck, type DuckEmotion } from '../../components/duck/Duck';
 import { Button } from '../../components/Button';
 import { Typography } from '../../components/ui/Typography';
+import { EyeIcon } from '../../components/icons/EyeIcon';
 import { supabase } from '../../lib/supabase';
 import { isUsernameTaken, getProfile, saveUsername } from '../../lib/db';
 import { buildAuthEmail } from './authUtils';
@@ -63,6 +64,7 @@ export const AuthScreen = () => {
   const [passwordError, setPasswordError] = useState('');
   const [formError, setFormError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const config = step !== 'username' ? STEP_CONFIG[step] : null;
 
@@ -276,20 +278,42 @@ export const AuthScreen = () => {
                 <Typography variant="input-label" as="label" htmlFor="password">
                   Password
                 </Typography>
-                <input
-                  ref={passwordRef}
-                  id="password"
-                  type="password"
-                  autoComplete={
-                    step === 'returning' ? 'current-password' : 'new-password'
-                  }
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  style={{
-                    ...inputStyle,
-                    border: `1.5px solid ${passwordError ? COLOR_RED : COLOR_BORDER}`,
-                  }}
-                />
+                <div style={{ position: 'relative' }}>
+                  <input
+                    ref={passwordRef}
+                    id="password"
+                    type={showPassword ? 'text' : 'password'}
+                    autoComplete={
+                      step === 'returning' ? 'current-password' : 'new-password'
+                    }
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    style={{
+                      ...inputStyle,
+                      border: `1.5px solid ${passwordError ? COLOR_RED : COLOR_BORDER}`,
+                      paddingRight: 44,
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    style={{
+                      position: 'absolute',
+                      right: 12,
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 4,
+                      color: COLOR_MUTED,
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <EyeIcon open={showPassword} size={18} />
+                  </button>
+                </div>
                 {passwordError ? (
                   <Typography variant="caption" color={COLOR_RED}>
                     {passwordError}
