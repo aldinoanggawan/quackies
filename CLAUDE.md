@@ -58,3 +58,13 @@ For multi-step tasks, state a brief plan:
 ```
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+
+## 5. Use Existing Components
+
+**Reach for shared components before writing raw HTML.**
+
+When building UI:
+
+- Use `Typography` for all text (headings, labels, captions, error messages, body text).
+- Use `Button` for CTA buttons instead of raw `<button>` elements.
+- Check `src/components/` before writing a new element — if a component covers the use case, use it.
