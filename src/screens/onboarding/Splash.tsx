@@ -1,9 +1,13 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { PulsingDuck } from '../../components/PulsingDuck';
+import { LoadingScreen } from '../../components/LoadingScreen';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { SCREEN_MAX_WIDTH } from '../../constants';
 import { Typography } from '../../components/ui/Typography';
+import { useAuth } from '../../hooks/useAuth';
+import { getProfile } from '../../lib/db';
 import {
   COLOR_PRIMARY,
   COLOR_TEAL,
@@ -20,6 +24,18 @@ const BLOB_BASE: React.CSSProperties = {
 
 export const Splash = () => {
   const navigate = useNavigate();
+  const { session, loading } = useAuth();
+
+  useEffect(() => {
+    if (loading || !session) return;
+    getProfile(session.user.id).then((profile) => {
+      navigate(profile?.daily_budget ? '/home' : '/onboarding', {
+        replace: true,
+      });
+    });
+  }, [loading, session, navigate]);
+
+  if (loading || session) return <LoadingScreen />;
 
   return (
     <div
@@ -198,26 +214,9 @@ export const Splash = () => {
 
         {/* CTA */}
         <OnboardingCTA
-          onClick={() => navigate('/onboarding/2')}
+          onClick={() => navigate('/auth')}
           label="Get started →"
         />
-        <Typography
-          variant="body"
-          as="p"
-          color="var(--color-muted)"
-          style={{ textAlign: 'center', margin: '16px 0 0' }}
-        >
-          Already have an account?{' '}
-          <span
-            style={{
-              color: COLOR_PRIMARY,
-              fontWeight: 600,
-              cursor: 'pointer',
-            }}
-          >
-            Log in
-          </span>
-        </Typography>
       </div>
     </div>
   );

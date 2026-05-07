@@ -1,9 +1,5 @@
 import { createContext, useContext } from 'react';
-
-export type Sex = 'male' | 'female';
-export type ActivityLevel = 'sedentary' | 'light' | 'moderate' | 'very';
-export type PaceId = 'slow' | 'balanced' | 'fast';
-export type Goal = 'lose' | 'maintain' | 'gain';
+import type { Sex, ActivityLevel, PaceId, Goal } from '../types/models';
 
 export interface ProfileSetup {
   age: number;

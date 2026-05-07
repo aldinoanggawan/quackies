@@ -1,4 +1,4 @@
-import type { ActivityLevel, Goal, PaceId, Sex } from '../store/useOnboarding';
+import type { ActivityLevel, Goal, PaceId, Sex } from '../types/models';
 
 export const ACTIVITY_MULTIPLIERS: Record<ActivityLevel, number> = {
   sedentary: 1.2,
