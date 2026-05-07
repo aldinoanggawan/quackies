@@ -14,11 +14,22 @@ import type {
 } from '../types/models';
 
 export const isUsernameTaken = async (username: string): Promise<boolean> => {
-  const { count } = await supabase
+  const { data } = await supabase
     .from('profiles')
-    .select('user_id', { count: 'exact', head: true })
-    .eq('username', username);
-  return (count ?? 0) > 0;
+    .select('username')
+    .eq('username', username.toLowerCase().trim())
+    .maybeSingle();
+  return data !== null; // true = taken, false = available
+};
+
+export const saveUsername = async (
+  userId: string,
+  username: string,
+): Promise<void> => {
+  const { error } = await supabase
+    .from('profiles')
+    .upsert({ user_id: userId, username }, { onConflict: 'user_id' });
+  if (error) throw error;
 };
 
 export const saveProfile = async (
