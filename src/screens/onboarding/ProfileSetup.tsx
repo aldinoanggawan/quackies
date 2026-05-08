@@ -10,6 +10,8 @@ import { Stepper } from '../../components/Stepper';
 import { Typography } from '../../components/ui/Typography';
 import { useOnboarding } from '../../store/useOnboarding';
 import type { ActivityLevel, Sex } from '../../types/models';
+import { useAuth, getUsername } from '../../hooks/useAuth';
+import { saveProfile } from '../../lib/db';
 import {
   COLOR_BORDER,
   COLOR_DARK,
@@ -54,7 +56,8 @@ const SexIcon = ({ sex }: { sex: Sex }) =>
 
 export const ProfileSetup = () => {
   const navigate = useNavigate();
-  const { goal, pace, profile, setProfile } = useOnboarding();
+  const { goal, pace, profile, palName } = useOnboarding();
+  const { user } = useAuth();
   const [age, setAge] = useState(profile?.age ?? 26);
   const [heightCm, setHeightCm] = useState(profile?.heightCm ?? 175);
   const [weightKg, setWeightKg] = useState(profile?.weightKg ?? 70);
@@ -86,15 +89,20 @@ export const ProfileSetup = () => {
       ? 'Maintenance budget applied'
       : `${rawAdjustment > 0 ? '+' : '−'}${Math.abs(rawAdjustment)} kcal ${rawAdjustment > 0 ? 'surplus' : 'deficit'} applied`;
 
-  const handleNext = () => {
-    setProfile({
+  const handleNext = async () => {
+    await saveProfile(user!.id, {
+      username: getUsername(user),
+      pal_name: palName,
       age,
-      heightCm,
-      weightKg,
-      targetWeightKg,
+      height_cm: heightCm,
+      weight_kg: weightKg,
+      target_weight_kg: targetWeightKg,
       sex,
-      activityLevel,
-      dailyBudgetKcal,
+      activity_level: activityLevel,
+      goal_type: goal,
+      pace,
+      tdee,
+      daily_budget: dailyBudgetKcal,
     });
     navigate('/home');
   };
