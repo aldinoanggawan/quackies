@@ -143,6 +143,17 @@ export const logWorkout = async (
   if (error) throw error;
 };
 
+export const updateWorkout = async (
+  workoutId: string,
+  fields: Partial<NewWorkout>,
+): Promise<void> => {
+  const { error } = await supabase
+    .from('workouts')
+    .update(fields)
+    .eq('id', workoutId);
+  if (error) throw error;
+};
+
 export const getWorkoutsForDate = async (
   userId: string,
   date: string,
