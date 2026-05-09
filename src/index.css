@@ -28,3 +28,12 @@ body {
     -apple-system,
     sans-serif;
 }
+
+.log-btn {
+  transition: all 0.15s;
+}
+
+.log-btn:hover {
+  background: #fff3d4 !important;
+  border-color: var(--color-primary) !important;
+}

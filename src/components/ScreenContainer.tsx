@@ -16,7 +16,7 @@ export const ScreenContainer = ({
       style={{
         maxWidth: SCREEN_MAX_WIDTH,
         margin: '0 auto',
-        padding: '0 24px 40px',
+        padding: '0 24px calc(40px + 72px)',
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100dvh',
