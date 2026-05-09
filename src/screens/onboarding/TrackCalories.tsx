@@ -11,6 +11,7 @@ import {
   COLOR_PRIMARY_BORDER,
 } from '../../colors';
 import { ProgressDots } from '../../components/ProgressDots';
+import { DotIcon } from '../../components/icons/DotIcon';
 
 const TAGS = [
   {
@@ -95,16 +96,7 @@ export const TrackCalories = () => {
                 whiteSpace: 'nowrap',
               }}
             >
-              <span
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  background: tag.dot,
-                  display: 'inline-block',
-                  flexShrink: 0,
-                }}
-              />
+              <DotIcon color={tag.dot} />
               <Typography variant="label-strong">{tag.label}</Typography>
               <Typography variant="caption" color={tag.dot}>
                 {tag.kcal}
