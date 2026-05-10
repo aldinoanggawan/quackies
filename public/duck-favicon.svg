@@ -1,0 +1,53 @@
+<svg viewBox="-2 12 104 104" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Body -->
+  <ellipse cx="50" cy="85" rx="38" ry="30" fill="#E8D44A"/>
+
+  <!-- Wings — behind head -->
+  <ellipse cx="12.7" cy="75.5" rx="10" ry="15.7" fill="#D4BE38" transform="rotate(-20 12.7 75.5)"/>
+  <ellipse cx="87.3" cy="75.5" rx="10" ry="15.7" fill="#D4BE38" transform="rotate(20 87.3 75.5)"/>
+
+  <!-- Head -->
+  <ellipse cx="50" cy="50" rx="31" ry="29" fill="#E8D44A"/>
+
+  <!-- Hair clip -->
+  <rect x="39" y="22" width="22" height="7" rx="4" fill="#8B5E2A"/>
+
+  <!-- Blush -->
+  <ellipse cx="28" cy="57" rx="7" ry="4" fill="#FF9090" opacity="0.4"/>
+  <ellipse cx="72" cy="57" rx="7" ry="4" fill="#FF9090" opacity="0.4"/>
+
+  <!-- Nostrils -->
+  <ellipse cx="46.4" cy="63" rx="2.3" ry="2" fill="#A07030"/>
+  <ellipse cx="53.6" cy="63" rx="2.3" ry="2" fill="#A07030"/>
+
+  <!-- Bill -->
+  <ellipse cx="50" cy="70" rx="13.6" ry="9.8" fill="#C8960A"/>
+  <ellipse cx="50" cy="65" rx="11.8" ry="6.9" fill="#D4A820"/>
+
+  <!-- Feet -->
+  <ellipse cx="40" cy="112" rx="10" ry="4" fill="#C8960A"/>
+  <ellipse cx="60" cy="112" rx="10" ry="4" fill="#C8960A"/>
+
+  <!-- Happy brows -->
+  <g stroke="#5A3010" stroke-width="2" fill="none" stroke-linecap="round">
+    <path d="M 30 42 Q 35 37 40 42"/>
+    <path d="M 60 42 Q 65 37 70 42"/>
+  </g>
+
+  <!-- Left eye -->
+  <ellipse cx="35" cy="50" rx="6.4" ry="6.4" fill="white"/>
+  <ellipse cx="35" cy="50" rx="4.1" ry="4.1" fill="#7A4518"/>
+  <ellipse cx="35" cy="50" rx="2" ry="2" fill="#2A1408"/>
+  <ellipse cx="36.8" cy="48" rx="1.4" ry="1.4" fill="white"/>
+
+  <!-- Right eye -->
+  <ellipse cx="65" cy="50" rx="6.4" ry="6.4" fill="white"/>
+  <ellipse cx="65" cy="50" rx="4.1" ry="4.1" fill="#7A4518"/>
+  <ellipse cx="65" cy="50" rx="2" ry="2" fill="#2A1408"/>
+  <ellipse cx="66.8" cy="48" rx="1.4" ry="1.4" fill="white"/>
+
+  <!-- Happy smile -->
+  <path d="M 40 74 Q 50 81 60 74" stroke="#A07828" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+
+</svg>
