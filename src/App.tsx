@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
 import { OnboardingProvider } from './store/OnboardingContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { OnboardingLayout } from './screens/onboarding/OnboardingLayout';
@@ -10,8 +16,15 @@ import { MeetYourPal } from './screens/onboarding/MeetYourPal';
 import { GoalSelection } from './screens/onboarding/GoalSelection';
 import { PaceSelection } from './screens/onboarding/PaceSelection';
 import { ProfileSetup } from './screens/onboarding/ProfileSetup';
-import { HomeScreen } from './screens/Home';
+import { HomeScreen } from './screens/HomeScreen';
 import { AuthScreen } from './screens/auth/AuthScreen';
+import { BottomNav } from './components/BottomNav';
+const MainLayout = () => (
+  <>
+    <Outlet />
+    <BottomNav />
+  </>
+);
 
 const Placeholder = ({ name }: { name: string }) => (
   <div
@@ -45,11 +58,16 @@ export const App = () => {
               <Route path="7" element={<PaceSelection />} />
               <Route path="8" element={<ProfileSetup />} />
             </Route>
-            <Route path="/home" element={<HomeScreen />} />
-            <Route path="/log" element={<Placeholder name="Log" />} />
-            <Route path="/water" element={<Placeholder name="Water" />} />
-            <Route path="/progress" element={<Placeholder name="Progress" />} />
-            <Route path="/profile" element={<Placeholder name="Profile" />} />
+            <Route element={<MainLayout />}>
+              <Route path="/home" element={<HomeScreen />} />
+              <Route path="/log" element={<Placeholder name="Log" />} />
+              <Route path="/water" element={<Placeholder name="Water" />} />
+              <Route
+                path="/progress"
+                element={<Placeholder name="Progress" />}
+              />
+              <Route path="/profile" element={<Placeholder name="Profile" />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

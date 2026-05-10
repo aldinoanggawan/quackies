@@ -15,6 +15,7 @@ export interface ProfileData {
   sex: Sex;
   activity_level: ActivityLevel;
   goal_type: Goal;
+  pace: PaceId;
   tdee: number;
   daily_budget: number;
 }
