@@ -1,4 +1,6 @@
 import { supabase } from './supabase';
+import { resizeImage, fileToBase64 } from './imageUtils';
+import { DAILY_ANALYSIS_LIMIT } from '../constants';
 import type {
   Profile,
   ProfileData,
@@ -11,6 +13,8 @@ import type {
   BottleConfig,
   Workout,
   NewWorkout,
+  AnalysisItem,
+  AnalysisResult,
 } from '../types/models';
 
 export const isUsernameTaken = async (username: string): Promise<boolean> => {
@@ -165,4 +169,114 @@ export const getWorkoutsForDate = async (
     .eq('date', date);
   if (error) throw error;
   return data ?? [];
+};
+
+export const getRemainingAnalyses = async (
+  userId: string,
+): Promise<{ remaining: number; limit: number }> => {
+  const today = new Date().toISOString().split('T')[0];
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('daily_analyses_count, daily_analyses_reset_date')
+    .eq('user_id', userId)
+    .single();
+
+  if (error) throw error;
+
+  const isNewDay = data.daily_analyses_reset_date !== today;
+  const count = isNewDay ? 0 : (data.daily_analyses_count ?? 0);
+
+  return {
+    remaining: DAILY_ANALYSIS_LIMIT - count,
+    limit: DAILY_ANALYSIS_LIMIT,
+  };
+};
+
+export const analyzeMeal = async ({
+  beforeFile,
+  afterFile,
+  note,
+}: {
+  beforeFile: File;
+  afterFile?: File | null;
+  note?: string;
+}): Promise<AnalysisResult> => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (!session) throw new Error('Not authenticated');
+
+  const resizedBefore = await resizeImage(beforeFile);
+  const resizedAfter = afterFile ? await resizeImage(afterFile) : undefined;
+
+  const beforeBase64 = await fileToBase64(resizedBefore);
+  const afterBase64 = resizedAfter
+    ? await fileToBase64(resizedAfter)
+    : undefined;
+  const mimeType = 'image/jpeg';
+
+  const { data, error } = await supabase.functions.invoke('analyze-meal', {
+    body: {
+      beforeImage: beforeBase64,
+      afterImage: afterBase64,
+      mimeType,
+      userNote: note || undefined,
+    },
+  });
+
+  if (error) {
+    if (error.context?.status === 429) {
+      const body = await error.context.json();
+      throw new Error(body.message ?? 'Daily analysis limit reached');
+    }
+    throw error;
+  }
+  return data as AnalysisResult;
+};
+
+export const saveMeal = async ({
+  userId,
+  mealType,
+  items,
+  note,
+}: {
+  userId: string;
+  mealType: string;
+  items: AnalysisItem[];
+  note: string;
+}): Promise<void> => {
+  const today = new Date().toISOString().split('T')[0];
+
+  const totalKcal = items.reduce(
+    (sum, item) => (item.eaten ? sum + item.kcal : sum),
+    0,
+  );
+
+  const { data: meal, error: mealError } = await supabase
+    .from('meals')
+    .insert({
+      user_id: userId,
+      date: today,
+      meal_type: mealType,
+      description: note || undefined,
+      total_kcal: totalKcal,
+    })
+    .select('id')
+    .single();
+
+  if (mealError) throw mealError;
+
+  const mealItems = items.map((item) => ({
+    meal_id: meal.id,
+    name: item.name,
+    portion: item.portion,
+    kcal: item.kcal,
+    eaten: item.eaten,
+  }));
+
+  const { error: itemsError } = await supabase
+    .from('meal_items')
+    .insert(mealItems);
+  if (itemsError) throw itemsError;
 };

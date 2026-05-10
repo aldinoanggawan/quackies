@@ -73,6 +73,20 @@ export interface BottleConfig {
   bottle_ml: number;
 }
 
+// meal analysis
+export type AnalysisItem = {
+  name: string;
+  portion: string | null;
+  kcal: number;
+  eaten: boolean;
+};
+export type AnalysisResult = {
+  items: AnalysisItem[];
+  totalKcal: number;
+  confidence: number;
+  notes: string;
+};
+
 // workouts
 export interface NewWorkout {
   date: string; // YYYY-MM-DD

@@ -17,6 +17,7 @@ import { GoalSelection } from './screens/onboarding/GoalSelection';
 import { PaceSelection } from './screens/onboarding/PaceSelection';
 import { ProfileSetup } from './screens/onboarding/ProfileSetup';
 import { HomeScreen } from './screens/HomeScreen';
+import { MealLoggingScreen } from './screens/MealLoggingScreen';
 import { AuthScreen } from './screens/auth/AuthScreen';
 import { BottomNav } from './components/BottomNav';
 const MainLayout = () => (
@@ -60,6 +61,7 @@ export const App = () => {
             </Route>
             <Route element={<MainLayout />}>
               <Route path="/home" element={<HomeScreen />} />
+              <Route path="/meal/:mealType" element={<MealLoggingScreen />} />
               <Route path="/log" element={<Placeholder name="Log" />} />
               <Route path="/water" element={<Placeholder name="Water" />} />
               <Route
