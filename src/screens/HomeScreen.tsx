@@ -178,14 +178,7 @@ export const HomeScreen = () => {
           />
         </div>
       </div>
-      {user && (
-        <MealsSection
-          meals={meals}
-          userId={user.id}
-          date={today}
-          onSaved={refresh}
-        />
-      )}
+      <MealsSection meals={meals} />
       {user && (
         <WorkoutSection
           workouts={workouts}
