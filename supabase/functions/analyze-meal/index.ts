@@ -24,18 +24,71 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_ANON_KEY')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
   );
 
-  const { error: authError } = await supabase.auth.getUser(
-    authHeader.replace('Bearer ', ''),
-  );
-  if (authError) {
+  const {
+    data: { user },
+    error: authError,
+  } = await supabase.auth.getUser(authHeader.replace('Bearer ', ''));
+  if (authError || !user) {
     return new Response(JSON.stringify({ error: 'Invalid token' }), {
       status: 401,
       headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
     });
   }
+
+  const DAILY_LIMIT = parseInt(
+    Deno.env.get('DAILY_ANALYSIS_LIMIT') ?? '10',
+    10,
+  );
+  const today = new Date().toISOString().split('T')[0];
+
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('daily_analyses_count, daily_analyses_reset_date')
+    .eq('user_id', user.id)
+    .single();
+
+  if (profileError) {
+    console.error('Profile fetch error:', JSON.stringify(profileError));
+    console.error('User ID used:', user.id);
+    return new Response(
+      JSON.stringify({
+        error: 'Failed to fetch profile',
+        detail: profileError,
+      }),
+      {
+        status: 500,
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      },
+    );
+  }
+
+  const isNewDay = profile.daily_analyses_reset_date !== today;
+  const currentCount = isNewDay ? 0 : profile.daily_analyses_count;
+
+  if (currentCount >= DAILY_LIMIT) {
+    return new Response(
+      JSON.stringify({
+        error: 'daily_limit_reached',
+        message: `You've used all ${DAILY_LIMIT} analyses for today. Come back tomorrow!`,
+        resetsAt: today,
+      }),
+      {
+        status: 429,
+        headers: { ...CORS_HEADERS, 'Content-Type': 'application/json' },
+      },
+    );
+  }
+
+  await supabase
+    .from('profiles')
+    .update({
+      daily_analyses_count: currentCount + 1,
+      daily_analyses_reset_date: today,
+    })
+    .eq('user_id', user.id);
 
   const { beforeImage, afterImage, mimeType, userNote } = await req.json();
 
@@ -91,7 +144,6 @@ Deno.serve(async (req) => {
   );
 
   const geminiData = await geminiRes.json();
-  console.log('Gemini raw response:', JSON.stringify(geminiData));
 
   if (!geminiData.candidates || geminiData.candidates.length === 0) {
     console.error(

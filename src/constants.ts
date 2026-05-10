@@ -1,3 +1,4 @@
 export const SCREEN_MAX_WIDTH = 390;
+export const DAILY_ANALYSIS_LIMIT = 10;
 export const TRANSITION_DURATION_MS = 320;
 export const ONBOARDING_TOTAL_STEPS = 6;

@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { resizeImage, fileToBase64 } from './imageUtils';
+import { DAILY_ANALYSIS_LIMIT } from '../constants';
 import type {
   Profile,
   ProfileData,
@@ -170,6 +171,28 @@ export const getWorkoutsForDate = async (
   return data ?? [];
 };
 
+export const getRemainingAnalyses = async (
+  userId: string,
+): Promise<{ remaining: number; limit: number }> => {
+  const today = new Date().toISOString().split('T')[0];
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('daily_analyses_count, daily_analyses_reset_date')
+    .eq('user_id', userId)
+    .single();
+
+  if (error) throw error;
+
+  const isNewDay = data.daily_analyses_reset_date !== today;
+  const count = isNewDay ? 0 : (data.daily_analyses_count ?? 0);
+
+  return {
+    remaining: DAILY_ANALYSIS_LIMIT - count,
+    limit: DAILY_ANALYSIS_LIMIT,
+  };
+};
+
 export const analyzeMeal = async ({
   beforeFile,
   afterFile,
@@ -202,7 +225,13 @@ export const analyzeMeal = async ({
     },
   });
 
-  if (error) throw error;
+  if (error) {
+    if (error.context?.status === 429) {
+      const body = await error.context.json();
+      throw new Error(body.message ?? 'Daily analysis limit reached');
+    }
+    throw error;
+  }
   return data as AnalysisResult;
 };
 

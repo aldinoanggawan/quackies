@@ -10,13 +10,14 @@ import { UploadZone } from '../components/UploadZone';
 import { Spinner } from '../components/Spinner';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
-import { analyzeMeal, saveMeal } from '../lib/db';
+import { analyzeMeal, saveMeal, getRemainingAnalyses } from '../lib/db';
 import {
   COLOR_BG,
   COLOR_BORDER,
   COLOR_DARK,
   COLOR_MUTED,
   COLOR_PRIMARY,
+  COLOR_PRIMARY_CARD_BG,
   COLOR_RED,
   COLOR_WARM_CARD_BG,
 } from '../colors';
@@ -56,8 +57,20 @@ export const MealLoggingScreen = () => {
   const [newItemName, setNewItemName] = useState('');
   const [newItemKcal, setNewItemKcal] = useState('');
   const [saving, setSaving] = useState(false);
+  const [remaining, setRemaining] = useState<number | null>(null);
+  const [limit, setLimit] = useState(10);
 
   const canAnalyse = !!beforeFile && !loading;
+
+  useEffect(() => {
+    if (!user) return;
+    getRemainingAnalyses(user.id)
+      .then(({ remaining, limit }) => {
+        setRemaining(remaining);
+        setLimit(limit);
+      })
+      .catch(console.error);
+  }, [user]);
 
   useEffect(() => {
     if (!loading) return;
@@ -79,9 +92,14 @@ export const MealLoggingScreen = () => {
       });
       setResult(data);
       setLocalItems(data.items);
+      setRemaining((prev) => (prev !== null ? prev - 1 : null));
     } catch (err) {
       console.error('Analysis failed:', err);
-      setError('Something went wrong analysing your meal. Please try again.');
+      setError(
+        err instanceof Error
+          ? err.message
+          : 'Something went wrong analysing your meal. Please try again.',
+      );
     } finally {
       setLoading(false);
     }
@@ -107,7 +125,7 @@ export const MealLoggingScreen = () => {
     if (!newItemName.trim() || !kcal) return;
     setLocalItems((prev) => [
       ...prev,
-      { name: newItemName.trim(), portion: null, kcal, eaten: true },
+      { name: newItemName.trim(), portion: '—', kcal, eaten: true },
     ]);
     setNewItemName('');
     setNewItemKcal('');
@@ -124,6 +142,12 @@ export const MealLoggingScreen = () => {
         items: localItems,
         note,
       });
+      getRemainingAnalyses(user.id)
+        .then(({ remaining, limit }) => {
+          setRemaining(remaining);
+          setLimit(limit);
+        })
+        .catch(console.error);
       navigate(-1);
     } catch (err) {
       console.error('Failed to save meal:', err);
@@ -161,13 +185,67 @@ export const MealLoggingScreen = () => {
         >
           ←
         </button>
-        <Typography variant="subheading" color={COLOR_DARK}>
+        <Typography variant="subheading" color={COLOR_DARK} style={{ flex: 1 }}>
           Log {mealType}
         </Typography>
+        {remaining !== null && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 4,
+              background: COLOR_PRIMARY_CARD_BG,
+              border: `1.5px solid ${COLOR_BORDER}`,
+              borderRadius: 9999,
+              padding: '4px 10px',
+            }}
+          >
+            <span style={{ fontSize: 12 }}>✦</span>
+            <Typography
+              variant="label-strong"
+              color={
+                remaining === 0
+                  ? COLOR_RED
+                  : remaining <= 2
+                    ? COLOR_PRIMARY
+                    : COLOR_DARK
+              }
+            >
+              {remaining} / {limit}
+            </Typography>
+          </div>
+        )}
       </div>
 
       <AnimatePresence mode="wait">
-        {!result ? (
+        {!result && remaining === 0 ? (
+          <motion.div
+            key="limit-reached"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 16,
+              padding: '32px 0',
+              textAlign: 'center',
+            }}
+          >
+            <Duck emotion="sleepy" size={88} />
+            <Typography variant="subheading" color={COLOR_DARK}>
+              No analyses left today
+            </Typography>
+            <Typography
+              variant="body"
+              color={COLOR_MUTED}
+              style={{ maxWidth: 260 }}
+            >
+              You've used all {limit} AI analyses for today. Come back tomorrow
+              — Quackers will be ready!
+            </Typography>
+          </motion.div>
+        ) : !result ? (
           <motion.div
             key="upload"
             initial={{ opacity: 1 }}
@@ -346,7 +424,6 @@ export const MealLoggingScreen = () => {
                     key={i}
                     style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                   >
-                    {/* Dot */}
                     <span
                       style={{
                         width: 8,
@@ -357,7 +434,6 @@ export const MealLoggingScreen = () => {
                       }}
                     />
 
-                    {/* Name + portion */}
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <Typography
                         variant="label"
@@ -368,18 +444,15 @@ export const MealLoggingScreen = () => {
                       >
                         {item.name}
                       </Typography>
-                      {item.portion && (
-                        <Typography
-                          variant="caption"
-                          color={COLOR_MUTED}
-                          style={{ display: 'block' }}
-                        >
-                          {item.portion}
-                        </Typography>
-                      )}
+                      <Typography
+                        variant="caption"
+                        color={COLOR_MUTED}
+                        style={{ display: 'block' }}
+                      >
+                        {item.portion}
+                      </Typography>
                     </div>
 
-                    {/* Editable kcal — dashed underline signals tap-to-edit */}
                     {editingIndex === i ? (
                       <input
                         type="number"
@@ -435,7 +508,6 @@ export const MealLoggingScreen = () => {
                       </button>
                     )}
 
-                    {/* Remove button */}
                     <button
                       type="button"
                       onClick={() => handleRemoveItem(i)}
