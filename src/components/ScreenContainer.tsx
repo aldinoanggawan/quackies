@@ -1,27 +1,22 @@
-import { SCREEN_MAX_WIDTH } from '../constants';
+import { classNames } from '../lib/classNames';
 
 interface ScreenContainerProps {
   children: React.ReactNode;
   background?: string;
-  style?: React.CSSProperties;
+  className?: string;
 }
 
 export const ScreenContainer = ({
   children,
-  background = 'var(--color-bg)',
-  style,
+  background = 'var(--color-canvas)',
+  className,
 }: ScreenContainerProps) => (
-  <div style={{ minHeight: '100dvh', background }}>
+  <div className="min-h-[100dvh]" style={{ background }}>
     <div
-      style={{
-        maxWidth: SCREEN_MAX_WIDTH,
-        margin: '0 auto',
-        padding: '0 24px calc(40px + 72px)',
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100dvh',
-        ...style,
-      }}
+      className={classNames(
+        'mx-auto flex min-h-[100dvh] max-w-screen flex-col px-6 pb-[calc(40px+72px)]',
+        className,
+      )}
     >
       {children}
     </div>

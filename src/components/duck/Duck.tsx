@@ -1,3 +1,4 @@
+import { withOpacity } from '../../lib/color';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -48,7 +49,7 @@ const Eye = ({
         cy={cy + (isSad ? 0.5 : 0)}
         rx={4.1}
         ry={4.1}
-        fill="#7A4518"
+        fill={'var(--color-duck-iris)'}
       />
       {/* Pupil */}
       <ellipse
@@ -56,7 +57,7 @@ const Eye = ({
         cy={cy + (isSad ? 0.5 : 0)}
         rx={2}
         ry={2}
-        fill="#2A1408"
+        fill={'var(--color-duck-pupil)'}
       />
       {/* Shine */}
       <ellipse
@@ -68,7 +69,13 @@ const Eye = ({
       />
       {/* Sleepy eyelid — covers top half */}
       {isSleepy && (
-        <ellipse cx={cx} cy={cy - 2} rx={6.8} ry={5} fill="#E8D44A" />
+        <ellipse
+          cx={cx}
+          cy={cy - 2}
+          rx={6.8}
+          ry={5}
+          fill={'var(--color-duck-yellow)'}
+        />
       )}
       {/* Sad watery shimmer */}
       {isSad && (
@@ -77,7 +84,7 @@ const Eye = ({
           cy={cy + 5}
           rx={3.5}
           ry={1.2}
-          fill="#A8D8F0"
+          fill={'var(--color-duck-water)'}
           opacity={0.6}
         />
       )}
@@ -87,7 +94,7 @@ const Eye = ({
           x={cx + 7}
           y={cy - 5}
           fontSize="6"
-          fill="#C8960A"
+          fill={'var(--color-brand)'}
           textAnchor="middle"
         >
           ✦
@@ -99,7 +106,7 @@ const Eye = ({
 
 const BaseDuck = ({ emotion }: { emotion: DuckEmotion }) => {
   const isSad = emotion === 'sad';
-  const fill = isSad ? '#D4C040' : '#E8D44A';
+  const fill = isSad ? 'var(--color-duck-sad)' : 'var(--color-duck-yellow)';
 
   return (
     <>
@@ -111,7 +118,7 @@ const BaseDuck = ({ emotion }: { emotion: DuckEmotion }) => {
         cy="75.5"
         rx="10"
         ry="15.7"
-        fill="#D4BE38"
+        fill={'var(--color-duck-wing)'}
         transform="rotate(-20 12.7 75.5)"
       />
       <ellipse
@@ -119,25 +126,64 @@ const BaseDuck = ({ emotion }: { emotion: DuckEmotion }) => {
         cy="75.5"
         rx="10"
         ry="15.7"
-        fill="#D4BE38"
+        fill={'var(--color-duck-wing)'}
         transform="rotate(20 87.3 75.5)"
       />
       {/* Head */}
       <ellipse cx="50" cy="50" rx="31" ry="29" fill={fill} />
       {/* Hair clip */}
-      <rect x="39" y="22" width="22" height="7" rx="4" fill="#8B5E2A" />
+      <rect
+        x="39"
+        y="22"
+        width="22"
+        height="7"
+        rx="4"
+        fill={'var(--color-duck-clip)'}
+      />
       {/* Blush */}
-      <ellipse cx="28" cy="57" rx="7" ry="4" fill="#FF9090" opacity="0.4" />
-      <ellipse cx="72" cy="57" rx="7" ry="4" fill="#FF9090" opacity="0.4" />
+      <ellipse
+        cx="28"
+        cy="57"
+        rx="7"
+        ry="4"
+        fill={'var(--color-duck-blush)'}
+        opacity="0.4"
+      />
+      <ellipse
+        cx="72"
+        cy="57"
+        rx="7"
+        ry="4"
+        fill={'var(--color-duck-blush)'}
+        opacity="0.4"
+      />
       {/* Nostrils */}
-      <ellipse cx="46.4" cy="63" rx="2.3" ry="2" fill="#A07030" />
-      <ellipse cx="53.6" cy="63" rx="2.3" ry="2" fill="#A07030" />
+      <ellipse
+        cx="46.4"
+        cy="63"
+        rx="2.3"
+        ry="2"
+        fill={'var(--color-duck-nostril)'}
+      />
+      <ellipse
+        cx="53.6"
+        cy="63"
+        rx="2.3"
+        ry="2"
+        fill={'var(--color-duck-nostril)'}
+      />
       {/* Bill */}
-      <ellipse cx="50" cy="70" rx="13.6" ry="9.8" fill="#C8960A" />
-      <ellipse cx="50" cy="65" rx="11.8" ry="6.9" fill="#D4A820" />
+      <ellipse cx="50" cy="70" rx="13.6" ry="9.8" fill={'var(--color-brand)'} />
+      <ellipse
+        cx="50"
+        cy="65"
+        rx="11.8"
+        ry="6.9"
+        fill={'var(--color-duck-bill-light)'}
+      />
       {/* Feet */}
-      <ellipse cx="40" cy="112" rx="10" ry="4" fill="#C8960A" />
-      <ellipse cx="60" cy="112" rx="10" ry="4" fill="#C8960A" />
+      <ellipse cx="40" cy="112" rx="10" ry="4" fill={'var(--color-brand)'} />
+      <ellipse cx="60" cy="112" rx="10" ry="4" fill={'var(--color-brand)'} />
     </>
   );
 };
@@ -145,42 +191,72 @@ const BaseDuck = ({ emotion }: { emotion: DuckEmotion }) => {
 // --- Brow helpers (adjusted for wider eye positions) ---
 
 const HappyBrows = () => (
-  <g stroke="#5A3010" strokeWidth="2" fill="none" strokeLinecap="round">
+  <g
+    stroke={'var(--color-duck-brow)'}
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+  >
     <path d="M 30 42 Q 35 37 40 42" />
     <path d="M 60 42 Q 65 37 70 42" />
   </g>
 );
 
 const GrumpyBrows = () => (
-  <g stroke="#5A3010" strokeWidth="2.5" fill="none" strokeLinecap="round">
+  <g
+    stroke={'var(--color-duck-brow)'}
+    strokeWidth="2.5"
+    fill="none"
+    strokeLinecap="round"
+  >
     <path d="M 29 40 L 35 46 L 41 40" />
     <path d="M 59 40 L 65 46 L 71 40" />
   </g>
 );
 
 const ProudBrows = () => (
-  <g stroke="#5A3010" strokeWidth="2" fill="none" strokeLinecap="round">
+  <g
+    stroke={'var(--color-duck-brow)'}
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+  >
     <path d="M 29 38 Q 35 33 41 38" />
     <path d="M 59 38 Q 65 33 71 38" />
   </g>
 );
 
 const SadBrows = () => (
-  <g stroke="#5A3010" strokeWidth="2" fill="none" strokeLinecap="round">
+  <g
+    stroke={'var(--color-duck-brow)'}
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+  >
     <path d="M 30 43 Q 35 38 40 44" />
     <path d="M 60 44 Q 65 38 70 43" />
   </g>
 );
 
 const WorriedBrows = () => (
-  <g stroke="#5A3010" strokeWidth="2" fill="none" strokeLinecap="round">
+  <g
+    stroke={'var(--color-duck-brow)'}
+    strokeWidth="2"
+    fill="none"
+    strokeLinecap="round"
+  >
     <path d="M 30 43 Q 35 40 40 43" />
     <path d="M 60 43 Q 65 40 70 43" />
   </g>
 );
 
 const DeterminedBrows = () => (
-  <g stroke="#5A3010" strokeWidth="2.5" fill="none" strokeLinecap="round">
+  <g
+    stroke={'var(--color-duck-brow)'}
+    strokeWidth="2.5"
+    fill="none"
+    strokeLinecap="round"
+  >
     <path d="M 29 37 L 41 44" />
     <path d="M 71 37 L 59 44" />
   </g>
@@ -189,7 +265,7 @@ const DeterminedBrows = () => (
 // --- Wing helpers (overlay wings for raised/fist variants) ---
 
 const WingsRaised = () => (
-  <g fill="#D4BE38">
+  <g fill={'var(--color-duck-wing)'}>
     <ellipse cx="12" cy="63" rx="10" ry="15.7" transform="rotate(-45 12 63)" />
     <ellipse cx="88" cy="63" rx="10" ry="15.7" transform="rotate(45 88 63)" />
   </g>
@@ -202,19 +278,33 @@ const WingsFist = () => (
       cy="68"
       rx="10"
       ry="12"
-      fill="#D4BE38"
+      fill={'var(--color-duck-wing)'}
       transform="rotate(-15 13 68)"
     />
-    <rect x="7" y="62" width="13" height="9" rx="3" fill="#C8A020" />
+    <rect
+      x="7"
+      y="62"
+      width="13"
+      height="9"
+      rx="3"
+      fill={'var(--color-duck-fist)'}
+    />
     <ellipse
       cx="87"
       cy="68"
       rx="10"
       ry="12"
-      fill="#D4BE38"
+      fill={'var(--color-duck-wing)'}
       transform="rotate(15 87 68)"
     />
-    <rect x="80" y="62" width="13" height="9" rx="3" fill="#C8A020" />
+    <rect
+      x="80"
+      y="62"
+      width="13"
+      height="9"
+      rx="3"
+      fill={'var(--color-duck-fist)'}
+    />
   </g>
 );
 
@@ -227,7 +317,7 @@ const HappyOverlay = () => (
     <Eye cx={EYE_R.cx} cy={EYE_R.cy} emotion="happy" />
     <path
       d="M 40 74 Q 50 81 60 74"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       fill="none"
       strokeLinecap="round"
@@ -245,7 +335,7 @@ const GrumpyOverlay = () => (
       y1="74"
       x2="57"
       y2="74"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       strokeLinecap="round"
     />
@@ -259,19 +349,37 @@ const ProudOverlay = () => (
     <Eye cx={EYE_R.cx} cy={EYE_R.cy} emotion="proud" />
     <path
       d="M 40 74 Q 50 81 60 74"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       fill="none"
       strokeLinecap="round"
     />
     <WingsRaised />
-    <text x="50" y="17" fontSize="13" fill="#C8960A" textAnchor="middle">
+    <text
+      x="50"
+      y="17"
+      fontSize="13"
+      fill={'var(--color-brand)'}
+      textAnchor="middle"
+    >
       ★
     </text>
-    <circle cx="20" cy="28" r="2" fill="#C8960A" opacity="0.8" />
-    <circle cx="80" cy="28" r="2" fill="#C8960A" opacity="0.8" />
-    <circle cx="13" cy="48" r="1.5" fill="#E8D44A" opacity="0.8" />
-    <circle cx="87" cy="48" r="1.5" fill="#E8D44A" opacity="0.8" />
+    <circle cx="20" cy="28" r="2" fill={'var(--color-brand)'} opacity="0.8" />
+    <circle cx="80" cy="28" r="2" fill={'var(--color-brand)'} opacity="0.8" />
+    <circle
+      cx="13"
+      cy="48"
+      r="1.5"
+      fill={'var(--color-duck-yellow)'}
+      opacity="0.8"
+    />
+    <circle
+      cx="87"
+      cy="48"
+      r="1.5"
+      fill={'var(--color-duck-yellow)'}
+      opacity="0.8"
+    />
   </>
 );
 
@@ -282,13 +390,19 @@ const SadOverlay = () => (
     <Eye cx={EYE_R.cx} cy={EYE_R.cy} emotion="sad" />
     <path
       d="M 43 74 Q 50 69 57 74"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       fill="none"
       strokeLinecap="round"
     />
     {/* Teardrop */}
-    <ellipse cx="65" cy="60" rx="1.8" ry="2.8" fill="#A8D8F0" />
+    <ellipse
+      cx="65"
+      cy="60"
+      rx="1.8"
+      ry="2.8"
+      fill={'var(--color-duck-water)'}
+    />
   </>
 );
 
@@ -299,7 +413,7 @@ const ExcitedOverlay = () => (
     <Eye cx={EYE_R.cx} cy={EYE_R.cy} emotion="excited" />
     <path
       d="M 40 73 Q 50 81 60 73"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       fill="none"
       strokeLinecap="round"
@@ -310,7 +424,7 @@ const ExcitedOverlay = () => (
       y1="58"
       x2="14"
       y2="64"
-      stroke="#C8960A"
+      stroke={'var(--color-brand)'}
       strokeWidth="2"
       strokeLinecap="round"
     />
@@ -319,7 +433,7 @@ const ExcitedOverlay = () => (
       y1="70"
       x2="13"
       y2="72"
-      stroke="#C8960A"
+      stroke={'var(--color-brand)'}
       strokeWidth="2"
       strokeLinecap="round"
     />
@@ -328,7 +442,7 @@ const ExcitedOverlay = () => (
       y1="58"
       x2="86"
       y2="64"
-      stroke="#C8960A"
+      stroke={'var(--color-brand)'}
       strokeWidth="2"
       strokeLinecap="round"
     />
@@ -337,7 +451,7 @@ const ExcitedOverlay = () => (
       y1="70"
       x2="87"
       y2="72"
-      stroke="#C8960A"
+      stroke={'var(--color-brand)'}
       strokeWidth="2"
       strokeLinecap="round"
     />
@@ -346,7 +460,12 @@ const ExcitedOverlay = () => (
 
 const SleepyOverlay = () => (
   <>
-    <g stroke="#5A3010" strokeWidth="1.5" fill="none" strokeLinecap="round">
+    <g
+      stroke={'var(--color-duck-brow)'}
+      strokeWidth="1.5"
+      fill="none"
+      strokeLinecap="round"
+    >
       <line x1="30" y1="42" x2="40" y2="42" />
       <line x1="60" y1="42" x2="70" y2="42" />
     </g>
@@ -354,7 +473,7 @@ const SleepyOverlay = () => (
     <Eye cx={EYE_R.cx} cy={EYE_R.cy} emotion="sleepy" />
     <path
       d="M 43 74 Q 50 78 57 74"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       fill="none"
       strokeLinecap="round"
@@ -363,7 +482,7 @@ const SleepyOverlay = () => (
       x="74"
       y="30"
       fontSize="8"
-      fill="#A07010"
+      fill={'var(--color-duck-sleep)'}
       opacity="0.9"
       fontWeight="bold"
     >
@@ -373,7 +492,7 @@ const SleepyOverlay = () => (
       x="82"
       y="20"
       fontSize="10"
-      fill="#A07010"
+      fill={'var(--color-duck-sleep)'}
       opacity="0.7"
       fontWeight="bold"
     >
@@ -383,7 +502,7 @@ const SleepyOverlay = () => (
       x="91"
       y="10"
       fontSize="12"
-      fill="#A07010"
+      fill={'var(--color-duck-sleep)'}
       opacity="0.5"
       fontWeight="bold"
     >
@@ -399,19 +518,25 @@ const WorriedOverlay = () => (
     <Eye cx={EYE_R.cx} cy={EYE_R.cy} emotion="worried" />
     <path
       d="M 42 74 Q 46 77 50 74 Q 54 71 58 74"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       fill="none"
       strokeLinecap="round"
     />
     {/* Sweat drop */}
-    <ellipse cx="74" cy="40" rx="2" ry="3" fill="#A8D8F0" />
-    <path d="M 72 38 Q 74 34 76 38" fill="#A8D8F0" />
+    <ellipse cx="74" cy="40" rx="2" ry="3" fill={'var(--color-duck-water)'} />
+    <path d="M 72 38 Q 74 34 76 38" fill={'var(--color-duck-water)'} />
   </>
 );
 
 const CelebratingOverlay = () => {
-  const colors = ['#E84060', '#3BB88A', '#C8960A', '#A855F7', '#3B82F6'];
+  const colors = [
+    'var(--color-danger)',
+    'var(--color-success)',
+    'var(--color-brand)',
+    'var(--color-confetti-purple)',
+    'var(--color-confetti-blue)',
+  ];
   const dots = [
     { x: 10, y: 20, c: 0 },
     { x: 88, y: 18, c: 1 },
@@ -430,7 +555,7 @@ const CelebratingOverlay = () => {
       <Eye cx={EYE_R.cx} cy={EYE_R.cy} emotion="happy" />
       <path
         d="M 38 73 Q 50 82 62 73"
-        stroke="#A07828"
+        stroke={'var(--color-duck-expression)'}
         strokeWidth="1.8"
         fill="none"
         strokeLinecap="round"
@@ -449,14 +574,14 @@ const SwimmingOverlay = () => (
     <path
       d="M16.4 50 Q27.3 46.1 34.5 50"
       fill="none"
-      stroke="#E84040"
+      stroke={'var(--color-duck-goggle)'}
       strokeWidth="2.7"
       strokeLinecap="round"
     />
     <path
       d="M65.5 50 Q72.7 46.1 83.6 50"
       fill="none"
-      stroke="#E84040"
+      stroke={'var(--color-duck-goggle)'}
       strokeWidth="2.7"
       strokeLinecap="round"
     />
@@ -467,7 +592,7 @@ const SwimmingOverlay = () => (
       rx={12.7}
       ry={11.8}
       fill="white"
-      stroke="#E84040"
+      stroke={'var(--color-duck-goggle)'}
       strokeWidth="2.3"
     />
     <ellipse
@@ -476,7 +601,7 @@ const SwimmingOverlay = () => (
       rx={12.7}
       ry={11.8}
       fill="white"
-      stroke="#E84040"
+      stroke={'var(--color-duck-goggle)'}
       strokeWidth="2.3"
     />
     {/* Bridge */}
@@ -485,34 +610,64 @@ const SwimmingOverlay = () => (
       y1="51"
       x2="52.7"
       y2="51"
-      stroke="#E84040"
+      stroke={'var(--color-duck-goggle)'}
       strokeWidth="2.3"
       strokeLinecap="round"
     />
     {/* Left eye */}
-    <ellipse cx={34.5} cy={52} rx={6.4} ry={6.4} fill="#C8E8FF" />
-    <ellipse cx={34.5} cy={53} rx={4.1} ry={4.1} fill="#7A4518" />
-    <ellipse cx={34.5} cy={53} rx={2} ry={2} fill="#2A1408" />
+    <ellipse
+      cx={34.5}
+      cy={52}
+      rx={6.4}
+      ry={6.4}
+      fill={'var(--color-duck-goggle-lens)'}
+    />
+    <ellipse
+      cx={34.5}
+      cy={53}
+      rx={4.1}
+      ry={4.1}
+      fill={'var(--color-duck-iris)'}
+    />
+    <ellipse cx={34.5} cy={53} rx={2} ry={2} fill={'var(--color-duck-pupil)'} />
     <ellipse cx={36.3} cy={51} rx={1.4} ry={1.4} fill="white" />
     {/* Right eye */}
-    <ellipse cx={65.5} cy={52} rx={6.4} ry={6.4} fill="#C8E8FF" />
-    <ellipse cx={65.5} cy={53} rx={4.1} ry={4.1} fill="#7A4518" />
-    <ellipse cx={65.5} cy={53} rx={2} ry={2} fill="#2A1408" />
+    <ellipse
+      cx={65.5}
+      cy={52}
+      rx={6.4}
+      ry={6.4}
+      fill={'var(--color-duck-goggle-lens)'}
+    />
+    <ellipse
+      cx={65.5}
+      cy={53}
+      rx={4.1}
+      ry={4.1}
+      fill={'var(--color-duck-iris)'}
+    />
+    <ellipse cx={65.5} cy={53} rx={2} ry={2} fill={'var(--color-duck-pupil)'} />
     <ellipse cx={67.3} cy={51} rx={1.4} ry={1.4} fill="white" />
     {/* Snorkel */}
     <path
       d="M78.2 44.1 Q87.3 34.3 87.3 18.6"
       fill="none"
-      stroke="#E84040"
+      stroke={'var(--color-duck-goggle)'}
       strokeWidth="3.2"
       strokeLinecap="round"
     />
-    <ellipse cx={87.3} cy={16.6} rx={6.4} ry={4.9} fill="#E84040" />
+    <ellipse
+      cx={87.3}
+      cy={16.6}
+      rx={6.4}
+      ry={4.9}
+      fill={'var(--color-duck-goggle)'}
+    />
     {/* Smile */}
     <path
       d="M40 73.6 Q50 80.4 60 73.6"
       fill="none"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="1.8"
       strokeLinecap="round"
     />
@@ -529,19 +684,19 @@ const DeterminedOverlay = () => (
       y1="74"
       x2="57"
       y2="74"
-      stroke="#A07828"
+      stroke={'var(--color-duck-expression)'}
       strokeWidth="2"
       strokeLinecap="round"
     />
     <WingsFist />
     <path
       d="M 50 5 C 46 12 40 14 42 20 C 38 16 36 22 40 26 C 38 22 44 24 44 28 C 44 22 48 20 48 26 C 50 20 54 22 52 28 C 52 24 58 22 56 26 C 60 22 62 16 58 20 C 60 14 54 12 50 5 Z"
-      fill="#E84060"
+      fill={'var(--color-danger)'}
       opacity="0.9"
     />
     <path
       d="M 50 10 C 47 15 43 17 45 21 C 43 18 45 24 47 22 C 47 26 50 22 50 26 C 50 22 53 26 53 22 C 55 24 57 18 55 21 C 57 17 53 15 50 10 Z"
-      fill="#C8960A"
+      fill={'var(--color-brand)'}
       opacity="0.9"
     />
   </>
@@ -571,13 +726,17 @@ export const Duck = ({
 
   return (
     <motion.div
-      className={className}
-      style={{
-        display: 'inline-block',
-        width: size,
-        height: size,
-        overflow: 'visible',
-      }}
+      className={
+        className
+          ? `inline-block overflow-visible ${className}`
+          : 'inline-block overflow-visible'
+      }
+      style={
+        {
+          width: size,
+          height: size,
+        } as React.CSSProperties
+      }
     >
       <AnimatePresence mode="wait">
         <motion.div
@@ -585,7 +744,8 @@ export const Duck = ({
           initial={{ scale: 0.92 }}
           animate={{ scale: [0.92, 1.05, 1] }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          style={{ position: 'relative', translateY: -0.125 * size }}
+          className="relative"
+          style={{ translateY: -0.125 * size }}
         >
           <svg
             viewBox="0 0 100 108"
@@ -600,14 +760,14 @@ export const Duck = ({
               CONFETTI_ANGLES.map((angle, i) => {
                 const rad = (angle * Math.PI) / 180;
                 const colors = [
-                  '#E84060',
-                  '#3BB88A',
-                  '#C8960A',
-                  '#A855F7',
-                  '#3B82F6',
-                  '#F59E0B',
-                  '#10B981',
-                  '#8B5CF6',
+                  'var(--color-danger)',
+                  'var(--color-success)',
+                  'var(--color-brand)',
+                  'var(--color-confetti-purple)',
+                  'var(--color-confetti-blue)',
+                  'var(--color-confetti-amber)',
+                  'var(--color-confetti-green)',
+                  'var(--color-confetti-violet)',
                 ];
                 return (
                   <motion.g
@@ -640,12 +800,7 @@ export const Duck = ({
               viewBox="0 0 100 108"
               width={size}
               height={size * 1.08}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                pointerEvents: 'none',
-              }}
+              className="pointer-events-none absolute left-0 top-0"
             >
               {[0, 1, 2].map((i) => (
                 <motion.g
@@ -662,8 +817,8 @@ export const Duck = ({
                     cx={87.3}
                     cy={16.6}
                     r={3.5 - i * 0.5}
-                    fill="rgba(168, 216, 240, 0.3)"
-                    stroke="#A8D8F0"
+                    fill={withOpacity('var(--color-duck-water)', 0.3)}
+                    stroke={'var(--color-duck-water)'}
                     strokeWidth="1.5"
                   />
                 </motion.g>

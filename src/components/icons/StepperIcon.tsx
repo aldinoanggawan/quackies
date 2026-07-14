@@ -5,7 +5,7 @@ export const StepperIcon = ({ type }: { type: 'minus' | 'plus' }) => (
     height={18}
     aria-hidden="true"
     focusable="false"
-    style={{ display: 'block' }}
+    className="block"
   >
     <path
       d="M4.5 9h9"

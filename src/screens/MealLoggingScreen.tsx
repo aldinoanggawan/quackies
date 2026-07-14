@@ -11,29 +11,11 @@ import { Spinner } from '../components/Spinner';
 import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 import { analyzeMeal, saveMeal, getRemainingAnalyses } from '../lib/db';
-import {
-  COLOR_BG,
-  COLOR_BORDER,
-  COLOR_DARK,
-  COLOR_MUTED,
-  COLOR_PRIMARY,
-  COLOR_PRIMARY_CARD_BG,
-  COLOR_RED,
-  COLOR_WARM_CARD_BG,
-} from '../colors';
 import type { MealType, AnalysisResult, AnalysisItem } from '../types/models';
+import { classNames } from '../lib/classNames';
 
-const inputBase: React.CSSProperties = {
-  fontFamily: 'inherit',
-  fontSize: 15,
-  fontWeight: 500,
-  color: COLOR_DARK,
-  background: COLOR_WARM_CARD_BG,
-  border: `1px solid ${COLOR_BORDER}`,
-  borderRadius: 16,
-  outline: 'none',
-  colorScheme: 'light' as React.CSSProperties['colorScheme'],
-};
+const inputClass =
+  'rounded-2xl border border-line bg-surface-warm text-[15px] font-medium text-ink outline-none [color-scheme:light] [font-family:inherit]';
 
 export const MealLoggingScreen = () => {
   const { mealType } = useParams<{ mealType: MealType }>();
@@ -125,7 +107,7 @@ export const MealLoggingScreen = () => {
     if (!newItemName.trim() || !kcal) return;
     setLocalItems((prev) => [
       ...prev,
-      { name: newItemName.trim(), portion: '—', kcal, eaten: true },
+      { name: newItemName.trim(), portion: '-', kcal, eaten: true },
     ]);
     setNewItemName('');
     setNewItemKcal('');
@@ -167,48 +149,36 @@ export const MealLoggingScreen = () => {
     : 'grumpy';
 
   return (
-    <ScreenContainer background={COLOR_BG} style={{ paddingTop: 38, gap: 20 }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <ScreenContainer
+      background={'var(--color-canvas)'}
+      className="gap-5 pt-[38px]"
+    >
+      <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          style={{
-            background: 'transparent',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '4px 8px 4px 0',
-            fontSize: 22,
-            color: COLOR_DARK,
-            lineHeight: 1,
-          }}
+          className="cursor-pointer border-0 bg-transparent p-[4px_8px_4px_0] text-[22px] leading-none text-ink"
         >
           ←
         </button>
-        <Typography variant="subheading" color={COLOR_DARK} style={{ flex: 1 }}>
+        <Typography
+          variant="subheading"
+          color={'var(--color-ink)'}
+          className="flex-1"
+        >
           Log {mealType}
         </Typography>
         {remaining !== null && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 4,
-              background: COLOR_PRIMARY_CARD_BG,
-              border: `1.5px solid ${COLOR_BORDER}`,
-              borderRadius: 9999,
-              padding: '4px 10px',
-            }}
-          >
-            <span style={{ fontSize: 12 }}>✦</span>
+          <div className="flex items-center gap-1 rounded-full border-[1.5px] border-line bg-surface-brand p-[4px_10px]">
+            <span className="text-xs">✦</span>
             <Typography
               variant="label-strong"
               color={
                 remaining === 0
-                  ? COLOR_RED
+                  ? 'var(--color-danger)'
                   : remaining <= 2
-                    ? COLOR_PRIMARY
-                    : COLOR_DARK
+                    ? 'var(--color-brand)'
+                    : 'var(--color-ink)'
               }
             >
               {remaining} / {limit}
@@ -223,23 +193,16 @@ export const MealLoggingScreen = () => {
             key="limit-reached"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 16,
-              padding: '32px 0',
-              textAlign: 'center',
-            }}
+            className="flex flex-col items-center gap-4 p-[32px_0] text-center"
           >
             <Duck emotion="sleepy" size={88} />
-            <Typography variant="subheading" color={COLOR_DARK}>
+            <Typography variant="subheading" color={'var(--color-ink)'}>
               No analyses left today
             </Typography>
             <Typography
               variant="body"
-              color={COLOR_MUTED}
-              style={{ maxWidth: 260 }}
+              color={'var(--color-muted)'}
+              className="max-w-[260px]"
             >
               You've used all {limit} AI analyses for today. Come back tomorrow
               — Quackers will be ready!
@@ -250,14 +213,13 @@ export const MealLoggingScreen = () => {
             key="upload"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            style={{ display: 'flex', flexDirection: 'column', gap: 20 }}
+            className="flex flex-col gap-5"
           >
-            {/* Before zone */}
             <div>
               <Typography
                 variant="label-strong"
-                color={COLOR_MUTED}
-                style={{ display: 'block', marginBottom: 10 }}
+                color={'var(--color-muted)'}
+                className="mb-2.5 block"
               >
                 Your meal
               </Typography>
@@ -273,7 +235,6 @@ export const MealLoggingScreen = () => {
               />
             </div>
 
-            {/* After zone — animates in once beforePhoto is set */}
             <AnimatePresence>
               {beforePhoto && (
                 <motion.div
@@ -285,12 +246,8 @@ export const MealLoggingScreen = () => {
                 >
                   <Typography
                     variant="label-strong"
-                    color={COLOR_MUTED}
-                    style={{
-                      display: 'block',
-                      marginBottom: 10,
-                      fontStyle: 'italic',
-                    }}
+                    color={'var(--color-muted)'}
+                    className="mb-2.5 block italic"
                   >
                     Didn't finish? Add an after photo for a more accurate count
                   </Typography>
@@ -309,22 +266,17 @@ export const MealLoggingScreen = () => {
               )}
             </AnimatePresence>
 
-            {/* Note */}
             <textarea
-              placeholder="Add a note (optional)… e.g. I only ate 2 of the 6 nuggets"
+              placeholder="Add a note (optional)... e.g. I only ate 2 of the 6 nuggets"
               value={note}
               onChange={(e) => setNote(e.target.value)}
               rows={3}
-              style={{
-                ...inputBase,
-                padding: '12px 14px',
-                resize: 'none',
-                width: '100%',
-                boxSizing: 'border-box',
-              }}
+              className={classNames(
+                inputClass,
+                'box-border w-full resize-none p-[12px_14px]',
+              )}
             />
 
-            {/* Loading duck */}
             <AnimatePresence>
               {loading && (
                 <motion.div
@@ -332,26 +284,23 @@ export const MealLoggingScreen = () => {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
-                  style={{ display: 'flex', justifyContent: 'center' }}
+                  className="flex justify-center"
                 >
                   <Duck emotion={loadingEmotion} size={72} />
                 </motion.div>
               )}
             </AnimatePresence>
 
-            {/* Analyse button */}
             <Button
               disabled={!canAnalyse}
               onClick={handleAnalyse}
-              style={{
-                background: canAnalyse ? COLOR_PRIMARY : COLOR_MUTED,
-                opacity: canAnalyse ? 1 : 0.5,
-                cursor: canAnalyse ? 'pointer' : 'not-allowed',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 10,
-              }}
+              color={canAnalyse ? 'var(--color-brand)' : 'var(--color-muted)'}
+              className={classNames(
+                'flex items-center justify-center gap-2.5',
+                canAnalyse
+                  ? 'cursor-pointer opacity-100'
+                  : 'cursor-not-allowed opacity-50',
+              )}
             >
               {loading ? (
                 <>
@@ -366,8 +315,8 @@ export const MealLoggingScreen = () => {
             {error && (
               <Typography
                 variant="caption"
-                color={COLOR_RED}
-                style={{ textAlign: 'center' }}
+                color={'var(--color-danger)'}
+                className="text-center"
               >
                 {error}
               </Typography>
@@ -379,75 +328,49 @@ export const MealLoggingScreen = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
-            style={{ display: 'flex', flexDirection: 'column', gap: 20 }}
+            className="flex flex-col gap-5"
           >
-            {/* Result duck */}
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="flex justify-center">
               <Duck emotion={duckEmotion} size={88} />
             </div>
 
-            {/* AI analysis card */}
-            <div
-              style={{
-                background: COLOR_WARM_CARD_BG,
-                border: `1px solid ${COLOR_BORDER}`,
-                borderRadius: 16,
-                padding: '16px 18px',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 12,
-              }}
-            >
-              {/* Card header */}
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ fontSize: 16 }}>⭐</span>
-                  <Typography variant="label-strong" color={COLOR_DARK}>
+            <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface-warm p-[16px_18px]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-base">⭐</span>
+                  <Typography variant="label-strong" color={'var(--color-ink)'}>
                     AI analysis
                   </Typography>
                 </div>
-                <Typography variant="label" color={COLOR_MUTED}>
+                <Typography variant="label" color={'var(--color-muted)'}>
                   ~{Math.round(result.confidence * 100)}% confidence
                 </Typography>
               </div>
 
-              {/* Item list */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div className="flex flex-col gap-2">
                 {localItems.map((item, i) => (
-                  <div
-                    key={i}
-                    style={{ display: 'flex', alignItems: 'center', gap: 8 }}
-                  >
+                  <div key={i} className="flex items-center gap-2">
                     <span
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: '50%',
-                        flexShrink: 0,
-                        background: item.eaten ? COLOR_PRIMARY : COLOR_MUTED,
-                      }}
+                      className={classNames(
+                        'h-2 w-2 shrink-0 rounded-full',
+                        item.eaten ? 'bg-brand' : 'bg-muted',
+                      )}
                     />
 
-                    <div style={{ flex: 1, minWidth: 0 }}>
+                    <div className="min-w-0 flex-1">
                       <Typography
                         variant="label"
-                        color={item.eaten ? COLOR_DARK : COLOR_MUTED}
-                        style={{
-                          textDecoration: item.eaten ? 'none' : 'line-through',
-                        }}
+                        color={
+                          item.eaten ? 'var(--color-ink)' : 'var(--color-muted)'
+                        }
+                        className={item.eaten ? 'no-underline' : 'line-through'}
                       >
                         {item.name}
                       </Typography>
                       <Typography
                         variant="caption"
-                        color={COLOR_MUTED}
-                        style={{ display: 'block' }}
+                        color={'var(--color-muted)'}
+                        className="block"
                       >
                         {item.portion}
                       </Typography>
@@ -470,38 +393,28 @@ export const MealLoggingScreen = () => {
                           e.key === 'Enter' && setEditingIndex(null)
                         }
                         autoFocus
-                        style={{
-                          ...inputBase,
-                          width: 60,
-                          padding: '3px 6px',
-                          borderRadius: 8,
-                          textAlign: 'right',
-                          fontSize: 13,
-                          colorScheme: 'light',
-                        }}
+                        className={classNames(
+                          inputClass,
+                          'w-[60px] rounded-lg p-[3px_6px] text-right text-[13px]',
+                        )}
                       />
                     ) : (
                       <button
                         type="button"
                         onClick={() => setEditingIndex(i)}
                         title="Tap to edit"
-                        style={{
-                          background: 'transparent',
-                          border: 'none',
-                          cursor: 'text',
-                          padding: '2px 0',
-                          fontFamily: 'inherit',
-                          borderBottom: `1.5px dashed ${COLOR_MUTED}`,
-                        }}
+                        className="cursor-text border-0 border-b-[1.5px] border-dashed border-muted bg-transparent p-[2px_0] font-[inherit]"
                       >
                         <Typography
                           variant="label-strong"
-                          color={item.eaten ? COLOR_DARK : COLOR_MUTED}
-                          style={{
-                            textDecoration: item.eaten
-                              ? 'none'
-                              : 'line-through',
-                          }}
+                          color={
+                            item.eaten
+                              ? 'var(--color-ink)'
+                              : 'var(--color-muted)'
+                          }
+                          className={
+                            item.eaten ? 'no-underline' : 'line-through'
+                          }
                         >
                           {item.kcal} kcal
                         </Typography>
@@ -512,45 +425,25 @@ export const MealLoggingScreen = () => {
                       type="button"
                       onClick={() => handleRemoveItem(i)}
                       title="Remove item"
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '2px 4px',
-                        color: COLOR_MUTED,
-                        fontSize: 16,
-                        lineHeight: 1,
-                        flexShrink: 0,
-                      }}
+                      className="shrink-0 cursor-pointer border-0 bg-transparent p-[2px_4px] text-base leading-none text-muted"
                     >
                       ×
                     </button>
                   </div>
                 ))}
 
-                {/* Add item form */}
                 {addingItem ? (
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: 6,
-                      alignItems: 'center',
-                      marginTop: 2,
-                    }}
-                  >
+                  <div className="mt-0.5 flex items-center gap-1.5">
                     <input
                       placeholder="Item name"
                       value={newItemName}
                       onChange={(e) => setNewItemName(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
                       autoFocus
-                      style={{
-                        ...inputBase,
-                        flex: 1,
-                        padding: '5px 10px',
-                        borderRadius: 10,
-                        fontSize: 13,
-                      }}
+                      className={classNames(
+                        inputClass,
+                        'flex-1 rounded-[10px] p-[5px_10px] text-[13px]',
+                      )}
                     />
                     <input
                       type="number"
@@ -558,28 +451,15 @@ export const MealLoggingScreen = () => {
                       value={newItemKcal}
                       onChange={(e) => setNewItemKcal(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
-                      style={{
-                        ...inputBase,
-                        width: 60,
-                        padding: '5px 8px',
-                        borderRadius: 10,
-                        textAlign: 'right',
-                        fontSize: 13,
-                        colorScheme: 'light',
-                      }}
+                      className={classNames(
+                        inputClass,
+                        'w-[60px] rounded-[10px] p-[5px_8px] text-right text-[13px]',
+                      )}
                     />
                     <button
                       type="button"
                       onClick={handleAddItem}
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '2px 4px',
-                        fontSize: 16,
-                        color: COLOR_PRIMARY,
-                        flexShrink: 0,
-                      }}
+                      className="shrink-0 cursor-pointer border-0 bg-transparent p-[2px_4px] text-base text-brand"
                     >
                       ✓
                     </button>
@@ -590,15 +470,7 @@ export const MealLoggingScreen = () => {
                         setNewItemName('');
                         setNewItemKcal('');
                       }}
-                      style={{
-                        background: 'transparent',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: '2px 4px',
-                        fontSize: 16,
-                        color: COLOR_MUTED,
-                        flexShrink: 0,
-                      }}
+                      className="shrink-0 cursor-pointer border-0 bg-transparent p-[2px_4px] text-base text-muted"
                     >
                       ×
                     </button>
@@ -607,36 +479,20 @@ export const MealLoggingScreen = () => {
                   <button
                     type="button"
                     onClick={() => setAddingItem(true)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: '2px 0',
-                      fontFamily: 'inherit',
-                      textAlign: 'left',
-                    }}
+                    className="cursor-pointer border-0 bg-transparent p-[2px_0] text-left font-[inherit]"
                   >
-                    <Typography variant="label" color={COLOR_PRIMARY}>
+                    <Typography variant="label" color={'var(--color-brand)'}>
                       + Add item
                     </Typography>
                   </button>
                 )}
               </div>
 
-              {/* Total row */}
-              <div
-                style={{
-                  borderTop: `1px solid ${COLOR_BORDER}`,
-                  paddingTop: 10,
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography variant="label-strong" color={COLOR_DARK}>
+              <div className="flex items-center justify-between border-t border-line pt-2.5">
+                <Typography variant="label-strong" color={'var(--color-ink)'}>
                   Total logged
                 </Typography>
-                <Typography variant="label-strong" color={COLOR_PRIMARY}>
+                <Typography variant="label-strong" color={'var(--color-brand)'}>
                   {totalLogged} kcal
                 </Typography>
               </div>
@@ -644,27 +500,24 @@ export const MealLoggingScreen = () => {
               {result.notes && (
                 <Typography
                   variant="caption"
-                  color={COLOR_MUTED}
-                  style={{ fontStyle: 'italic' }}
+                  color={'var(--color-muted)'}
+                  className="italic"
                 >
                   {result.notes}
                 </Typography>
               )}
             </div>
 
-            {/* Log CTA */}
             <Button
               disabled={saving}
               onClick={handleLog}
-              style={{
-                background: COLOR_PRIMARY,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 10,
-                opacity: saving ? 0.7 : 1,
-                cursor: saving ? 'not-allowed' : 'pointer',
-              }}
+              color={'var(--color-brand)'}
+              className={classNames(
+                'flex items-center justify-center gap-2.5',
+                saving
+                  ? 'cursor-not-allowed opacity-70'
+                  : 'cursor-pointer opacity-100',
+              )}
             >
               {saving ? (
                 <>
@@ -676,20 +529,12 @@ export const MealLoggingScreen = () => {
               )}
             </Button>
 
-            {/* Re-analyse */}
             <button
               type="button"
               onClick={handleReanalyse}
-              style={{
-                background: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '4px 0',
-                fontFamily: 'inherit',
-                textAlign: 'center',
-              }}
+              className="cursor-pointer border-0 bg-transparent p-[4px_0] text-center font-[inherit]"
             >
-              <Typography variant="label" color={COLOR_MUTED}>
+              <Typography variant="label" color={'var(--color-muted)'}>
                 Re-analyse
               </Typography>
             </button>

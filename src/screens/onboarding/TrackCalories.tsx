@@ -4,12 +4,6 @@ import { Duck } from '../../components/duck/Duck';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
-import {
-  COLOR_PRIMARY,
-  COLOR_TEAL,
-  COLOR_PRIMARY_CARD_BG,
-  COLOR_PRIMARY_BORDER,
-} from '../../colors';
 import { ProgressDots } from '../../components/ProgressDots';
 import { DotIcon } from '../../components/icons/DotIcon';
 
@@ -17,7 +11,7 @@ const TAGS = [
   {
     label: 'Avocado',
     kcal: '100 kcal',
-    dot: '#5A8A50',
+    dot: 'var(--color-plant-dot)',
     left: '8%',
     top: '10%',
     rotate: -8,
@@ -26,7 +20,7 @@ const TAGS = [
   {
     label: 'Chicken',
     kcal: '210 kcal',
-    dot: COLOR_PRIMARY,
+    dot: 'var(--color-brand)',
     left: '46%',
     top: '32%',
     rotate: 5,
@@ -35,7 +29,7 @@ const TAGS = [
   {
     label: 'Broccoli',
     kcal: '55 kcal',
-    dot: COLOR_TEAL,
+    dot: 'var(--color-success)',
     left: '14%',
     top: '54%',
     rotate: -4,
@@ -50,26 +44,9 @@ export const TrackCalories = () => {
     <ScreenContainer>
       <ProgressDots current={1} />
 
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 28,
-        }}
-      >
+      <div className="flex flex-1 flex-col justify-center gap-7">
         {/* Card */}
-        <div
-          style={{
-            background: COLOR_PRIMARY_CARD_BG,
-            borderRadius: 24,
-            height: 300,
-            position: 'relative',
-            overflow: 'hidden',
-            border: `1px solid ${COLOR_PRIMARY_BORDER}`,
-          }}
-        >
+        <div className="relative h-[300px] overflow-hidden rounded-3xl border border-line-brand bg-surface-brand">
           {/* Floating calorie tags */}
           {TAGS.map((tag) => (
             <motion.div
@@ -81,19 +58,11 @@ export const TrackCalories = () => {
                 ease: 'easeInOut',
                 delay: tag.delay,
               }}
+              className="absolute flex items-center gap-[7px] whitespace-nowrap rounded-[20px] bg-white p-[6px_12px] shadow-[0_2px_10px_rgba(0,0,0,0.09)]"
               style={{
-                position: 'absolute',
                 left: tag.left,
                 top: tag.top,
-                background: 'white',
-                borderRadius: 20,
-                padding: '6px 12px',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.09)',
                 transform: `rotate(${tag.rotate}deg)`,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 7,
-                whiteSpace: 'nowrap',
               }}
             >
               <DotIcon color={tag.dot} />
@@ -105,75 +74,19 @@ export const TrackCalories = () => {
           ))}
 
           {/* Plate with food */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 0,
-              left: '18%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                gap: 4,
-                marginBottom: -20,
-                zIndex: 1,
-                position: 'relative',
-              }}
-            >
-              <div
-                style={{
-                  width: 22,
-                  height: 28,
-                  background: '#6DB85C',
-                  borderRadius: '50%',
-                }}
-              />
-              <div
-                style={{
-                  width: 18,
-                  height: 24,
-                  background: '#A8CC8C',
-                  borderRadius: '50%',
-                  marginTop: 12,
-                }}
-              />
-              <div
-                style={{
-                  width: 28,
-                  height: 22,
-                  background: '#C8855A',
-                  borderRadius: '50%',
-                  marginTop: 4,
-                }}
-              />
+          <div className="absolute bottom-0 left-[18%] flex flex-col items-center">
+            <div className="relative z-[1] mb-[-20px] flex gap-1">
+              <div className="h-7 w-[22px] rounded-[50%] bg-plant-dark" />
+              <div className="mt-3 h-6 w-[18px] rounded-[50%] bg-plant-light" />
+              <div className="mt-1 h-[22px] w-7 rounded-[50%] bg-food" />
             </div>
-            <div
-              style={{
-                width: 110,
-                height: 28,
-                background: 'white',
-                borderRadius: '50%',
-                boxShadow: '0 3px 8px rgba(0,0,0,0.12)',
-              }}
-            />
-            <div
-              style={{
-                width: 90,
-                height: 10,
-                background: 'rgba(0,0,0,0.07)',
-                borderRadius: '50%',
-                marginTop: 2,
-              }}
-            />
+            <div className="h-7 w-[110px] rounded-[50%] bg-white shadow-[0_3px_8px_rgba(0,0,0,0.12)]" />
+            <div className="mt-0.5 h-2.5 w-[90px] rounded-[50%] bg-black/10" />
           </div>
 
           {/* Duck peeking from bottom-right */}
           <motion.div
-            style={{ position: 'absolute', bottom: -22, right: 14 }}
+            className="absolute bottom-[-22px] right-[14px]"
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}
           >
@@ -186,14 +99,14 @@ export const TrackCalories = () => {
           <Typography
             variant="heading"
             as="h1"
-            style={{ margin: '0 0 10px', letterSpacing: -0.4 }}
+            className="m-[0_0_10px] tracking-[-0.4px]"
           >
             Track calories
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            style={{ margin: 0, lineHeight: 1.65 }}
+            className="m-0 leading-[1.65]"
           >
             Snap a photo and let AI do the rest.
           </Typography>

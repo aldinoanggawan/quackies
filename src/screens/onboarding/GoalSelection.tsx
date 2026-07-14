@@ -11,7 +11,6 @@ import { SelectionCard } from '../../components/SelectionCard';
 import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
 import { useOnboarding } from '../../store/useOnboarding';
-import { COLOR_PRIMARY } from '../../colors';
 
 type GoalId = 'lose' | 'maintain' | 'gain';
 
@@ -31,7 +30,7 @@ const GOALS: Goal[] = [
     subtitle: 'Calorie deficit · duck gets determined',
     emotion: 'determined',
     icon: <LoseIcon />,
-    iconBg: '#FFE8E8',
+    iconBg: 'var(--color-goal-loss)',
   },
   {
     id: 'maintain',
@@ -39,7 +38,7 @@ const GOALS: Goal[] = [
     subtitle: 'At TDEE · duck stays happy',
     emotion: 'proud',
     icon: <MaintainIcon />,
-    iconBg: '#E8F8F2',
+    iconBg: 'var(--color-goal-maintain)',
   },
   {
     id: 'gain',
@@ -47,7 +46,7 @@ const GOALS: Goal[] = [
     subtitle: 'Calorie surplus · duck gets excited',
     emotion: 'excited',
     icon: <GainIcon />,
-    iconBg: '#E8F0FF',
+    iconBg: 'var(--color-goal-gain)',
   },
 ];
 
@@ -67,24 +66,24 @@ export const GoalSelection = () => {
     <ScreenContainer>
       <ProgressDots current={5} total={selected === 'maintain' ? 5 : 6} />
 
-      <div style={{ paddingTop: 16 }}>
+      <div className="pt-4">
         <Typography
           variant="label-strong"
-          color={COLOR_PRIMARY}
-          style={{ display: 'block', marginBottom: 8 }}
+          color={'var(--color-brand)'}
+          className="mb-2 block"
         >
           Step 5 of {selected === 'maintain' ? 5 : 6}
         </Typography>
         <Typography
           variant="heading"
           as="h1"
-          style={{ margin: '0 0 28px', letterSpacing: -0.4 }}
+          className="m-[0_0_28px] tracking-[-0.4px]"
         >
           What's your main goal?
         </Typography>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div className="flex flex-col gap-3">
         {GOALS.map((goal, i) => (
           <SelectionCard
             key={goal.id}
@@ -100,16 +99,7 @@ export const GoalSelection = () => {
       </div>
 
       {/* Duck */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: 52,
-          flex: 1,
-          alignItems: 'flex-start',
-          paddingBottom: 8,
-        }}
-      >
+      <div className="mt-[52px] flex flex-1 items-start justify-center pb-2">
         <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}

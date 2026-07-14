@@ -8,15 +8,7 @@ import { EyeIcon } from '../../components/icons/EyeIcon';
 import { supabase } from '../../lib/supabase';
 import { isUsernameTaken, getProfile, saveUsername } from '../../lib/db';
 import { buildAuthEmail } from './authUtils';
-import {
-  COLOR_BG,
-  COLOR_BORDER,
-  COLOR_DARK,
-  COLOR_MUTED,
-  COLOR_PRIMARY,
-  COLOR_PRIMARY_CARD_BG,
-  COLOR_RED,
-} from '../../colors';
+import { classNames } from '../../lib/classNames';
 
 type Step = 'username' | 'returning' | 'new';
 
@@ -40,18 +32,8 @@ const STEP_CONFIG: Record<
   },
 };
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  boxSizing: 'border-box',
-  padding: '12px 14px',
-  fontSize: 17,
-  fontWeight: 500,
-  fontFamily: 'inherit',
-  borderRadius: 14,
-  background: 'white',
-  color: COLOR_DARK,
-  outline: 'none',
-};
+const inputClass =
+  'box-border w-full rounded-[14px] border-[1.5px] bg-white p-[12px_14px] text-[17px] font-medium text-ink outline-none [font-family:inherit]';
 
 export const AuthScreen = () => {
   const navigate = useNavigate();
@@ -140,38 +122,15 @@ export const AuthScreen = () => {
   };
 
   return (
-    <div
-      style={{
-        minHeight: '100dvh',
-        background: COLOR_BG,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '24px 16px',
-      }}
-    >
-      <div
-        style={{
-          width: '100%',
-          maxWidth: 400,
-          background: 'white',
-          borderRadius: 24,
-          border: `1.5px solid ${COLOR_BORDER}`,
-          padding: '32px 28px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 24,
-        }}
-      >
+    <div className="flex min-h-[100dvh] items-center justify-center bg-canvas p-[24px_16px]">
+      <div className="flex w-full max-w-[400px] flex-col items-center gap-6 rounded-3xl border-[1.5px] border-line bg-white p-[32px_28px]">
         <Duck emotion={config?.emotion ?? 'grumpy'} size={80} />
 
-        <motion.div layout style={{ textAlign: 'center' }}>
-          <Typography variant="heading-lg" as="h1" style={{ margin: 0 }}>
+        <motion.div layout className="text-center">
+          <Typography variant="heading-lg" as="h1" className="m-0">
             {config?.heading ?? 'Quackies'}
           </Typography>
         </motion.div>
-
         {/* Username chip — shown once step advances */}
         <AnimatePresence>
           {step !== 'username' && (
@@ -187,24 +146,12 @@ export const AuthScreen = () => {
                 setPasswordError('');
                 setFormError('');
               }}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                background: COLOR_PRIMARY_CARD_BG,
-                border: `1.5px solid ${COLOR_BORDER}`,
-                borderRadius: 999,
-                padding: '6px 14px 6px 10px',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                alignSelf: 'stretch',
-                justifyContent: 'space-between',
-              }}
+              className="flex cursor-pointer items-center justify-between gap-2 self-stretch rounded-full border-[1.5px] border-line bg-surface-brand p-[6px_14px_6px_10px] font-[inherit]"
             >
-              <Typography variant="label-strong" color={COLOR_PRIMARY}>
+              <Typography variant="label-strong" color={'var(--color-brand)'}>
                 @{username}
               </Typography>
-              <Typography variant="caption" color={COLOR_MUTED}>
+              <Typography variant="caption" color={'var(--color-muted)'}>
                 Change
               </Typography>
             </motion.button>
@@ -213,12 +160,7 @@ export const AuthScreen = () => {
 
         <form
           onSubmit={step === 'username' ? handleContinue : handleSubmit}
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 16,
-          }}
+          className="flex w-full flex-col gap-4"
           noValidate
         >
           {/* Username field — only visible in step 1 */}
@@ -229,12 +171,7 @@ export const AuthScreen = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                style={{
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 6,
-                }}
+                className="flex flex-col gap-1.5 overflow-hidden"
               >
                 <Typography variant="input-label" as="label" htmlFor="username">
                   Username
@@ -246,13 +183,13 @@ export const AuthScreen = () => {
                   autoFocus
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  style={{
-                    ...inputStyle,
-                    border: `1.5px solid ${usernameError ? COLOR_RED : COLOR_BORDER}`,
-                  }}
+                  className={classNames(
+                    inputClass,
+                    usernameError ? 'border-danger' : 'border-line',
+                  )}
                 />
                 {usernameError && (
-                  <Typography variant="caption" color={COLOR_RED}>
+                  <Typography variant="caption" color={'var(--color-danger)'}>
                     {usernameError}
                   </Typography>
                 )}
@@ -260,7 +197,6 @@ export const AuthScreen = () => {
             )}
           </AnimatePresence>
 
-          {/* Password field — slides in after username step */}
           <AnimatePresence initial={false}>
             {step !== 'username' && (
               <motion.div
@@ -268,17 +204,12 @@ export const AuthScreen = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                style={{
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 6,
-                }}
+                className="flex flex-col gap-1.5 overflow-hidden"
               >
                 <Typography variant="input-label" as="label" htmlFor="password">
                   Password
                 </Typography>
-                <div style={{ position: 'relative' }}>
+                <div className="relative">
                   <input
                     ref={passwordRef}
                     id="password"
@@ -288,38 +219,26 @@ export const AuthScreen = () => {
                     }
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    style={{
-                      ...inputStyle,
-                      border: `1.5px solid ${passwordError ? COLOR_RED : COLOR_BORDER}`,
-                      paddingRight: 44,
-                    }}
+                    className={classNames(
+                      inputClass,
+                      'pr-11',
+                      passwordError ? 'border-danger' : 'border-line',
+                    )}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
-                    style={{
-                      position: 'absolute',
-                      right: 12,
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      padding: 4,
-                      color: COLOR_MUTED,
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
+                    className="absolute right-3 top-1/2 flex -translate-y-1/2 cursor-pointer items-center border-0 bg-transparent p-1 text-muted"
                   >
                     <EyeIcon open={showPassword} size={18} />
                   </button>
                 </div>
                 {passwordError ? (
-                  <Typography variant="caption" color={COLOR_RED}>
+                  <Typography variant="caption" color={'var(--color-danger)'}>
                     {passwordError}
                   </Typography>
                 ) : (
-                  <Typography variant="caption" color={COLOR_MUTED}>
+                  <Typography variant="caption" color={'var(--color-muted)'}>
                     {config?.passwordHint}
                   </Typography>
                 )}
@@ -330,8 +249,8 @@ export const AuthScreen = () => {
           {formError && (
             <Typography
               variant="caption"
-              color={COLOR_RED}
-              style={{ textAlign: 'center' }}
+              color={'var(--color-danger)'}
+              className="text-center"
             >
               {formError}
             </Typography>
@@ -340,7 +259,7 @@ export const AuthScreen = () => {
           <Button
             type="submit"
             disabled={loading}
-            style={{ marginTop: 4, opacity: loading ? 0.7 : 1 }}
+            className={classNames('mt-1', loading && 'opacity-70')}
           >
             {loading ? '…' : step === 'username' ? 'Continue →' : config?.cta}
           </Button>

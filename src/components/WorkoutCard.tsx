@@ -3,15 +3,6 @@ import { Typography } from './ui/Typography';
 import { ActivityIcon } from './icons/ActivityIcon';
 import { updateWorkout } from '../lib/db';
 import type { Workout } from '../types/models';
-import {
-  COLOR_BORDER,
-  COLOR_MUTED,
-  COLOR_DARK,
-  COLOR_PRIMARY,
-  COLOR_TEAL,
-  COLOR_TEAL_CARD_BG,
-  COLOR_TEAL_BORDER,
-} from '../colors';
 
 interface WorkoutCardProps {
   workout: Workout;
@@ -49,46 +40,20 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
   };
 
   return (
-    <div
-      style={{
-        background: COLOR_TEAL_CARD_BG,
-        border: `1.5px solid ${COLOR_TEAL_BORDER}`,
-        borderRadius: 16,
-        overflow: 'hidden',
-      }}
-    >
-      {/* Main row */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12,
-          padding: '12px 14px',
-        }}
-      >
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 10,
-            background: COLOR_TEAL,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}
-        >
+    <div className="overflow-hidden rounded-2xl border-[1.5px] border-line-success bg-surface-success">
+      <div className="flex items-center gap-3 p-[12px_14px]">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-success">
           <ActivityIcon size={20} />
         </div>
 
-        <div style={{ flex: 1 }}>
-          <Typography variant="label-strong" color={COLOR_DARK}>
+        <div className="flex-1">
+          <Typography variant="label-strong" color={'var(--color-ink)'}>
             {workout.name}
           </Typography>
           <Typography
             variant="caption"
-            color={COLOR_MUTED}
-            style={{ display: 'block', marginTop: 2 }}
+            color={'var(--color-muted)'}
+            className="mt-0.5 block"
           >
             {workout.duration_min} min
             {workout.source && workout.source !== 'estimated'
@@ -97,153 +62,93 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
           </Typography>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-            gap: 4,
-          }}
-        >
+        <div className="flex flex-col items-end gap-1">
           {workout.kcal_burned != null && (
-            <Typography variant="label-strong" color={COLOR_TEAL}>
+            <Typography variant="label-strong" color={'var(--color-success)'}>
               −{workout.kcal_burned.toLocaleString()} kcal
             </Typography>
           )}
           <button
             type="button"
             onClick={() => (expanded ? handleCancel() : setExpanded(true))}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 0,
-              fontFamily: 'inherit',
-            }}
+            className="cursor-pointer border-0 bg-transparent p-0 font-[inherit]"
           >
-            <Typography variant="label-strong" color={COLOR_PRIMARY}>
+            <Typography variant="label-strong" color={'var(--color-brand)'}>
               {expanded ? 'cancel' : 'edit'}
             </Typography>
           </button>
         </div>
       </div>
 
-      {/* Inline edit panel */}
       {expanded && (
-        <div
-          style={{
-            borderTop: `1px solid ${COLOR_TEAL_BORDER}`,
-            padding: '14px 14px 16px',
-          }}
-        >
-          {/* Calories burned row: label left, input right */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
+        <div className="border-t border-line-success p-[14px_14px_16px]">
+          <div className="flex items-center justify-between">
             <div>
               <Typography
                 variant="caption"
-                color={COLOR_MUTED}
-                style={{ textTransform: 'uppercase', letterSpacing: 0.4 }}
+                color={'var(--color-muted)'}
+                className="uppercase tracking-[0.4px]"
               >
                 Calories burned
               </Typography>
               {estimate > 0 && (
                 <Typography
                   variant="caption"
-                  color={COLOR_MUTED}
-                  style={{ display: 'block', marginTop: 2 }}
+                  color={'var(--color-muted)'}
+                  className="mt-0.5 block"
                 >
                   App estimate ~{estimate} kcal
                 </Typography>
               )}
             </div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+            <div className="flex items-baseline gap-1">
               <input
                 type="number"
                 value={kcalInput}
                 onChange={(e) => setKcalInput(e.target.value)}
-                style={{
-                  fontSize: 28,
-                  fontWeight: 800,
-                  color: COLOR_DARK,
-                  border: 'none',
-                  background: 'transparent',
-                  outline: 'none',
-                  width: 72,
-                  textAlign: 'right',
-                  fontFamily: 'inherit',
-                }}
+                className="w-[72px] border-0 bg-transparent text-right text-[28px] font-extrabold text-ink outline-none [font-family:inherit]"
               />
-              <Typography variant="body" as="span" color={COLOR_MUTED}>
+              <Typography variant="body" as="span" color={'var(--color-muted)'}>
                 kcal
               </Typography>
             </div>
           </div>
 
-          {/* Source tag — only for wearable/external sources */}
           {workout.source && workout.source !== 'estimated' && (
-            <div style={{ marginTop: 10 }}>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  background: 'white',
-                  border: `1px solid ${COLOR_TEAL_BORDER}`,
-                  borderRadius: 999,
-                  padding: '3px 10px',
-                }}
-              >
-                <Typography variant="label-strong" color={COLOR_TEAL}>
+            <div className="mt-2.5">
+              <div className="inline-flex items-center rounded-full border border-line-success bg-white p-[3px_10px]">
+                <Typography
+                  variant="label-strong"
+                  color={'var(--color-success)'}
+                >
                   + {workout.source}
                 </Typography>
               </div>
             </div>
           )}
 
-          {/* Or divider — only when app estimated the value */}
           {estimate > 0 && (
             <>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  margin: '12px 0',
-                }}
-              >
-                <div style={{ flex: 1, height: 1, background: COLOR_BORDER }} />
-                <Typography variant="caption" color={COLOR_MUTED}>
+              <div className="m-[12px_0] flex items-center gap-2">
+                <div className="h-px flex-1 bg-line" />
+                <Typography variant="caption" color={'var(--color-muted)'}>
                   or
                 </Typography>
-                <div style={{ flex: 1, height: 1, background: COLOR_BORDER }} />
+                <div className="h-px flex-1 bg-line" />
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Typography variant="caption" color={COLOR_MUTED}>
+              <div className="flex items-center justify-between">
+                <Typography variant="caption" color={'var(--color-muted)'}>
                   Use app estimate instead ~{estimate} kcal
                 </Typography>
                 <button
                   type="button"
                   onClick={handleUseEstimate}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    padding: 0,
-                    fontFamily: 'inherit',
-                  }}
+                  className="cursor-pointer border-0 bg-transparent p-0 font-[inherit]"
                 >
-                  <Typography variant="label-strong" color={COLOR_PRIMARY}>
+                  <Typography
+                    variant="label-strong"
+                    color={'var(--color-brand)'}
+                  >
                     use this
                   </Typography>
                 </button>
@@ -251,23 +156,14 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
             </>
           )}
 
-          {/* Save / Cancel — only when value has changed */}
           {isDirty && (
-            <div style={{ display: 'flex', gap: 8, marginTop: 14 }}>
+            <div className="mt-[14px] flex gap-2">
               <button
                 type="button"
                 onClick={handleCancel}
-                style={{
-                  flex: 1,
-                  background: 'transparent',
-                  border: `1px solid ${COLOR_BORDER}`,
-                  borderRadius: 10,
-                  padding: '9px 0',
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
-                }}
+                className="flex-1 cursor-pointer rounded-[10px] border border-line bg-transparent p-[9px_0] font-[inherit]"
               >
-                <Typography variant="label-strong" color={COLOR_MUTED}>
+                <Typography variant="label-strong" color={'var(--color-muted)'}>
                   Cancel
                 </Typography>
               </button>
@@ -275,16 +171,7 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
                 type="button"
                 onClick={handleSave}
                 disabled={saving}
-                style={{
-                  flex: 1,
-                  background: COLOR_TEAL,
-                  border: 'none',
-                  borderRadius: 10,
-                  padding: '9px 0',
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
-                  opacity: saving ? 0.6 : 1,
-                }}
+                className="flex-1 cursor-pointer rounded-[10px] border-0 bg-success p-[9px_0] font-[inherit] disabled:opacity-60"
               >
                 <Typography variant="label-strong" color="white">
                   {saving ? 'Saving…' : 'Save'}

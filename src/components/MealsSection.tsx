@@ -3,15 +3,7 @@ import { Typography } from './ui/Typography';
 import { LogButton } from './LogButton';
 import { DotIcon } from './icons/DotIcon';
 import type { Meal, MealType } from '../types/models';
-import {
-  COLOR_BORDER,
-  COLOR_MUTED,
-  COLOR_DARK,
-  COLOR_PRIMARY,
-  COLOR_TEAL,
-  COLOR_RED,
-  COLOR_DUCK_YELLOW,
-} from '../colors';
+import { classNames } from '../lib/classNames';
 
 const MEAL_LABELS: Record<MealType, string> = {
   breakfast: 'Breakfast',
@@ -21,10 +13,10 @@ const MEAL_LABELS: Record<MealType, string> = {
 };
 
 const MEAL_COLORS: Record<MealType, string> = {
-  breakfast: COLOR_DUCK_YELLOW,
-  lunch: COLOR_TEAL,
-  dinner: COLOR_PRIMARY,
-  snack: COLOR_RED,
+  breakfast: 'var(--color-duck-yellow)',
+  lunch: 'var(--color-success)',
+  dinner: 'var(--color-brand)',
+  snack: 'var(--color-danger)',
 };
 
 const MEAL_ORDER: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack'];
@@ -41,13 +33,13 @@ export const MealsSection = ({ meals }: MealsSectionProps) => {
       <Typography
         variant="label-strong"
         as="p"
-        color={COLOR_MUTED}
-        style={{ margin: '0 0 12px' }}
+        color={'var(--color-muted)'}
+        className="m-[0_0_12px]"
       >
         Meals today
       </Typography>
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div className="flex flex-col">
         {MEAL_ORDER.map((type, i) => {
           const logged = meals.filter((m) => m.meal_type === type);
           const totalKcal = logged.reduce((sum, m) => sum + m.total_kcal, 0);
@@ -56,23 +48,23 @@ export const MealsSection = ({ meals }: MealsSectionProps) => {
           return (
             <div
               key={type}
-              style={{
-                marginTop: i === 0 ? 0 : 6,
-                paddingTop: i === 0 ? 0 : 6,
-                borderTop: i === 0 ? 'none' : `1px solid ${COLOR_BORDER}`,
-              }}
+              className={classNames(
+                i === 0 ? 'mt-0 pt-0' : 'mt-1.5 border-t border-line pt-1.5',
+              )}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <DotIcon color={isLogged ? MEAL_COLORS[type] : COLOR_BORDER} />
+              <div className="flex items-center gap-3">
+                <DotIcon
+                  color={isLogged ? MEAL_COLORS[type] : 'var(--color-line)'}
+                />
                 <Typography
                   variant="label"
-                  color={isLogged ? COLOR_DARK : COLOR_MUTED}
-                  style={{ flex: 1 }}
+                  color={isLogged ? 'var(--color-ink)' : 'var(--color-muted)'}
+                  className="flex-1"
                 >
                   {MEAL_LABELS[type]}
                 </Typography>
                 {isLogged ? (
-                  <Typography variant="label-strong" color={COLOR_DARK}>
+                  <Typography variant="label-strong" color={'var(--color-ink)'}>
                     {totalKcal.toLocaleString()} kcal
                   </Typography>
                 ) : (

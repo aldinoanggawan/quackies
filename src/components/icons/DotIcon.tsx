@@ -9,7 +9,7 @@ export const DotIcon = ({ color, size = 8 }: DotIconProps) => (
     height={size}
     viewBox="0 0 8 8"
     fill="none"
-    style={{ flexShrink: 0 }}
+    className="shrink-0"
   >
     <circle cx="4" cy="4" r="4" fill={color} />
   </svg>

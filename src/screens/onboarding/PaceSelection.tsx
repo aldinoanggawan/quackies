@@ -9,7 +9,6 @@ import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
 import { useOnboarding } from '../../store/useOnboarding';
 import type { PaceId } from '../../types/models';
-import { COLOR_PRIMARY } from '../../colors';
 
 interface Pace {
   id: PaceId;
@@ -59,24 +58,24 @@ export const PaceSelection = () => {
     <ScreenContainer>
       <ProgressDots current={6} />
 
-      <div style={{ paddingTop: 16 }}>
+      <div className="pt-4">
         <Typography
           variant="label-strong"
-          color={COLOR_PRIMARY}
-          style={{ display: 'block', marginBottom: 8 }}
+          color={'var(--color-brand)'}
+          className="mb-2 block"
         >
           Step 6 of 6
         </Typography>
         <Typography
           variant="heading"
           as="h1"
-          style={{ margin: '0 0 28px', letterSpacing: -0.4 }}
+          className="m-[0_0_28px] tracking-[-0.4px]"
         >
           How fast do you want to reach your goal?
         </Typography>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div className="flex flex-col gap-3">
         {PACES.map((pace, i) => (
           <SelectionCard
             key={pace.id}
@@ -90,16 +89,7 @@ export const PaceSelection = () => {
         ))}
       </div>
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: 52,
-          flex: 1,
-          alignItems: 'flex-start',
-          paddingBottom: 8,
-        }}
-      >
+      <div className="mt-[52px] flex flex-1 items-start justify-center pb-2">
         <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}

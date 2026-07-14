@@ -1,4 +1,5 @@
 import React from 'react';
+import { classNames } from '../../lib/classNames';
 
 type Variant =
   | 'display'
@@ -12,17 +13,17 @@ type Variant =
   | 'label'
   | 'caption';
 
-const STYLES: Record<Variant, React.CSSProperties> = {
-  display: { fontSize: 48, fontWeight: 700 },
-  'heading-lg': { fontSize: 34, fontWeight: 800 },
-  heading: { fontSize: 30, fontWeight: 800 },
-  subheading: { fontSize: 18, fontWeight: 700 },
-  body: { fontSize: 15, fontWeight: 400 },
-  'input-label': { fontSize: 15, fontWeight: 500 },
-  input: { fontSize: 17, fontWeight: 500 },
-  'label-strong': { fontSize: 13, fontWeight: 600 },
-  label: { fontSize: 13, fontWeight: 500 },
-  caption: { fontSize: 11, fontWeight: 400 },
+const CLASSES: Record<Variant, string> = {
+  display: 'text-[48px] font-bold',
+  'heading-lg': 'text-[34px] font-extrabold',
+  heading: 'text-[30px] font-extrabold',
+  subheading: 'text-lg font-bold',
+  body: 'text-[15px] font-normal',
+  'input-label': 'text-[15px] font-medium',
+  input: 'text-[17px] font-medium',
+  'label-strong': 'text-[13px] font-semibold',
+  label: 'text-[13px] font-medium',
+  caption: 'text-[11px] font-normal',
 };
 
 const DEFAULTS: Record<Variant, string> = {
@@ -43,6 +44,7 @@ type Props = {
   as?: string;
   color?: string;
   style?: React.CSSProperties;
+  className?: string;
   children: React.ReactNode;
   [key: string]: unknown;
 };
@@ -50,15 +52,20 @@ type Props = {
 export const Typography = ({
   variant,
   as,
-  color = 'var(--color-dark)',
+  color = 'var(--color-ink)',
   style,
+  className,
   children,
   ...rest
 }: Props) => {
   const tag = as ?? DEFAULTS[variant];
   return React.createElement(
     tag,
-    { style: { ...STYLES[variant], color, ...style }, ...rest },
+    {
+      className: classNames(CLASSES[variant], className),
+      style: { color, ...style },
+      ...rest,
+    },
     children,
   );
 };
