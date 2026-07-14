@@ -1,11 +1,10 @@
-import { COLOR_PRIMARY } from '../colors';
 import { ONBOARDING_TOTAL_STEPS } from '../constants';
 
 export const ProgressDots = ({
   current,
   total = ONBOARDING_TOTAL_STEPS,
-  activeColor = COLOR_PRIMARY,
-  inactiveColor = 'var(--color-border)',
+  activeColor = 'var(--color-brand)',
+  inactiveColor = 'var(--color-line)',
 }: {
   current: number;
   total?: number;
@@ -13,23 +12,14 @@ export const ProgressDots = ({
   inactiveColor?: string;
 }) => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        gap: 6,
-        justifyContent: 'center',
-        padding: '20px 0 8px',
-      }}
-    >
+    <div className="flex justify-center gap-1.5 py-5 pb-2">
       {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
+          className="h-2 rounded transition-all duration-300"
           style={{
             width: i + 1 === current ? 22 : 8,
-            height: 8,
-            borderRadius: 4,
             background: i + 1 === current ? activeColor : inactiveColor,
-            transition: 'all 0.3s',
           }}
         />
       ))}

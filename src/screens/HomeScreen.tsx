@@ -13,18 +13,6 @@ import { useAuth } from '../hooks/useAuth';
 import { useProfile } from '../hooks/useProfile';
 import { useDailySummary } from '../hooks/useDailySummary';
 import { formatDate, greeting } from '../lib/dateHelpers';
-import {
-  COLOR_BG,
-  COLOR_PRIMARY_CARD_BG,
-  COLOR_BORDER,
-  COLOR_MUTED,
-  COLOR_DARK,
-  COLOR_PRIMARY,
-  COLOR_PRIMARY_MUTED,
-  COLOR_RED,
-  COLOR_TEAL,
-  COLOR_TEAL_CARD_BG,
-} from '../colors';
 
 const duckEmotion = (remaining: number): DuckEmotion => {
   if (Math.abs(remaining) <= 50) return 'proud';
@@ -47,72 +35,42 @@ export const HomeScreen = () => {
     useDailySummary(profile?.tdee ?? 0, today);
 
   return (
-    <ScreenContainer background={COLOR_BG} style={{ gap: 20, paddingTop: 38 }}>
+    <ScreenContainer
+      background={'var(--color-canvas)'}
+      className="gap-5 pt-[38px]"
+    >
       {/* Top bar */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-        }}
-      >
+      <div className="flex items-start justify-between">
         <div>
-          <Typography variant="label" color={COLOR_MUTED}>
+          <Typography variant="label" color={'var(--color-muted)'}>
             {formatDate(today)}
           </Typography>
-          <Typography variant="subheading" color={COLOR_DARK}>
+          <Typography variant="subheading" color={'var(--color-ink)'}>
             {greeting()}, {profile?.pal_name ?? '…'}
           </Typography>
         </div>
 
         {/* Streak pill */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 4,
-            background: COLOR_PRIMARY_CARD_BG,
-            border: `1.5px solid ${COLOR_BORDER}`,
-            borderRadius: 9999,
-            padding: '4px 10px',
-          }}
-        >
-          <span style={{ fontSize: 14 }}>🔥</span>
-          <Typography variant="label-strong" color={COLOR_DARK}>
+        <div className="flex items-center gap-1 rounded-full border-[1.5px] border-line bg-surface-brand p-[4px_10px]">
+          <span className="text-sm">🔥</span>
+          <Typography variant="label-strong" color={'var(--color-ink)'}>
             7 days
           </Typography>
         </div>
       </div>
 
       {/* Hero card */}
-      <div
-        style={{
-          background: 'white',
-          border: `1px solid ${COLOR_BORDER}`,
-          borderRadius: 24,
-          padding: '24px 24px 20px',
-          position: 'relative',
-          overflow: 'visible',
-          boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
-        }}
-      >
+      <div className="relative overflow-visible rounded-3xl border border-line bg-white p-[24px_24px_20px] shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
         {/* Big number */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: 6,
-            paddingRight: 90,
-          }}
-        >
+        <div className="flex items-baseline gap-1.5 pr-[90px]">
           <Typography
             variant="display"
-            color={COLOR_PRIMARY}
-            style={{ lineHeight: 1 }}
+            color={'var(--color-brand)'}
+            className="leading-none"
           >
             {remaining.toLocaleString()}
           </Typography>
-          <Typography variant="body" as="span" color={COLOR_MUTED}>
+          <Typography variant="body" as="span" color={'var(--color-muted)'}>
             kcal
           </Typography>
         </div>
@@ -121,19 +79,15 @@ export const HomeScreen = () => {
         <Typography
           variant="caption"
           as="p"
-          color={COLOR_MUTED}
-          style={{
-            margin: '4px 0 4px',
-            textTransform: 'uppercase',
-            letterSpacing: 0.4,
-          }}
+          color={'var(--color-muted)'}
+          className="m-[4px_0_4px] uppercase tracking-[0.4px]"
         >
           Calories remaining
         </Typography>
 
         {/* Duck */}
         <motion.div
-          style={{ position: 'absolute', top: 12, right: 16 }}
+          className="absolute right-4 top-3"
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}
         >
@@ -141,39 +95,32 @@ export const HomeScreen = () => {
         </motion.div>
 
         {/* Formula chips */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 6,
-            marginTop: 40,
-          }}
-        >
+        <div className="mt-10 flex items-center gap-1.5">
           <Chip
             label="TDEE"
             value={(profile?.tdee ?? 0).toLocaleString()}
-            accentColor={COLOR_PRIMARY_MUTED}
+            accentColor={'var(--color-brand-muted)'}
             progress={1}
           />
-          <Typography variant="label-strong" color={COLOR_MUTED}>
+          <Typography variant="label-strong" color={'var(--color-muted)'}>
             −
           </Typography>
           <Chip
             label="Eaten"
             value={eaten.toLocaleString()}
-            accentColor={COLOR_RED}
+            accentColor={'var(--color-danger)'}
             progress={profile?.tdee ? eaten / profile.tdee : 0}
           />
-          <Typography variant="label-strong" color={COLOR_MUTED}>
+          <Typography variant="label-strong" color={'var(--color-muted)'}>
             +
           </Typography>
           <Chip
             label="Burned"
             value={burned.toLocaleString()}
-            accentColor={COLOR_TEAL}
-            valueColor={burned > 0 ? COLOR_TEAL : undefined}
-            borderColor={burned > 0 ? COLOR_TEAL : undefined}
-            background={burned > 0 ? COLOR_TEAL_CARD_BG : undefined}
+            accentColor={'var(--color-success)'}
+            valueColor={burned > 0 ? 'var(--color-success)' : undefined}
+            borderColor={burned > 0 ? 'var(--color-success)' : undefined}
+            background={burned > 0 ? 'var(--color-surface-success)' : undefined}
             progress={profile?.tdee ? burned / profile.tdee : 0}
           />
         </div>

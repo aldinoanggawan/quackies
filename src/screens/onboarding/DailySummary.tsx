@@ -4,13 +4,6 @@ import { Duck } from '../../components/duck/Duck';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
-import {
-  COLOR_PRIMARY,
-  COLOR_PRIMARY_MUTED,
-  COLOR_TEAL,
-  COLOR_RED,
-  COLOR_TEAL_CARD_BG,
-} from '../../colors';
 import { ProgressDots } from '../../components/ProgressDots';
 import { Chip } from '../../components/ui/Chip';
 
@@ -21,34 +14,16 @@ export const DailySummary = () => {
     <ScreenContainer>
       <ProgressDots current={3} />
 
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 28,
-        }}
-      >
+      <div className="flex flex-1 flex-col justify-center gap-7">
         {/* Card */}
-        <div
-          style={{
-            background: 'white',
-            borderRadius: 24,
-            padding: '24px 24px 20px',
-            border: '1px solid var(--color-border)',
-            position: 'relative',
-            overflow: 'visible',
-            boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
-          }}
-        >
+        <div className="relative overflow-visible rounded-3xl border border-line bg-white p-[24px_24px_20px] shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
           {/* Calories remaining */}
-          <div style={{ paddingRight: 90 }}>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 6 }}>
+          <div className="pr-[90px]">
+            <div className="flex items-baseline gap-1.5">
               <Typography
                 variant="display"
-                color={COLOR_PRIMARY}
-                style={{ lineHeight: 1 }}
+                color={'var(--color-brand)'}
+                className="leading-none"
               >
                 842
               </Typography>
@@ -60,11 +35,7 @@ export const DailySummary = () => {
               variant="caption"
               as="p"
               color="var(--color-muted)"
-              style={{
-                margin: '0 0 4px',
-                textTransform: 'uppercase',
-                letterSpacing: 0.4,
-              }}
+              className="m-[0_0_4px] uppercase tracking-[0.4px]"
             >
               Remaining today
             </Typography>
@@ -72,7 +43,7 @@ export const DailySummary = () => {
 
           {/* Proud duck */}
           <motion.div
-            style={{ position: 'absolute', top: 10, right: 20 }}
+            className="absolute right-5 top-2.5"
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}
           >
@@ -80,18 +51,11 @@ export const DailySummary = () => {
           </motion.div>
 
           {/* Breakdown chips */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              marginTop: 40,
-            }}
-          >
+          <div className="mt-10 flex items-center gap-1.5">
             <Chip
               label="TDEE"
               value="2,200"
-              accentColor={COLOR_PRIMARY_MUTED}
+              accentColor={'var(--color-brand-muted)'}
               progress={1}
             />
             <Typography variant="label-strong" color="var(--color-muted)">
@@ -100,7 +64,7 @@ export const DailySummary = () => {
             <Chip
               label="Eaten"
               value="1,180"
-              accentColor={COLOR_RED}
+              accentColor={'var(--color-danger)'}
               progress={0.54}
             />
             <Typography variant="label-strong" color="var(--color-muted)">
@@ -109,45 +73,24 @@ export const DailySummary = () => {
             <Chip
               label="Burned"
               value="180"
-              accentColor={COLOR_TEAL}
-              valueColor={COLOR_TEAL}
-              borderColor={COLOR_TEAL}
+              accentColor={'var(--color-success)'}
+              valueColor={'var(--color-success)'}
+              borderColor={'var(--color-success)'}
               progress={0.08}
-              background={COLOR_TEAL_CARD_BG}
+              background={'var(--color-surface-success)'}
             />
           </div>
 
           {/* Activity row */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 8,
-              background: COLOR_TEAL_CARD_BG,
-              borderRadius: 14,
-              borderWidth: 1,
-              borderColor: COLOR_TEAL,
-              padding: '10px 14px',
-              marginTop: 18,
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <div
-                style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  background: COLOR_TEAL,
-                  flexShrink: 0,
-                }}
-              />
-              <Typography variant="label">Indoor cycling · 45 min</Typography>
+          <div className="mt-[18px] flex items-center justify-between gap-2 rounded-[14px] border border-success bg-surface-success p-[10px_14px]">
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 shrink-0 rounded-full bg-success" />
+              <Typography variant="label">Indoor cycling· 45 min</Typography>
             </div>
             <Typography
               variant="label"
-              color={COLOR_TEAL}
-              style={{ flexShrink: 0 }}
+              color={'var(--color-success)'}
+              className="shrink-0"
             >
               +180 kcal earned
             </Typography>
@@ -159,14 +102,14 @@ export const DailySummary = () => {
           <Typography
             variant="heading"
             as="h1"
-            style={{ margin: '0 0 10px', letterSpacing: -0.4 }}
+            className="m-[0_0_10px] tracking-[-0.4px]"
           >
             Your day, at a glance
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            style={{ margin: 0, lineHeight: 1.65 }}
+            className="m-0 leading-[1.65]"
           >
             See exactly where you stand — calories eaten, burned, and left for
             the day.

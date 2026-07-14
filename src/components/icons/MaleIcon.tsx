@@ -5,20 +5,20 @@ export const MaleIcon = () => (
     height={24}
     aria-hidden="true"
     focusable="false"
-    style={{ display: 'block' }}
+    className="block"
   >
     <circle
       cx="9"
       cy="15"
       r="5"
       fill="none"
-      stroke="#4A90D9"
+      stroke="var(--color-info)"
       strokeWidth={2.2}
     />
     <path
       d="M12.7 11.3 19 5m0 0h-5.2M19 5v5.2"
       fill="none"
-      stroke="#4A90D9"
+      stroke="var(--color-info)"
       strokeWidth={2.2}
       strokeLinecap="round"
       strokeLinejoin="round"

@@ -2,16 +2,7 @@ import { useState } from 'react';
 import { Typography } from './ui/Typography';
 import { GlassIcon } from './icons/GlassIcon';
 import { useHydration } from '../hooks/useHydration';
-import {
-  COLOR_BORDER,
-  COLOR_MUTED,
-  COLOR_DARK,
-  COLOR_PRIMARY,
-  COLOR_TEAL,
-  COLOR_TEAL_CARD_BG,
-  COLOR_TEAL_BORDER,
-  COLOR_WATER_CARD_BG,
-} from '../colors';
+import { classNames } from '../lib/classNames';
 
 const OZ_TO_ML = 29.5735;
 
@@ -25,6 +16,9 @@ const FRACTIONS: { label: string; value: number }[] = [
 interface HydrationSectionProps {
   date: Date;
 }
+
+const inputClass =
+  'box-border w-full rounded-[10px] border border-line bg-transparent p-[10px_12px] text-[15px] font-medium text-ink outline-none [font-family:inherit]';
 
 export const HydrationSection = ({ date }: HydrationSectionProps) => {
   const {
@@ -60,96 +54,49 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
     setShowPanel(false);
   };
 
-  const inputStyle = {
-    fontSize: 15,
-    fontWeight: 500,
-    color: COLOR_DARK,
-    border: `1px solid ${COLOR_BORDER}`,
-    borderRadius: 10,
-    padding: '10px 12px',
-    outline: 'none',
-    fontFamily: 'inherit',
-    background: 'transparent',
-    width: '100%',
-    boxSizing: 'border-box' as const,
-  };
-
   if (loading) return null;
 
   return (
     <div>
-      {/* Header */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: 12,
-        }}
-      >
+      <div className="mb-3 flex items-center justify-between">
         <Typography
           variant="label-strong"
           as="p"
-          color={COLOR_MUTED}
-          style={{ margin: 0 }}
+          color={'var(--color-muted)'}
+          className="m-0"
         >
           Hydration
         </Typography>
         <button
           type="button"
           onClick={() => setShowPanel((v) => !v)}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: 0,
-            fontFamily: 'inherit',
-          }}
+          className="cursor-pointer border-0 bg-transparent p-0 font-[inherit]"
         >
-          <Typography variant="label-strong" color={COLOR_PRIMARY}>
+          <Typography variant="label-strong" color={'var(--color-brand)'}>
             {showPanel ? 'cancel' : '+ add'}
           </Typography>
         </button>
       </div>
 
-      {/* Progress card — only when bottle is configured */}
       {bottleConfig && (
-        <div
-          style={{
-            background: COLOR_WATER_CARD_BG,
-            border: `1.5px solid ${COLOR_TEAL_BORDER}`,
-            borderRadius: 16,
-            padding: '14px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 14,
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              gap: 4,
-              flex: 1,
-              flexWrap: 'wrap',
-              alignItems: 'flex-end',
-            }}
-          >
+        <div className="flex items-center gap-[14px] rounded-2xl border-[1.5px] border-line-success bg-surface-water p-[14px_16px]">
+          <div className="flex flex-1 flex-wrap items-end gap-1">
             {Array.from({ length: totalBlocks }).map((_, i) => (
               <GlassIcon key={i} index={i} value={filledValue} />
             ))}
           </div>
-          <div style={{ textAlign: 'right', flexShrink: 0 }}>
+          <div className="shrink-0 text-right">
             <Typography
               variant="subheading"
-              color={COLOR_DARK}
-              style={{ display: 'block', lineHeight: 1 }}
+              color={'var(--color-ink)'}
+              className="block leading-none"
             >
               {consumedMl.toLocaleString()} ml
             </Typography>
             <Typography
               variant="caption"
-              color={COLOR_MUTED}
-              style={{ display: 'block', marginTop: 4 }}
+              color={'var(--color-muted)'}
+              className="mt-1 block"
             >
               of {goalMl.toLocaleString()} ml
             </Typography>
@@ -157,33 +104,20 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
         </div>
       )}
 
-      {/* Inline panel */}
       {showPanel && (
         <div
-          style={{
-            marginTop: bottleConfig ? 10 : 0,
-            background: 'white',
-            border: `1px solid ${COLOR_BORDER}`,
-            borderRadius: 16,
-            padding: '16px 14px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}
+          className={classNames(
+            bottleConfig ? 'mt-2.5' : 'mt-0',
+            'flex flex-col gap-3 rounded-2xl border border-line bg-white p-[16px_14px]',
+          )}
         >
           {!bottleConfig ? (
-            /* ── Setup flow ── */
             <>
               <Typography
                 variant="label-strong"
                 as="p"
-                color={COLOR_MUTED}
-                style={{
-                  margin: 0,
-                  textTransform: 'uppercase',
-                  letterSpacing: 0.4,
-                  fontSize: 11,
-                }}
+                color={'var(--color-muted)'}
+                className="m-0 text-[11px] uppercase tracking-[0.4px]"
               >
                 Set up your bottle
               </Typography>
@@ -193,9 +127,9 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                 value={bottleName}
                 onChange={(e) => setBottleName(e.target.value)}
                 autoFocus
-                style={inputStyle}
+                className={inputClass}
               />
-              <div style={{ display: 'flex', gap: 8 }}>
+              <div className="flex gap-2">
                 <input
                   type="number"
                   placeholder={
@@ -203,35 +137,22 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                   }
                   value={bottleSize}
                   onChange={(e) => setBottleSize(e.target.value)}
-                  style={{ ...inputStyle, flex: 1, width: 'auto' }}
+                  className={classNames(inputClass, 'w-auto flex-1')}
                 />
-                <div
-                  style={{
-                    display: 'flex',
-                    background: 'var(--color-bg)',
-                    border: `1px solid ${COLOR_BORDER}`,
-                    borderRadius: 10,
-                    overflow: 'hidden',
-                    flexShrink: 0,
-                  }}
-                >
+                <div className="flex shrink-0 overflow-hidden rounded-[10px] border border-line bg-canvas">
                   {(['ml', 'oz'] as const).map((u) => (
                     <button
                       key={u}
                       type="button"
                       onClick={() => setUnit(u)}
-                      style={{
-                        padding: '0 14px',
-                        border: 'none',
-                        background: unit === u ? COLOR_DARK : 'transparent',
-                        cursor: 'pointer',
-                        fontFamily: 'inherit',
-                        transition: 'background 0.15s',
-                      }}
+                      className={classNames(
+                        'cursor-pointer border-0 p-[0_14px] font-[inherit] transition-colors duration-150',
+                        unit === u ? 'bg-ink' : 'bg-transparent',
+                      )}
                     >
                       <Typography
                         variant="label-strong"
-                        color={unit === u ? 'white' : COLOR_MUTED}
+                        color={unit === u ? 'white' : 'var(--color-muted)'}
                       >
                         {u}
                       </Typography>
@@ -242,8 +163,8 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
               {bottleSize && (
                 <Typography
                   variant="caption"
-                  color={COLOR_MUTED}
-                  style={{ marginTop: -4 }}
+                  color={'var(--color-muted)'}
+                  className="mt-[-4px]"
                 >
                   ≈{' '}
                   {unit === 'oz'
@@ -251,21 +172,16 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                     : `${(parseFloat(bottleSize) / OZ_TO_ML).toFixed(1)} oz`}
                 </Typography>
               )}
-              <div style={{ display: 'flex', gap: 8 }}>
+              <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={() => setShowPanel(false)}
-                  style={{
-                    flex: 1,
-                    background: 'transparent',
-                    border: `1px solid ${COLOR_BORDER}`,
-                    borderRadius: 10,
-                    padding: '10px 0',
-                    cursor: 'pointer',
-                    fontFamily: 'inherit',
-                  }}
+                  className="flex-1 cursor-pointer rounded-[10px] border border-line bg-transparent p-[10px_0] font-[inherit]"
                 >
-                  <Typography variant="label-strong" color={COLOR_MUTED}>
+                  <Typography
+                    variant="label-strong"
+                    color={'var(--color-muted)'}
+                  >
                     Cancel
                   </Typography>
                 </button>
@@ -273,22 +189,10 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                   type="button"
                   onClick={handleSetup}
                   disabled={!bottleName.trim() || !bottleSize || setupSaving}
-                  style={{
-                    flex: 1,
-                    background: COLOR_TEAL,
-                    border: 'none',
-                    borderRadius: 10,
-                    padding: '10px 0',
-                    cursor:
-                      bottleName.trim() && bottleSize
-                        ? 'pointer'
-                        : 'not-allowed',
-                    fontFamily: 'inherit',
-                    opacity: bottleName.trim() && bottleSize ? 1 : 0.4,
-                  }}
+                  className="flex-1 cursor-pointer rounded-[10px] border-0 bg-success p-[10px_0] font-[inherit] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   <Typography variant="label-strong" color="white">
-                    {setupSaving ? 'Saving…' : 'Save bottle'}
+                    {setupSaving ? 'Saving...' : 'Save bottle'}
                   </Typography>
                 </button>
               </div>
@@ -299,44 +203,32 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
               <div>
                 <Typography
                   variant="label-strong"
-                  color={COLOR_DARK}
-                  style={{ display: 'block' }}
+                  color={'var(--color-ink)'}
+                  className="block"
                 >
                   {bottleConfig.bottle_name}
                 </Typography>
-                <Typography variant="caption" color={COLOR_MUTED}>
+                <Typography variant="caption" color={'var(--color-muted)'}>
                   {bottleMl} ml per bottle — tap how much you drank
                 </Typography>
               </div>
 
-              <div style={{ display: 'flex', gap: 8 }}>
+              <div className="flex gap-2">
                 {FRACTIONS.map(({ label, value }) => (
                   <button
                     key={label}
                     type="button"
                     onClick={() => handleLog(value)}
-                    style={{
-                      flex: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      gap: 6,
-                      padding: '10px 4px',
-                      background: COLOR_TEAL_CARD_BG,
-                      border: `1.5px solid ${COLOR_TEAL_BORDER}`,
-                      borderRadius: 12,
-                      cursor: 'pointer',
-                      fontFamily: 'inherit',
-                    }}
+                    className="flex flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-xl border-[1.5px] border-line-success bg-surface-success p-[10px_4px] font-[inherit]"
                   >
                     <Typography
                       variant="subheading"
-                      color={COLOR_TEAL}
-                      style={{ lineHeight: 1 }}
+                      color={'var(--color-success)'}
+                      className="leading-none"
                     >
                       {label}
                     </Typography>
-                    <Typography variant="caption" color={COLOR_MUTED}>
+                    <Typography variant="caption" color={'var(--color-muted)'}>
                       {Math.round(bottleMl * value)} ml
                     </Typography>
                   </button>

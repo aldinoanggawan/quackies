@@ -18,7 +18,7 @@ export const OnboardingCTA = ({
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: animationDelay }}
-    style={{ width: '100%' }}
+    className="w-full"
   >
     <Button onClick={onClick} color={color}>
       {label}

@@ -28,15 +28,7 @@ const MainLayout = () => (
 );
 
 const Placeholder = ({ name }: { name: string }) => (
-  <div
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100dvh',
-      color: 'var(--color-muted)',
-    }}
-  >
+  <div className="flex min-h-[100dvh] items-center justify-center text-muted">
     {name}
   </div>
 );

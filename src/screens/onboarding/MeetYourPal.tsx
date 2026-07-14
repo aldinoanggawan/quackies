@@ -6,11 +6,6 @@ import { useOnboarding } from '../../store/useOnboarding';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
 import { ScreenContainer } from '../../components/ScreenContainer';
 import { Typography } from '../../components/ui/Typography';
-import {
-  COLOR_PRIMARY,
-  COLOR_WARM_CARD_BG,
-  COLOR_PRIMARY_TAG_BG,
-} from '../../colors';
 import { ProgressDots } from '../../components/ProgressDots';
 import { TRANSITION_DURATION_MS } from '../../constants';
 
@@ -39,67 +34,28 @@ export const MeetYourPal = () => {
     <ScreenContainer>
       <ProgressDots current={4} />
 
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          gap: 20,
-        }}
-      >
+      <div className="flex flex-1 flex-col justify-center gap-5">
         {/* Card */}
-        <div
-          style={{
-            background: COLOR_WARM_CARD_BG,
-            borderRadius: 24,
-            padding: '28px 24px 28px',
-            position: 'relative',
-            boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
+        <div className="relative flex flex-col items-center rounded-3xl bg-surface-warm p-[28px_24px_28px] shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
           {/* Speech bubble */}
           <motion.div
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              position: 'absolute',
-              top: 40,
-              right: 18,
-              background: 'white',
-              border: '1.5px solid var(--color-border)',
-              borderRadius: '14px 14px 14px 4px',
-              padding: '8px 12px',
-              boxShadow: '0 2px 10px rgba(0,0,0,0.07)',
-              maxWidth: 100,
-              lineHeight: 1.4,
-            }}
+            className="absolute right-[18px] top-10 max-w-[100px] rounded-[14px_14px_14px_4px] border-[1.5px] border-line bg-white p-[8px_12px] leading-[1.4] shadow-[0_2px_10px_rgba(0,0,0,0.07)]"
           >
             <Typography variant="label">Quack! Nice to meet you! 🐥</Typography>
           </motion.div>
 
           {/* Pulsing ring + excited duck */}
-          <div style={{ marginTop: 80 }}>
+          <div className="mt-20">
             <PulsingDuck emotion="excited" size={110} />
           </div>
 
           {/* Name tag */}
-          <div
-            style={{
-              background: COLOR_PRIMARY_TAG_BG,
-              border: '1px solid var(--color-border)',
-              borderRadius: 20,
-              padding: '4px 16px',
-              marginBottom: 40,
-              textAlign: 'center',
-            }}
-          >
+          <div className="mb-10 rounded-[20px] border border-line bg-surface-brand-subtle p-[4px_16px] text-center">
             <Typography variant="label" color="var(--color-muted)">
               your pal /{' '}
-              <strong style={{ color: COLOR_PRIMARY }}>
+              <strong className="text-brand">
                 {name.trim() || 'Quackers'}
               </strong>
             </Typography>
@@ -111,7 +67,7 @@ export const MeetYourPal = () => {
           <Typography
             variant="input-label"
             color="var(--color-muted)"
-            style={{ display: 'block', marginBottom: 6 }}
+            className="mb-1.5 block"
           >
             Give your pal a name
           </Typography>
@@ -121,40 +77,21 @@ export const MeetYourPal = () => {
             onChange={(e) => setName(e.target.value)}
             maxLength={20}
             placeholder="Enter name"
-            style={{
-              width: '100%',
-              boxSizing: 'border-box',
-              background: 'white',
-              border: '2px solid var(--color-border)',
-              borderRadius: 14,
-              padding: '14px 16px',
-              fontSize: 17,
-              fontWeight: 500,
-              color: 'var(--color-dark)',
-              outline: 'none',
-              fontFamily: 'inherit',
-              transition: 'border-color 0.2s',
-            }}
-            onFocus={(e) => (e.target.style.borderColor = COLOR_PRIMARY)}
-            onBlur={(e) => (e.target.style.borderColor = 'var(--color-border)')}
+            className="box-border w-full rounded-[14px] border-2 border-line bg-white p-[14px_16px] text-[17px] font-medium text-ink outline-none transition-colors duration-200 [font-family:inherit] focus:border-brand"
           />
         </div>
 
         {/* Quick-pick chips */}
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <div className="flex flex-wrap gap-2">
           {QUICK_NAMES.map((n) => (
             <button
               key={n}
               onClick={() => setName(n)}
-              style={{
-                background: name === n ? COLOR_PRIMARY : COLOR_PRIMARY_TAG_BG,
-                border: `1.5px solid ${name === n ? COLOR_PRIMARY : 'var(--color-border)'}`,
-                borderRadius: 100,
-                padding: '6px 14px',
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-                fontFamily: 'inherit',
-              }}
+              className={
+                name === n
+                  ? 'cursor-pointer rounded-full border-[1.5px] border-brand bg-brand p-[6px_14px] font-[inherit] transition-all duration-200'
+                  : 'cursor-pointer rounded-full border-[1.5px] border-line bg-surface-brand-subtle p-[6px_14px] font-[inherit] transition-all duration-200'
+              }
             >
               <Typography
                 variant="label-strong"
@@ -171,14 +108,14 @@ export const MeetYourPal = () => {
           <Typography
             variant="heading"
             as="h1"
-            style={{ margin: '0 0 10px', letterSpacing: -0.4 }}
+            className="m-[0_0_10px] tracking-[-0.4px]"
           >
             Meet your pal
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            style={{ margin: 0, lineHeight: 1.65 }}
+            className="m-0 leading-[1.65]"
           >
             Name your duck companion — they'll cheer you on every single day.
           </Typography>

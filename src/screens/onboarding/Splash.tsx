@@ -4,23 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { PulsingDuck } from '../../components/PulsingDuck';
 import { LoadingScreen } from '../../components/LoadingScreen';
 import { OnboardingCTA } from '../../components/OnboardingCTA';
-import { SCREEN_MAX_WIDTH } from '../../constants';
 import { Typography } from '../../components/ui/Typography';
 import { useAuth } from '../../hooks/useAuth';
 import { getProfile } from '../../lib/db';
-import {
-  COLOR_PRIMARY,
-  COLOR_TEAL,
-  COLOR_PRIMARY_SURFACE,
-  COLOR_PRIMARY_BORDER,
-} from '../../colors';
-
-const BLOB_BASE: React.CSSProperties = {
-  position: 'absolute',
-  borderRadius: '50%',
-  filter: 'blur(52px)',
-  pointerEvents: 'none',
-};
 
 export const Splash = () => {
   const navigate = useNavigate();
@@ -38,31 +24,12 @@ export const Splash = () => {
   if (loading || session) return <LoadingScreen />;
 
   return (
-    <div
-      style={{
-        minHeight: '100dvh',
-        background: 'var(--color-bg)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '48px 24px 44px',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
+    <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-canvas p-[48px_24px_44px]">
       {/* Warm yellow blob — top right */}
       <motion.div
         animate={{ scale: [1, 1.12, 1], x: [0, 14, 0], y: [0, -14, 0] }}
         transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          ...BLOB_BASE,
-          top: -90,
-          right: -90,
-          width: 280,
-          height: 280,
-          background: 'rgba(232,212,74,0.55)',
-        }}
+        className="pointer-events-none absolute right-[-90px] top-[-90px] h-[280px] w-[280px] rounded-full bg-[rgba(232,212,74,0.55)] blur-[52px]"
       />
       {/* Teal blob — bottom left */}
       <motion.div
@@ -73,14 +40,7 @@ export const Splash = () => {
           ease: 'easeInOut',
           delay: 2,
         }}
-        style={{
-          ...BLOB_BASE,
-          bottom: -110,
-          left: -90,
-          width: 300,
-          height: 300,
-          background: 'rgba(59,184,138,0.45)',
-        }}
+        className="pointer-events-none absolute bottom-[-110px] left-[-90px] h-[300px] w-[300px] rounded-full bg-[rgba(59,184,138,0.45)] blur-[52px]"
       />
       {/* Pink blob — bottom right */}
       <motion.div
@@ -91,41 +51,18 @@ export const Splash = () => {
           ease: 'easeInOut',
           delay: 4,
         }}
-        style={{
-          ...BLOB_BASE,
-          bottom: -70,
-          right: -70,
-          width: 220,
-          height: 220,
-          background: 'rgba(232,64,96,0.35)',
-        }}
+        className="pointer-events-none absolute bottom-[-70px] right-[-70px] h-[220px] w-[220px] rounded-full bg-[rgba(232,64,96,0.35)] blur-[52px]"
       />
 
-      <div
-        style={{
-          width: '100%',
-          maxWidth: SCREEN_MAX_WIDTH,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          zIndex: 1,
-        }}
-      >
+      <div className="z-[1] flex w-full max-w-screen flex-col items-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          style={{
-            background: COLOR_PRIMARY_SURFACE,
-            border: `1.5px solid ${COLOR_PRIMARY_BORDER}`,
-            borderRadius: 20,
-            padding: '5px 14px',
-            marginBottom: 28,
-            letterSpacing: 0.2,
-          }}
+          className="mb-7 rounded-[20px] border-[1.5px] border-line-brand bg-surface-brand-pale p-[5px_14px] tracking-[0.2px]"
         >
-          <Typography variant="label-strong" color={COLOR_PRIMARY}>
+          <Typography variant="label-strong" color={'var(--color-brand)'}>
             ✦ Your pocket nutrition pal
           </Typography>
         </motion.div>
@@ -135,7 +72,7 @@ export const Splash = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25, duration: 0.4 }}
-          style={{ marginBottom: 28 }}
+          className="mb-7"
         >
           <PulsingDuck emotion="happy" size={120} />
         </motion.div>
@@ -149,15 +86,10 @@ export const Splash = () => {
           <Typography
             variant="heading-lg"
             as="h1"
-            style={{
-              textAlign: 'center',
-              lineHeight: 1.15,
-              margin: '0 0 12px',
-              letterSpacing: -0.5,
-            }}
+            className="m-[0_0_12px] text-center leading-[1.15] tracking-[-0.5px]"
           >
-            Eat well, <span style={{ color: COLOR_PRIMARY }}>track</span> with{' '}
-            <span style={{ color: COLOR_TEAL }}>joy</span>
+            Eat well, <span className="text-brand">track</span> with{' '}
+            <span className="text-success">joy</span>
           </Typography>
         </motion.div>
 
@@ -170,12 +102,7 @@ export const Splash = () => {
           <Typography
             variant="body"
             color="var(--color-muted)"
-            style={{
-              textAlign: 'center',
-              lineHeight: 1.65,
-              margin: '0 0 28px',
-              maxWidth: 300,
-            }}
+            className="m-[0_0_28px] max-w-[300px] text-center leading-[1.65]"
           >
             Your playful daily companion for calories, hydration, and healthy
             habits.
@@ -187,25 +114,14 @@ export const Splash = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          style={{
-            display: 'flex',
-            gap: 8,
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            marginBottom: 36,
-          }}
+          className="mb-9 flex flex-wrap justify-center gap-2"
         >
           {['Calorie tracking', 'Hydration', 'Streaks'].map((tag) => (
             <Typography
               key={tag}
               variant="label"
               color="var(--color-muted)"
-              style={{
-                background: 'rgba(240,228,192,0.85)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 20,
-                padding: '5px 14px',
-              }}
+              className="rounded-[20px] border border-line bg-[rgba(240,228,192,0.85)] p-[5px_14px]"
             >
               {tag}
             </Typography>

@@ -1,5 +1,3 @@
-import { COLOR_MUTED } from '../../colors';
-
 interface CameraIconProps {
   size?: number;
   color?: string;
@@ -7,7 +5,7 @@ interface CameraIconProps {
 
 export const CameraIcon = ({
   size = 28,
-  color = COLOR_MUTED,
+  color = 'var(--color-muted)',
 }: CameraIconProps) => (
   <svg
     width={size}

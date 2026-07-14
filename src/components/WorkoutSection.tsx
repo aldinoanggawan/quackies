@@ -4,13 +4,7 @@ import { WorkoutCard } from './WorkoutCard';
 import { logWorkout } from '../lib/db';
 import { toDateString } from '../lib/dateHelpers';
 import type { Workout } from '../types/models';
-import {
-  COLOR_BG,
-  COLOR_BORDER,
-  COLOR_MUTED,
-  COLOR_DARK,
-  COLOR_PRIMARY,
-} from '../colors';
+import { classNames } from '../lib/classNames';
 
 interface WorkoutSectionProps {
   workouts: Workout[];
@@ -18,6 +12,9 @@ interface WorkoutSectionProps {
   date: Date;
   onSaved: () => void;
 }
+
+const inputClass =
+  'box-border w-full rounded-[10px] border border-line bg-transparent p-[10px_12px] text-[15px] font-medium text-ink outline-none [font-family:inherit]';
 
 export const WorkoutSection = ({
   workouts,
@@ -60,36 +57,14 @@ export const WorkoutSection = ({
     onSaved();
   };
 
-  const inputStyle = {
-    fontSize: 15,
-    fontWeight: 500,
-    color: COLOR_DARK,
-    border: `1px solid ${COLOR_BORDER}`,
-    borderRadius: 10,
-    padding: '10px 12px',
-    outline: 'none',
-    fontFamily: 'inherit',
-    background: 'transparent',
-    width: '100%',
-    boxSizing: 'border-box' as const,
-  };
-
   return (
     <div>
-      {/* Header */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: 12,
-        }}
-      >
+      <div className="mb-3 flex items-center justify-between">
         <Typography
           variant="label-strong"
           as="p"
-          color={COLOR_MUTED}
-          style={{ margin: 0 }}
+          color={'var(--color-muted)'}
+          className="m-0"
         >
           Workout
         </Typography>
@@ -97,54 +72,35 @@ export const WorkoutSection = ({
           <button
             type="button"
             onClick={() => setEditMode((m) => !m)}
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 0,
-              fontFamily: 'inherit',
-            }}
+            className="cursor-pointer border-0 bg-transparent p-0 font-[inherit]"
           >
-            <Typography variant="label-strong" color={COLOR_PRIMARY}>
+            <Typography variant="label-strong" color={'var(--color-brand)'}>
               {editMode ? 'done' : 'edit'}
             </Typography>
           </button>
         )}
       </div>
 
-      {/* Workout cards */}
       {workouts.length > 0 && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="flex flex-col gap-2.5">
           {workouts.map((workout) => (
             <WorkoutCard key={workout.id} workout={workout} onSaved={onSaved} />
           ))}
         </div>
       )}
 
-      {/* Add form */}
       {showAddForm ? (
         <div
-          style={{
-            marginTop: workouts.length > 0 ? 10 : 0,
-            background: 'white',
-            border: `1px solid ${COLOR_BORDER}`,
-            borderRadius: 16,
-            padding: '16px 14px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}
+          className={classNames(
+            workouts.length > 0 ? 'mt-2.5' : 'mt-0',
+            'flex flex-col gap-3 rounded-2xl border border-line bg-white p-[16px_14px]',
+          )}
         >
           <Typography
             variant="label-strong"
             as="p"
-            color={COLOR_MUTED}
-            style={{
-              margin: 0,
-              textTransform: 'uppercase',
-              letterSpacing: 0.4,
-              fontSize: 11,
-            }}
+            color={'var(--color-muted)'}
+            className="m-0 text-[11px] uppercase tracking-[0.4px]"
           >
             Add workout
           </Typography>
@@ -155,7 +111,7 @@ export const WorkoutSection = ({
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoFocus
-            style={inputStyle}
+            className={inputClass}
           />
 
           <input
@@ -163,37 +119,23 @@ export const WorkoutSection = ({
             placeholder="Duration (min)"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
-            style={inputStyle}
+            className={inputClass}
           />
 
-          {/* Kcal mode toggle */}
-          <div
-            style={{
-              display: 'flex',
-              background: COLOR_BG,
-              border: `1px solid ${COLOR_BORDER}`,
-              borderRadius: 10,
-              overflow: 'hidden',
-            }}
-          >
+          <div className="flex overflow-hidden rounded-[10px] border border-line bg-canvas">
             {(['estimate', 'manual'] as const).map((mode) => (
               <button
                 key={mode}
                 type="button"
                 onClick={() => setKcalMode(mode)}
-                style={{
-                  flex: 1,
-                  padding: '8px 0',
-                  border: 'none',
-                  background: kcalMode === mode ? COLOR_DARK : 'transparent',
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
-                  transition: 'background 0.15s',
-                }}
+                className={classNames(
+                  'flex-1 cursor-pointer border-0 p-[8px_0] font-[inherit] transition-colors duration-150',
+                  kcalMode === mode ? 'bg-ink' : 'bg-transparent',
+                )}
               >
                 <Typography
                   variant="label-strong"
-                  color={kcalMode === mode ? 'white' : COLOR_MUTED}
+                  color={kcalMode === mode ? 'white' : 'var(--color-muted)'}
                 >
                   {mode === 'estimate'
                     ? 'Estimate for me'
@@ -206,8 +148,8 @@ export const WorkoutSection = ({
           {kcalMode === 'estimate' && durationMin > 0 && (
             <Typography
               variant="caption"
-              color={COLOR_MUTED}
-              style={{ marginTop: -4 }}
+              color={'var(--color-muted)'}
+              className="mt-[-4px]"
             >
               App estimate: ~{appEstimate} kcal based on {durationMin} min
             </Typography>
@@ -219,25 +161,17 @@ export const WorkoutSection = ({
               placeholder="Kcal burned"
               value={kcal}
               onChange={(e) => setKcal(e.target.value)}
-              style={inputStyle}
+              className={inputClass}
             />
           )}
 
-          <div style={{ display: 'flex', gap: 8 }}>
+          <div className="flex gap-2">
             <button
               type="button"
               onClick={() => setShowAddForm(false)}
-              style={{
-                flex: 1,
-                background: 'transparent',
-                border: `1px solid ${COLOR_BORDER}`,
-                borderRadius: 12,
-                padding: '10px 0',
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-              }}
+              className="flex-1 cursor-pointer rounded-xl border border-line bg-transparent p-[10px_0] font-[inherit]"
             >
-              <Typography variant="label-strong" color={COLOR_MUTED}>
+              <Typography variant="label-strong" color={'var(--color-muted)'}>
                 Cancel
               </Typography>
             </button>
@@ -245,16 +179,7 @@ export const WorkoutSection = ({
               type="button"
               onClick={handleSave}
               disabled={!name.trim() || saving}
-              style={{
-                flex: 1,
-                background: COLOR_DARK,
-                border: 'none',
-                borderRadius: 12,
-                padding: '10px 0',
-                cursor: name.trim() ? 'pointer' : 'not-allowed',
-                fontFamily: 'inherit',
-                opacity: name.trim() ? 1 : 0.4,
-              }}
+              className="flex-1 cursor-pointer rounded-xl border-0 bg-ink p-[10px_0] font-[inherit] disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Typography variant="label-strong" color="white">
                 {saving ? 'Saving…' : 'Save'}
@@ -267,16 +192,10 @@ export const WorkoutSection = ({
           <button
             type="button"
             onClick={() => setShowAddForm(true)}
-            style={{
-              marginTop: workouts.length > 0 ? 10 : 0,
-              width: '100%',
-              background: COLOR_DARK,
-              border: 'none',
-              borderRadius: 14,
-              padding: '13px 0',
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-            }}
+            className={classNames(
+              workouts.length > 0 ? 'mt-2.5' : 'mt-0',
+              'w-full cursor-pointer rounded-[14px] border-0 bg-ink p-[13px_0] font-[inherit]',
+            )}
           >
             <Typography variant="label-strong" color="white">
               {workouts.length === 0

@@ -15,55 +15,32 @@ export const Chip = ({
   value,
   accentColor,
   valueColor,
-  borderColor = 'var(--color-border)',
+  borderColor = 'var(--color-line)',
   background = 'white',
   progress,
 }: ChipProps) => (
   <div
-    style={{
-      background,
-      borderRadius: 14,
-      borderWidth: 1,
-      borderColor,
-      padding: '6px 10px',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 2,
-      flex: 1,
-    }}
+    className="flex flex-1 flex-col gap-0.5 rounded-[14px] border p-[6px_10px]"
+    style={{ background, borderColor }}
   >
     <Typography
       variant="caption"
       color="var(--color-muted)"
-      style={{ textAlign: 'center' }}
+      className="text-center"
     >
       {label}
     </Typography>
     <Typography
       variant="label"
-      color={valueColor ?? 'var(--color-dark)'}
-      style={{ lineHeight: 1, textAlign: 'center' }}
+      color={valueColor ?? 'var(--color-ink)'}
+      className="text-center leading-none"
     >
       {value}
     </Typography>
-    <div
-      style={{
-        height: 3,
-        borderRadius: 99,
-        background: 'rgba(0,0,0,0.07)',
-        marginTop: 6,
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
+    <div className="relative mt-1.5 h-[3px] overflow-hidden rounded-full bg-black/10">
       <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          right: `${(1 - progress) * 100}%`,
-          background: accentColor,
-          borderRadius: 99,
-        }}
+        className="absolute inset-0 rounded-full"
+        style={{ right: `${(1 - progress) * 100}%`, background: accentColor }}
       />
     </div>
   </div>

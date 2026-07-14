@@ -1,32 +1,12 @@
 import { useRef, useState } from 'react';
 import { StepperIcon } from './icons/StepperIcon';
 import { Typography } from './ui/Typography';
-import {
-  COLOR_BORDER,
-  COLOR_MUTED,
-  COLOR_PRIMARY_BORDER,
-  COLOR_PRIMARY_CARD_BG,
-} from '../colors';
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 
-const buttonStyle: React.CSSProperties = {
-  width: 28,
-  height: 28,
-  borderRadius: 8,
-  border: `2px solid ${COLOR_PRIMARY_BORDER}`,
-  background: COLOR_PRIMARY_CARD_BG,
-  color: COLOR_MUTED,
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontFamily: 'inherit',
-  lineHeight: 1,
-  padding: 0,
-  appearance: 'none',
-};
+const stepperButtonClass =
+  'flex h-7 w-7 cursor-pointer appearance-none items-center justify-center rounded-lg border-2 border-line-brand bg-surface-brand p-0 font-[inherit] leading-none text-muted disabled:cursor-default disabled:opacity-30';
 
 export const Stepper = ({
   label,
@@ -78,52 +58,25 @@ export const Stepper = ({
   };
 
   return (
-    <div
-      style={{
-        border: `2px solid ${COLOR_BORDER}`,
-        borderRadius: 14,
-        background: 'white',
-        padding: '10px 14px',
-        boxSizing: 'border-box',
-      }}
-    >
+    <div className="box-border rounded-[14px] border-2 border-line bg-white p-[10px_14px]">
       <Typography
         variant="caption"
-        color={COLOR_MUTED}
-        style={{
-          display: 'block',
-          letterSpacing: '0.04em',
-          textTransform: 'uppercase',
-          marginBottom: 6,
-        }}
+        color={'var(--color-muted)'}
+        className="mb-1.5 block uppercase tracking-[0.04em]"
       >
         {label}
       </Typography>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 6,
-          width: '100%',
-          boxSizing: 'border-box',
-        }}
-      >
+      <div className="box-border flex w-full items-center justify-between gap-1.5">
         <button
           type="button"
           aria-label={`Decrease ${label.toLowerCase()}`}
           onClick={() => update(-1)}
           disabled={value <= min}
-          style={{
-            ...buttonStyle,
-            ...(value <= min ? { opacity: 0.3, cursor: 'default' } : {}),
-          }}
+          className={stepperButtonClass}
         >
           <StepperIcon type="minus" />
         </button>
-        <div
-          style={{ textAlign: 'center', fontVariantNumeric: 'tabular-nums' }}
-        >
+        <div className="text-center tabular-nums">
           {editing ? (
             <input
               ref={inputRef}
@@ -138,45 +91,22 @@ export const Stepper = ({
                 if (e.key === 'Enter') commitEdit();
                 if (e.key === 'Escape') setEditing(false);
               }}
-              style={{
-                width: 56,
-                height: 17,
-                textAlign: 'center',
-                fontVariantNumeric: 'tabular-nums',
-                border: 'none',
-                outline: 'none',
-                background: 'transparent',
-                fontFamily: 'inherit',
-                fontSize: 17,
-                fontWeight: 500,
-                lineHeight: 1,
-                padding: 0,
-                margin: 0,
-                display: 'block',
-                boxSizing: 'content-box',
-                MozAppearance: 'textfield',
-                WebkitAppearance: 'none',
-              }}
+              className="m-0 block h-[17px] w-14 appearance-none border-0 bg-transparent p-0 text-center text-[17px] font-medium leading-none outline-none [box-sizing:content-box] [font-family:inherit] [font-variant-numeric:tabular-nums] [MozAppearance:textfield] [WebkitAppearance:none]"
             />
           ) : (
             <Typography
               variant="input"
               as="p"
               onClick={startEditing}
-              style={{
-                lineHeight: 1,
-                fontVariantNumeric: 'tabular-nums',
-                margin: 0,
-                cursor: 'text',
-              }}
+              className="m-0 cursor-text leading-none tabular-nums"
             >
               {formatter(value)}
             </Typography>
           )}
           <Typography
             variant="caption"
-            color={COLOR_MUTED}
-            style={{ display: 'block', marginTop: 1 }}
+            color={'var(--color-muted)'}
+            className="mt-px block"
           >
             {unit}
           </Typography>
@@ -186,10 +116,7 @@ export const Stepper = ({
           aria-label={`Increase ${label.toLowerCase()}`}
           onClick={() => update(1)}
           disabled={value >= max}
-          style={{
-            ...buttonStyle,
-            ...(value >= max ? { opacity: 0.3, cursor: 'default' } : {}),
-          }}
+          className={stepperButtonClass}
         >
           <StepperIcon type="plus" />
         </button>

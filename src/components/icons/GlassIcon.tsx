@@ -1,5 +1,3 @@
-import { COLOR_TEAL } from '../../colors';
-
 export const GlassIcon = ({
   index,
   value,
@@ -21,15 +19,15 @@ export const GlassIcon = ({
       <path
         d="M3 3 L5 25 Q5 28 11 28 Q17 28 17 25 L19 3 Z"
         fill="none"
-        stroke="#B0D4EA"
+        stroke="var(--color-water-line)"
         strokeWidth="1.5"
         strokeLinejoin="round"
       />
       {amount > 0 && (
         <path
           d="M3 3 L5 25 Q5 28 11 28 Q17 28 17 25 L19 3 Z"
-          fill={COLOR_TEAL}
-          stroke={COLOR_TEAL}
+          fill={'var(--color-success)'}
+          stroke={'var(--color-success)'}
           strokeWidth="1.5"
           strokeLinejoin="round"
           clipPath={amount < 1 ? `url(#fill-${index})` : undefined}

@@ -13,7 +13,7 @@ export const OnboardingLayout = () => {
   const element = useOutlet();
 
   return (
-    <div style={{ position: 'fixed', inset: 0, overflow: 'hidden' }}>
+    <div className="fixed inset-0 overflow-hidden">
       <AnimatePresence mode="sync">
         <motion.div
           key={location.pathname}
@@ -25,7 +25,7 @@ export const OnboardingLayout = () => {
             ease: 'easeInOut',
             duration: TRANSITION_DURATION_MS / 1000,
           }}
-          style={{ position: 'absolute', inset: 0, overflowY: 'auto' }}
+          className="absolute inset-0 overflow-y-auto"
         >
           <FrozenOutlet>{element}</FrozenOutlet>
         </motion.div>

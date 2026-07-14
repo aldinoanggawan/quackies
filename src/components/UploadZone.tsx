@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Typography } from './ui/Typography';
 import { CameraIcon } from './icons/CameraIcon';
-import { COLOR_BORDER, COLOR_MUTED, COLOR_WARM_CARD_BG } from '../colors';
+import { classNames } from '../lib/classNames';
 
 interface UploadZoneProps {
   label: string;
@@ -35,50 +35,33 @@ export const UploadZone = ({
 
   return (
     <div
-      style={{
-        flex: full ? undefined : 1,
-        width: full ? '100%' : undefined,
-        opacity: disabled ? 0.4 : 1,
-        pointerEvents: disabled ? 'none' : 'auto',
-      }}
+      className={classNames(
+        full ? 'w-full' : 'flex-1',
+        disabled && 'pointer-events-none opacity-40',
+      )}
     >
       <Typography
         variant="label-strong"
-        color={COLOR_MUTED}
-        style={{ display: 'block', marginBottom: 6 }}
+        color={'var(--color-muted)'}
+        className="mb-1.5 block"
       >
         {label}
       </Typography>
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        style={{
-          width: '100%',
-          aspectRatio,
-          background: photo ? 'transparent' : COLOR_WARM_CARD_BG,
-          border: `2px dashed ${COLOR_BORDER}`,
-          borderRadius: 16,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 8,
-          cursor: 'pointer',
-          overflow: 'hidden',
-          padding: 0,
-          position: 'relative',
-        }}
+        className={classNames(
+          'relative flex w-full cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border-2 border-dashed border-line p-0',
+          photo ? 'bg-transparent' : 'bg-surface-warm',
+        )}
+        style={{ aspectRatio }}
       >
         {photo ? (
-          <img
-            src={photo}
-            alt={label}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
+          <img src={photo} alt={label} className="h-full w-full object-cover" />
         ) : (
           <>
             <CameraIcon />
-            <Typography variant="caption" color={COLOR_MUTED}>
+            <Typography variant="caption" color={'var(--color-muted)'}>
               {emptyHint ??
                 (full
                   ? 'Tap to add your meal photo'
@@ -91,7 +74,7 @@ export const UploadZone = ({
         ref={inputRef}
         type="file"
         accept="image/*"
-        style={{ display: 'none' }}
+        className="hidden"
         onChange={handleFile}
       />
     </div>

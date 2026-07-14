@@ -12,14 +12,6 @@ import { useOnboarding } from '../../store/useOnboarding';
 import type { ActivityLevel, Sex } from '../../types/models';
 import { useAuth, getUsername } from '../../hooks/useAuth';
 import { saveProfile } from '../../lib/db';
-import {
-  COLOR_BORDER,
-  COLOR_DARK,
-  COLOR_MUTED,
-  COLOR_PRIMARY,
-  COLOR_PRIMARY_BORDER,
-  COLOR_PRIMARY_CARD_BG,
-} from '../../colors';
 import { calculateDailyBudget, calculateTdee } from '../../lib/tdee';
 
 const ACTIVITY_OPTIONS: {
@@ -108,23 +100,16 @@ export const ProfileSetup = () => {
   };
 
   return (
-    <ScreenContainer style={{ gap: 20, paddingTop: 38 }}>
-      <header
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          gap: 16,
-          alignItems: 'flex-start',
-        }}
-      >
-        <div style={{ flex: 1 }}>
-          <Typography variant="subheading" color={COLOR_MUTED}>
+    <ScreenContainer className="gap-5 pt-[38px]">
+      <header className="flex items-start justify-between gap-4">
+        <div className="flex-1">
+          <Typography variant="subheading" color={'var(--color-muted)'}>
             Almost there!
           </Typography>
           <Typography
             variant="heading-lg"
             as="h1"
-            style={{ margin: '8px 0 0', lineHeight: 1.16 }}
+            className="m-[8px_0_0] leading-[1.16]"
           >
             Tell us about yourself
           </Typography>
@@ -132,19 +117,13 @@ export const ProfileSetup = () => {
         <motion.div
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 2.4, ease: 'easeInOut', repeat: Infinity }}
-          style={{ flexShrink: 0, marginTop: 4 }}
+          className="mt-1 shrink-0"
         >
           <Duck emotion="happy" />
         </motion.div>
       </header>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-          gap: 12,
-        }}
-      >
+      <div className="grid grid-cols-2 gap-3">
         <Stepper
           label="Age"
           value={age}
@@ -183,7 +162,7 @@ export const ProfileSetup = () => {
         />
       </div>
 
-      <div style={{ display: 'flex', gap: 10 }}>
+      <div className="flex gap-2.5">
         {(['male', 'female'] as Sex[]).map((option) => {
           const isSelected = sex === option;
           return (
@@ -191,29 +170,16 @@ export const ProfileSetup = () => {
               key={option}
               type="button"
               onClick={() => setSex(option)}
-              style={{
-                flex: 1,
-                borderRadius: 14,
-                border: `1.5px solid ${isSelected ? COLOR_PRIMARY : COLOR_BORDER}`,
-                background: isSelected ? COLOR_PRIMARY_CARD_BG : 'white',
-                color: COLOR_DARK,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                padding: '11px 8px',
-                textAlign: 'center',
-                transition: 'all 0.15s',
-              }}
+              className={
+                isSelected
+                  ? 'flex-1 cursor-pointer rounded-[14px] border-[1.5px] border-brand bg-surface-brand p-[11px_8px] text-center text-ink transition-all duration-150 [font-family:inherit]'
+                  : 'flex-1 cursor-pointer rounded-[14px] border-[1.5px] border-line bg-white p-[11px_8px] text-center text-ink transition-all duration-150 [font-family:inherit]'
+              }
             >
-              <span
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  marginBottom: 3,
-                }}
-              >
+              <span className="mb-[3px] flex justify-center">
                 <SexIcon sex={option} />
               </span>
-              <Typography variant="label" color={COLOR_MUTED}>
+              <Typography variant="label" color={'var(--color-muted)'}>
                 {option === 'male' ? 'Male' : 'Female'}
               </Typography>
             </button>
@@ -225,12 +191,12 @@ export const ProfileSetup = () => {
         <Typography
           variant="label-strong"
           as="p"
-          color={COLOR_MUTED}
-          style={{ margin: '0 0 6px' }}
+          color={'var(--color-muted)'}
+          className="m-[0_0_6px]"
         >
           Activity level
         </Typography>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <div className="flex flex-col gap-2">
           {ACTIVITY_OPTIONS.map((option) => {
             const isSelected = activityLevel === option.id;
             return (
@@ -238,39 +204,25 @@ export const ProfileSetup = () => {
                 key={option.id}
                 type="button"
                 onClick={() => setActivityLevel(option.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 14,
-                  borderRadius: 14,
-                  border: `2px solid ${isSelected ? COLOR_PRIMARY : COLOR_BORDER}`,
-                  background: isSelected ? COLOR_PRIMARY_CARD_BG : 'white',
-                  padding: '10px 14px',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
-                }}
+                className={
+                  isSelected
+                    ? 'flex cursor-pointer items-center gap-[14px] rounded-[14px] border-2 border-brand bg-surface-brand p-[10px_14px] text-left [font-family:inherit]'
+                    : 'flex cursor-pointer items-center gap-[14px] rounded-[14px] border-2 border-line bg-white p-[10px_14px] text-left [font-family:inherit]'
+                }
               >
                 <span
                   aria-hidden="true"
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    border: `2px solid ${isSelected ? COLOR_PRIMARY : COLOR_BORDER}`,
-                    background: isSelected ? COLOR_PRIMARY : 'white',
-                    boxSizing: 'border-box',
-                    flexShrink: 0,
-                    boxShadow: isSelected
-                      ? `inset 0 0 0 4px ${COLOR_PRIMARY}`
-                      : undefined,
-                  }}
+                  className={
+                    isSelected
+                      ? 'box-border h-2.5 w-2.5 shrink-0 rounded-full border-2 border-brand bg-brand shadow-[inset_0_0_0_4px_var(--color-brand)]'
+                      : 'box-border h-2.5 w-2.5 shrink-0 rounded-full border-2 border-line bg-white'
+                  }
                 />
-                <span style={{ flex: 1 }}>
-                  <Typography variant="label" style={{ display: 'block' }}>
+                <span className="flex-1">
+                  <Typography variant="label" className="block">
                     {option.label}
                   </Typography>
-                  <Typography variant="caption" color={COLOR_MUTED}>
+                  <Typography variant="caption" color={'var(--color-muted)'}>
                     {option.subtitle}
                   </Typography>
                 </span>
@@ -280,36 +232,22 @@ export const ProfileSetup = () => {
         </div>
       </section>
 
-      <div
-        style={{
-          background: COLOR_PRIMARY_CARD_BG,
-          border: `2px solid ${COLOR_PRIMARY_BORDER}`,
-          borderRadius: 16,
-          padding: '12px 16px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className="flex items-center justify-between rounded-2xl border-2 border-line-brand bg-surface-brand p-[12px_16px]">
         <div>
-          <Typography variant="body" color={COLOR_MUTED}>
+          <Typography variant="body" color={'var(--color-muted)'}>
             Your estimated daily budget
           </Typography>
           <Typography
             variant="heading"
             as="p"
-            style={{
-              margin: '4px 0 0',
-              fontVariantNumeric: 'tabular-nums',
-              lineHeight: 1.05,
-            }}
+            className="m-[4px_0_0] leading-[1.05] tabular-nums"
           >
             {dailyBudgetKcal.toLocaleString()} kcal
           </Typography>
           <Typography
             variant="label"
-            color={COLOR_MUTED}
-            style={{ display: 'block', marginTop: 4 }}
+            color={'var(--color-muted)'}
+            className="mt-1 block"
           >
             {goalLabel} · {budgetSub}
           </Typography>
@@ -317,7 +255,7 @@ export const ProfileSetup = () => {
         <Duck emotion="proud" size={62} />
       </div>
 
-      <div style={{ paddingTop: 2 }}>
+      <div className="pt-0.5">
         <OnboardingCTA
           onClick={handleNext}
           label="Calculate my plan →"

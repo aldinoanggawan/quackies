@@ -1,5 +1,4 @@
 import { Typography } from './ui/Typography';
-import { COLOR_PRIMARY_CARD_BG, COLOR_BORDER, COLOR_PRIMARY } from '../colors';
 
 interface LogButtonProps {
   onClick?: () => void;
@@ -8,18 +7,10 @@ interface LogButtonProps {
 export const LogButton = ({ onClick }: LogButtonProps) => (
   <button
     type="button"
-    className="log-btn"
+    className="cursor-pointer rounded-full border border-line bg-surface-brand px-2.5 py-px font-[inherit] transition-all duration-150 hover:border-brand hover:bg-surface-brand"
     onClick={onClick}
-    style={{
-      background: COLOR_PRIMARY_CARD_BG,
-      border: `1px solid ${COLOR_BORDER}`,
-      borderRadius: 999,
-      padding: '1px 10px',
-      cursor: 'pointer',
-      fontFamily: 'inherit',
-    }}
   >
-    <Typography variant="label-strong" color={COLOR_PRIMARY}>
+    <Typography variant="label-strong" color={'var(--color-brand)'}>
       + log
     </Typography>
   </button>

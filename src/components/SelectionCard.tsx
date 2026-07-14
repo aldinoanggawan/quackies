@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { CheckIcon } from './icons/CheckIcon';
 import { Typography } from './ui/Typography';
-import { COLOR_BG, COLOR_BORDER, COLOR_PRIMARY } from '../colors';
+import { classNames } from '../lib/classNames';
 
 export const SelectionCard = ({
   isSelected,
@@ -27,43 +27,26 @@ export const SelectionCard = ({
     whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
     onClick={onClick}
-    style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: 16,
-      background: isSelected ? COLOR_BG : 'white',
-      border: `2px solid ${isSelected ? COLOR_PRIMARY : COLOR_BORDER}`,
-      borderRadius: 20,
-      padding: '16px 20px',
-      cursor: 'pointer',
-      textAlign: 'left',
-      fontFamily: 'inherit',
-      transition: 'border-color 0.2s, background 0.2s',
-    }}
+    className={classNames(
+      'flex cursor-pointer items-center gap-4 rounded-[20px] border-2 p-[16px_20px] text-left font-[inherit] transition-colors duration-200',
+      isSelected ? 'border-brand bg-canvas' : 'border-line bg-white',
+    )}
   >
     <div
+      className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[14px] text-[26px] transition-colors duration-200"
       style={{
-        width: 52,
-        height: 52,
-        borderRadius: 14,
-        background: iconBg ?? (isSelected ? '#FFF3D4' : '#F5F5F5'),
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        fontSize: 26,
-        transition: 'background 0.2s',
+        background:
+          iconBg ??
+          (isSelected
+            ? 'var(--color-surface-brand)'
+            : 'var(--color-neutral-subtle)'),
       }}
     >
       {icon}
     </div>
 
-    <div style={{ flex: 1 }}>
-      <Typography
-        variant="label-strong"
-        as="div"
-        style={{ fontSize: 16, marginBottom: 4 }}
-      >
+    <div className="flex-1">
+      <Typography variant="label-strong" as="div" className="mb-1 text-base">
         {label}
       </Typography>
       <Typography variant="label" color="var(--color-muted)">
@@ -72,18 +55,10 @@ export const SelectionCard = ({
     </div>
 
     <div
-      style={{
-        width: 24,
-        height: 24,
-        borderRadius: '50%',
-        border: `2px solid ${isSelected ? COLOR_PRIMARY : COLOR_BORDER}`,
-        background: isSelected ? COLOR_PRIMARY : 'transparent',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-        transition: 'all 0.2s',
-      }}
+      className={classNames(
+        'flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200',
+        isSelected ? 'border-brand bg-brand' : 'border-line bg-transparent',
+      )}
     >
       {isSelected && <CheckIcon />}
     </div>
