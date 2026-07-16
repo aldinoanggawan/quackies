@@ -16,9 +16,9 @@ export const DailySummary = () => {
 
       <div className="flex flex-1 flex-col justify-center gap-7">
         {/* Card */}
-        <div className="relative overflow-visible rounded-3xl border border-line bg-white p-[24px_24px_20px] shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
+        <div className="relative overflow-visible rounded-3xl border border-line bg-white p-6 pb-5 shadow-card">
           {/* Calories remaining */}
-          <div className="pr-[90px]">
+          <div className="pr-24">
             <div className="flex items-baseline gap-1.5">
               <Typography
                 variant="display"
@@ -35,7 +35,7 @@ export const DailySummary = () => {
               variant="caption"
               as="p"
               color="var(--color-muted)"
-              className="m-[0_0_4px] uppercase tracking-[0.4px]"
+              className="mb-1 uppercase tracking-label"
             >
               Remaining today
             </Typography>
@@ -82,7 +82,7 @@ export const DailySummary = () => {
           </div>
 
           {/* Activity row */}
-          <div className="mt-[18px] flex items-center justify-between gap-2 rounded-[14px] border border-success bg-surface-success p-[10px_14px]">
+          <div className="mt-5 flex items-center justify-between gap-2 rounded-element border border-success bg-surface-success py-2.5 px-3.5">
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 shrink-0 rounded-full bg-success" />
               <Typography variant="label">Indoor cycling· 45 min</Typography>
@@ -102,14 +102,14 @@ export const DailySummary = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="m-[0_0_10px] tracking-[-0.4px]"
+            className="mb-2.5 tracking-heading"
           >
             Your day, at a glance
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="m-0 leading-[1.65]"
+            className="m-0 leading-body"
           >
             See exactly where you stand — calories eaten, burned, and left for
             the day.

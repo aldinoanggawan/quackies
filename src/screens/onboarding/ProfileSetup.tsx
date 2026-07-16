@@ -100,7 +100,7 @@ export const ProfileSetup = () => {
   };
 
   return (
-    <ScreenContainer className="gap-5 pt-[38px]">
+    <ScreenContainer className="gap-5 pt-10">
       <header className="flex items-start justify-between gap-4">
         <div className="flex-1">
           <Typography variant="subheading" color={'var(--color-muted)'}>
@@ -109,7 +109,7 @@ export const ProfileSetup = () => {
           <Typography
             variant="heading-lg"
             as="h1"
-            className="m-[8px_0_0] leading-[1.16]"
+            className="mt-2 leading-subheading"
           >
             Tell us about yourself
           </Typography>
@@ -172,11 +172,11 @@ export const ProfileSetup = () => {
               onClick={() => setSex(option)}
               className={
                 isSelected
-                  ? 'flex-1 cursor-pointer rounded-[14px] border-[1.5px] border-brand bg-surface-brand p-[11px_8px] text-center text-ink transition-all duration-150 [font-family:inherit]'
-                  : 'flex-1 cursor-pointer rounded-[14px] border-[1.5px] border-line bg-white p-[11px_8px] text-center text-ink transition-all duration-150 [font-family:inherit]'
+                  ? 'flex-1 cursor-pointer rounded-element border-1.5 border-brand bg-surface-brand py-3 px-2 text-center text-ink transition-all duration-150 [font-family:inherit]'
+                  : 'flex-1 cursor-pointer rounded-element border-1.5 border-line bg-white py-3 px-2 text-center text-ink transition-all duration-150 [font-family:inherit]'
               }
             >
-              <span className="mb-[3px] flex justify-center">
+              <span className="mb-1 flex justify-center">
                 <SexIcon sex={option} />
               </span>
               <Typography variant="label" color={'var(--color-muted)'}>
@@ -192,7 +192,7 @@ export const ProfileSetup = () => {
           variant="label-strong"
           as="p"
           color={'var(--color-muted)'}
-          className="m-[0_0_6px]"
+          className="mb-1.5"
         >
           Activity level
         </Typography>
@@ -206,8 +206,8 @@ export const ProfileSetup = () => {
                 onClick={() => setActivityLevel(option.id)}
                 className={
                   isSelected
-                    ? 'flex cursor-pointer items-center gap-[14px] rounded-[14px] border-2 border-brand bg-surface-brand p-[10px_14px] text-left [font-family:inherit]'
-                    : 'flex cursor-pointer items-center gap-[14px] rounded-[14px] border-2 border-line bg-white p-[10px_14px] text-left [font-family:inherit]'
+                    ? 'flex cursor-pointer items-center gap-3.5 rounded-element border-1.5 border-brand bg-surface-brand py-2.5 px-3.5 text-left [font-family:inherit]'
+                    : 'flex cursor-pointer items-center gap-3.5 rounded-element border-1.5 border-line bg-white py-2.5 px-3.5 text-left [font-family:inherit]'
                 }
               >
                 <span
@@ -232,7 +232,7 @@ export const ProfileSetup = () => {
         </div>
       </section>
 
-      <div className="flex items-center justify-between rounded-2xl border-2 border-line-brand bg-surface-brand p-[12px_16px]">
+      <div className="flex items-center justify-between rounded-2xl border-1.5 border-line-brand bg-surface-brand py-3 px-4">
         <div>
           <Typography variant="body" color={'var(--color-muted)'}>
             Your estimated daily budget
@@ -240,7 +240,7 @@ export const ProfileSetup = () => {
           <Typography
             variant="heading"
             as="p"
-            className="m-[4px_0_0] leading-[1.05] tabular-nums"
+            className="mt-1 leading-number tabular-nums"
           >
             {dailyBudgetKcal.toLocaleString()} kcal
           </Typography>

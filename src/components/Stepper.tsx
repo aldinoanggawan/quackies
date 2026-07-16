@@ -58,11 +58,11 @@ export const Stepper = ({
   };
 
   return (
-    <div className="box-border rounded-[14px] border-2 border-line bg-white p-[10px_14px]">
+    <div className="box-border rounded-element border-1.5 border-line bg-white py-2.5 px-3.5">
       <Typography
         variant="caption"
         color={'var(--color-muted)'}
-        className="mb-1.5 block uppercase tracking-[0.04em]"
+        className="mb-1.5 block uppercase tracking-em"
       >
         {label}
       </Typography>
@@ -91,7 +91,7 @@ export const Stepper = ({
                 if (e.key === 'Enter') commitEdit();
                 if (e.key === 'Escape') setEditing(false);
               }}
-              className="m-0 block h-[17px] w-14 appearance-none border-0 bg-transparent p-0 text-center text-[17px] font-medium leading-none outline-none [box-sizing:content-box] [font-family:inherit] [font-variant-numeric:tabular-nums] [MozAppearance:textfield] [WebkitAppearance:none]"
+              className="m-0 block h-4 w-14 appearance-none border-0 bg-transparent p-0 text-center text-input font-medium leading-none outline-none [box-sizing:content-box] [font-family:inherit] [font-variant-numeric:tabular-nums] [MozAppearance:textfield] [WebkitAppearance:none]"
             />
           ) : (
             <Typography

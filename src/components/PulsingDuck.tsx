@@ -20,7 +20,7 @@ export const PulsingDuck = ({
     <motion.div
       animate={{ scale: [1, 1.4, 1], opacity: [0.45, 0, 0.45] }}
       transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-      className="absolute rounded-full border-[2.5px]"
+      className="absolute rounded-full border-2.5"
       style={{
         inset: -ringGap,
         borderColor: withOpacity('var(--color-brand)', 0.4),

@@ -14,7 +14,7 @@ interface WorkoutSectionProps {
 }
 
 const inputClass =
-  'box-border w-full rounded-[10px] border border-line bg-transparent p-[10px_12px] text-[15px] font-medium text-ink outline-none [font-family:inherit]';
+  'box-border w-full rounded-control border border-line bg-transparent py-2.5 px-3 text-body font-medium text-ink outline-none [font-family:inherit]';
 
 export const WorkoutSection = ({
   workouts,
@@ -93,14 +93,14 @@ export const WorkoutSection = ({
         <div
           className={classNames(
             workouts.length > 0 ? 'mt-2.5' : 'mt-0',
-            'flex flex-col gap-3 rounded-2xl border border-line bg-white p-[16px_14px]',
+            'flex flex-col gap-3 rounded-2xl border border-line bg-white py-4 px-3.5',
           )}
         >
           <Typography
             variant="label-strong"
             as="p"
             color={'var(--color-muted)'}
-            className="m-0 text-[11px] uppercase tracking-[0.4px]"
+            className="m-0 text-caption uppercase tracking-label"
           >
             Add workout
           </Typography>
@@ -122,14 +122,14 @@ export const WorkoutSection = ({
             className={inputClass}
           />
 
-          <div className="flex overflow-hidden rounded-[10px] border border-line bg-canvas">
+          <div className="flex overflow-hidden rounded-control border border-line bg-canvas">
             {(['estimate', 'manual'] as const).map((mode) => (
               <button
                 key={mode}
                 type="button"
                 onClick={() => setKcalMode(mode)}
                 className={classNames(
-                  'flex-1 cursor-pointer border-0 p-[8px_0] font-[inherit] transition-colors duration-150',
+                  'flex-1 cursor-pointer border-0 py-2 font-[inherit] transition-colors duration-150',
                   kcalMode === mode ? 'bg-ink' : 'bg-transparent',
                 )}
               >
@@ -149,7 +149,7 @@ export const WorkoutSection = ({
             <Typography
               variant="caption"
               color={'var(--color-muted)'}
-              className="mt-[-4px]"
+              className="-mt-1"
             >
               App estimate: ~{appEstimate} kcal based on {durationMin} min
             </Typography>
@@ -169,7 +169,7 @@ export const WorkoutSection = ({
             <button
               type="button"
               onClick={() => setShowAddForm(false)}
-              className="flex-1 cursor-pointer rounded-xl border border-line bg-transparent p-[10px_0] font-[inherit]"
+              className="flex-1 cursor-pointer rounded-xl border border-line bg-transparent py-2.5 font-[inherit]"
             >
               <Typography variant="label-strong" color={'var(--color-muted)'}>
                 Cancel
@@ -179,7 +179,7 @@ export const WorkoutSection = ({
               type="button"
               onClick={handleSave}
               disabled={!name.trim() || saving}
-              className="flex-1 cursor-pointer rounded-xl border-0 bg-ink p-[10px_0] font-[inherit] disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex-1 cursor-pointer rounded-xl border-0 bg-ink py-2.5 font-[inherit] disabled:cursor-not-allowed disabled:opacity-40"
             >
               <Typography variant="label-strong" color="white">
                 {saving ? 'Saving…' : 'Save'}
@@ -194,7 +194,7 @@ export const WorkoutSection = ({
             onClick={() => setShowAddForm(true)}
             className={classNames(
               workouts.length > 0 ? 'mt-2.5' : 'mt-0',
-              'w-full cursor-pointer rounded-[14px] border-0 bg-ink p-[13px_0] font-[inherit]',
+              'w-full cursor-pointer rounded-element border-0 bg-ink py-3 font-[inherit]',
             )}
           >
             <Typography variant="label-strong" color="white">

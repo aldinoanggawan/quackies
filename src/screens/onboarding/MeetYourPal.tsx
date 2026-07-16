@@ -36,12 +36,12 @@ export const MeetYourPal = () => {
 
       <div className="flex flex-1 flex-col justify-center gap-5">
         {/* Card */}
-        <div className="relative flex flex-col items-center rounded-3xl bg-surface-warm p-[28px_24px_28px] shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
+        <div className="relative flex flex-col items-center rounded-3xl bg-surface-warm py-7 px-6 shadow-card">
           {/* Speech bubble */}
           <motion.div
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute right-[18px] top-10 max-w-[100px] rounded-[14px_14px_14px_4px] border-[1.5px] border-line bg-white p-[8px_12px] leading-[1.4] shadow-[0_2px_10px_rgba(0,0,0,0.07)]"
+            className="absolute right-5 top-10 max-w-[100px] rounded-[14px_14px_14px_4px] border-1.5 border-line bg-white py-2 px-3 leading-bubble shadow-float"
           >
             <Typography variant="label">Quack! Nice to meet you! 🐥</Typography>
           </motion.div>
@@ -52,7 +52,7 @@ export const MeetYourPal = () => {
           </div>
 
           {/* Name tag */}
-          <div className="mb-10 rounded-[20px] border border-line bg-surface-brand-subtle p-[4px_16px] text-center">
+          <div className="mb-10 rounded-card border border-line bg-surface-brand-subtle py-1 px-4 text-center">
             <Typography variant="label" color="var(--color-muted)">
               your pal /{' '}
               <strong className="text-brand">
@@ -77,7 +77,7 @@ export const MeetYourPal = () => {
             onChange={(e) => setName(e.target.value)}
             maxLength={20}
             placeholder="Enter name"
-            className="box-border w-full rounded-[14px] border-2 border-line bg-white p-[14px_16px] text-[17px] font-medium text-ink outline-none transition-colors duration-200 [font-family:inherit] focus:border-brand"
+            className="box-border w-full rounded-element border-1.5 border-line bg-white py-3.5 px-4 text-input font-medium text-ink outline-none transition-colors duration-200 [font-family:inherit] focus:border-brand"
           />
         </div>
 
@@ -89,8 +89,8 @@ export const MeetYourPal = () => {
               onClick={() => setName(n)}
               className={
                 name === n
-                  ? 'cursor-pointer rounded-full border-[1.5px] border-brand bg-brand p-[6px_14px] font-[inherit] transition-all duration-200'
-                  : 'cursor-pointer rounded-full border-[1.5px] border-line bg-surface-brand-subtle p-[6px_14px] font-[inherit] transition-all duration-200'
+                  ? 'cursor-pointer rounded-full border-1.5 border-brand bg-brand py-1.5 px-3.5 font-[inherit] transition-all duration-200'
+                  : 'cursor-pointer rounded-full border-1.5 border-line bg-surface-brand-subtle py-1.5 px-3.5 font-[inherit] transition-all duration-200'
               }
             >
               <Typography
@@ -108,14 +108,14 @@ export const MeetYourPal = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="m-[0_0_10px] tracking-[-0.4px]"
+            className="mb-2.5 tracking-heading"
           >
             Meet your pal
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="m-0 leading-[1.65]"
+            className="m-0 leading-body"
           >
             Name your duck companion — they'll cheer you on every single day.
           </Typography>

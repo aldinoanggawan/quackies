@@ -74,11 +74,7 @@ export const GoalSelection = () => {
         >
           Step 5 of {selected === 'maintain' ? 5 : 6}
         </Typography>
-        <Typography
-          variant="heading"
-          as="h1"
-          className="m-[0_0_28px] tracking-[-0.4px]"
-        >
+        <Typography variant="heading" as="h1" className="mb-7 tracking-heading">
           What's your main goal?
         </Typography>
       </div>
@@ -99,7 +95,7 @@ export const GoalSelection = () => {
       </div>
 
       {/* Duck */}
-      <div className="mt-[52px] flex flex-1 items-start justify-center pb-2">
+      <div className="mt-12 flex flex-1 items-start justify-center pb-2">
         <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}

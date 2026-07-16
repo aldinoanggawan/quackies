@@ -9,7 +9,7 @@ import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
 
 const GlassRow = ({ value, total }: { value: number; total: number }) => (
-  <div className="flex items-end justify-center gap-[14px]">
+  <div className="flex items-end justify-center gap-3.5">
     {Array.from({ length: total }, (_, i) => (
       <GlassIcon key={i} index={i} value={value} />
     ))}
@@ -29,7 +29,7 @@ export const StayHydrated = () => {
 
       <div className="flex flex-1 flex-col justify-center gap-6">
         {/* Card */}
-        <div className="relative flex min-h-[240px] flex-col items-center overflow-hidden rounded-3xl border border-line-success bg-surface-water pb-0 pt-[75px]">
+        <div className="relative flex min-h-60 flex-col items-center overflow-hidden rounded-3xl border border-line-success bg-surface-water pb-0 pt-20">
           {/* Swimming duck */}
           <motion.div
             animate={{ y: [0, -8, 0] }}
@@ -42,7 +42,7 @@ export const StayHydrated = () => {
           <motion.div
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute right-[18px] top-[18px] flex items-center gap-[5px] rounded-[14px] bg-white p-[7px_14px]"
+            className="absolute right-4 top-4 flex items-center gap-1 rounded-element bg-white py-1.5 px-3.5"
             style={{
               boxShadow: `0 2px 12px ${withOpacity('var(--color-success)', 0.22)}`,
             }}
@@ -53,7 +53,7 @@ export const StayHydrated = () => {
           </motion.div>
 
           {/* Wave at bottom */}
-          <div className="absolute inset-x-0 bottom-0 h-[100px] overflow-hidden">
+          <div className="absolute inset-x-0 bottom-0 h-24 overflow-hidden">
             <motion.svg
               width="600"
               height="100"
@@ -85,14 +85,14 @@ export const StayHydrated = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="m-[0_0_10px] tracking-[-0.4px]"
+            className="mb-2.5 tracking-heading"
           >
             Stay hydrated
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="m-0 leading-[1.65]"
+            className="m-0 leading-body"
           >
             Log water intake with a tap. Hit your daily goal effortlessly.
           </Typography>

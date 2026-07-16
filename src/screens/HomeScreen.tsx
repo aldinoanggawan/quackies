@@ -35,10 +35,7 @@ export const HomeScreen = () => {
     useDailySummary(profile?.tdee ?? 0, today);
 
   return (
-    <ScreenContainer
-      background={'var(--color-canvas)'}
-      className="gap-5 pt-[38px]"
-    >
+    <ScreenContainer background={'var(--color-canvas)'} className="gap-5 pt-10">
       {/* Top bar */}
       <div className="flex items-start justify-between">
         <div>
@@ -51,7 +48,7 @@ export const HomeScreen = () => {
         </div>
 
         {/* Streak pill */}
-        <div className="flex items-center gap-1 rounded-full border-[1.5px] border-line bg-surface-brand p-[4px_10px]">
+        <div className="flex items-center gap-1 rounded-full border-1.5 border-line bg-surface-brand py-1 px-2.5">
           <span className="text-sm">🔥</span>
           <Typography variant="label-strong" color={'var(--color-ink)'}>
             7 days
@@ -60,9 +57,9 @@ export const HomeScreen = () => {
       </div>
 
       {/* Hero card */}
-      <div className="relative overflow-visible rounded-3xl border border-line bg-white p-[24px_24px_20px] shadow-[0_2px_16px_rgba(0,0,0,0.04)]">
+      <div className="relative overflow-visible rounded-3xl border border-line bg-white p-6 pb-5 shadow-card">
         {/* Big number */}
-        <div className="flex items-baseline gap-1.5 pr-[90px]">
+        <div className="flex items-baseline gap-1.5 pr-24">
           <Typography
             variant="display"
             color={'var(--color-brand)'}
@@ -80,7 +77,7 @@ export const HomeScreen = () => {
           variant="caption"
           as="p"
           color={'var(--color-muted)'}
-          className="m-[4px_0_4px] uppercase tracking-[0.4px]"
+          className="my-1 uppercase tracking-label"
         >
           Calories remaining
         </Typography>

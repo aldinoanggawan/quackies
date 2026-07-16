@@ -36,6 +36,48 @@ export default {
       maxWidth: {
         screen: '390px',
       },
+      borderRadius: {
+        control: '10px',
+        element: '14px',
+        card: '20px',
+        pill: '50px',
+      },
+      boxShadow: {
+        card: '0 2px 16px rgba(0,0,0,0.04)',
+        float: '0 2px 10px rgba(0,0,0,0.08)',
+        plate: '0 3px 8px rgba(0,0,0,0.12)',
+      },
+      borderWidth: {
+        1.5: '1.5px',
+        2.5: '2.5px',
+      },
+      fontSize: {
+        caption: '11px',
+        label: '13px',
+        body: '15px',
+        input: '17px',
+        heading: '30px',
+        'heading-lg': '34px',
+        display: '48px',
+      },
+      letterSpacing: {
+        label: '0.4px',
+        heading: '-0.4px',
+        badge: '0.2px',
+        'heading-lg': '-0.5px',
+        em: '0.04em',
+      },
+      lineHeight: {
+        body: '1.65',
+        bubble: '1.4',
+        heading: '1.15',
+        subheading: '1.16',
+        number: '1.05',
+      },
+      zIndex: {
+        1: '1',
+        100: '100',
+      },
     },
   },
   plugins: [],

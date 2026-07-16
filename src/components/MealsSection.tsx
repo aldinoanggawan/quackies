@@ -34,7 +34,7 @@ export const MealsSection = ({ meals }: MealsSectionProps) => {
         variant="label-strong"
         as="p"
         color={'var(--color-muted)'}
-        className="m-[0_0_12px]"
+        className="mb-3"
       >
         Meals today
       </Typography>

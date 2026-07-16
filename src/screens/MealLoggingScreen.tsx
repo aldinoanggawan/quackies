@@ -15,7 +15,7 @@ import type { MealType, AnalysisResult, AnalysisItem } from '../types/models';
 import { classNames } from '../lib/classNames';
 
 const inputClass =
-  'rounded-2xl border border-line bg-surface-warm text-[15px] font-medium text-ink outline-none [color-scheme:light] [font-family:inherit]';
+  'rounded-2xl border border-line bg-surface-warm text-body font-medium text-ink outline-none [color-scheme:light] [font-family:inherit]';
 
 export const MealLoggingScreen = () => {
   const { mealType } = useParams<{ mealType: MealType }>();
@@ -149,15 +149,12 @@ export const MealLoggingScreen = () => {
     : 'grumpy';
 
   return (
-    <ScreenContainer
-      background={'var(--color-canvas)'}
-      className="gap-5 pt-[38px]"
-    >
+    <ScreenContainer background={'var(--color-canvas)'} className="gap-5 pt-10">
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="cursor-pointer border-0 bg-transparent p-[4px_8px_4px_0] text-[22px] leading-none text-ink"
+          className="cursor-pointer border-0 bg-transparent py-1 pr-2 text-2xl leading-none text-ink"
         >
           ←
         </button>
@@ -169,7 +166,7 @@ export const MealLoggingScreen = () => {
           Log {mealType}
         </Typography>
         {remaining !== null && (
-          <div className="flex items-center gap-1 rounded-full border-[1.5px] border-line bg-surface-brand p-[4px_10px]">
+          <div className="flex items-center gap-1 rounded-full border-1.5 border-line bg-surface-brand py-1 px-2.5">
             <span className="text-xs">✦</span>
             <Typography
               variant="label-strong"
@@ -193,7 +190,7 @@ export const MealLoggingScreen = () => {
             key="limit-reached"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center gap-4 p-[32px_0] text-center"
+            className="flex flex-col items-center gap-4 py-8 text-center"
           >
             <Duck emotion="sleepy" size={88} />
             <Typography variant="subheading" color={'var(--color-ink)'}>
@@ -202,7 +199,7 @@ export const MealLoggingScreen = () => {
             <Typography
               variant="body"
               color={'var(--color-muted)'}
-              className="max-w-[260px]"
+              className="max-w-64"
             >
               You've used all {limit} AI analyses for today. Come back tomorrow
               — Quackers will be ready!
@@ -273,7 +270,7 @@ export const MealLoggingScreen = () => {
               rows={3}
               className={classNames(
                 inputClass,
-                'box-border w-full resize-none p-[12px_14px]',
+                'box-border w-full resize-none py-3 px-3.5',
               )}
             />
 
@@ -334,7 +331,7 @@ export const MealLoggingScreen = () => {
               <Duck emotion={duckEmotion} size={88} />
             </div>
 
-            <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface-warm p-[16px_18px]">
+            <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface-warm p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1.5">
                   <span className="text-base">⭐</span>
@@ -395,7 +392,7 @@ export const MealLoggingScreen = () => {
                         autoFocus
                         className={classNames(
                           inputClass,
-                          'w-[60px] rounded-lg p-[3px_6px] text-right text-[13px]',
+                          'w-16 rounded-lg py-0.5 px-1.5 text-right text-label',
                         )}
                       />
                     ) : (
@@ -403,7 +400,7 @@ export const MealLoggingScreen = () => {
                         type="button"
                         onClick={() => setEditingIndex(i)}
                         title="Tap to edit"
-                        className="cursor-text border-0 border-b-[1.5px] border-dashed border-muted bg-transparent p-[2px_0] font-[inherit]"
+                        className="cursor-text border-0 border-b-1.5 border-dashed border-muted bg-transparent py-0.5 font-[inherit]"
                       >
                         <Typography
                           variant="label-strong"
@@ -425,7 +422,7 @@ export const MealLoggingScreen = () => {
                       type="button"
                       onClick={() => handleRemoveItem(i)}
                       title="Remove item"
-                      className="shrink-0 cursor-pointer border-0 bg-transparent p-[2px_4px] text-base leading-none text-muted"
+                      className="shrink-0 cursor-pointer border-0 bg-transparent py-0.5 px-1 text-base leading-none text-muted"
                     >
                       ×
                     </button>
@@ -442,7 +439,7 @@ export const MealLoggingScreen = () => {
                       autoFocus
                       className={classNames(
                         inputClass,
-                        'flex-1 rounded-[10px] p-[5px_10px] text-[13px]',
+                        'flex-1 rounded-control py-1 px-2.5 text-label',
                       )}
                     />
                     <input
@@ -453,13 +450,13 @@ export const MealLoggingScreen = () => {
                       onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
                       className={classNames(
                         inputClass,
-                        'w-[60px] rounded-[10px] p-[5px_8px] text-right text-[13px]',
+                        'w-16 rounded-control py-1 px-2 text-right text-label',
                       )}
                     />
                     <button
                       type="button"
                       onClick={handleAddItem}
-                      className="shrink-0 cursor-pointer border-0 bg-transparent p-[2px_4px] text-base text-brand"
+                      className="shrink-0 cursor-pointer border-0 bg-transparent py-0.5 px-1 text-base text-brand"
                     >
                       ✓
                     </button>
@@ -470,7 +467,7 @@ export const MealLoggingScreen = () => {
                         setNewItemName('');
                         setNewItemKcal('');
                       }}
-                      className="shrink-0 cursor-pointer border-0 bg-transparent p-[2px_4px] text-base text-muted"
+                      className="shrink-0 cursor-pointer border-0 bg-transparent py-0.5 px-1 text-base text-muted"
                     >
                       ×
                     </button>
@@ -479,7 +476,7 @@ export const MealLoggingScreen = () => {
                   <button
                     type="button"
                     onClick={() => setAddingItem(true)}
-                    className="cursor-pointer border-0 bg-transparent p-[2px_0] text-left font-[inherit]"
+                    className="cursor-pointer border-0 bg-transparent py-0.5 text-left font-[inherit]"
                   >
                     <Typography variant="label" color={'var(--color-brand)'}>
                       + Add item
@@ -532,7 +529,7 @@ export const MealLoggingScreen = () => {
             <button
               type="button"
               onClick={handleReanalyse}
-              className="cursor-pointer border-0 bg-transparent p-[4px_0] text-center font-[inherit]"
+              className="cursor-pointer border-0 bg-transparent py-1 text-center font-[inherit]"
             >
               <Typography variant="label" color={'var(--color-muted)'}>
                 Re-analyse
