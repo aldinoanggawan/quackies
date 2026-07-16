@@ -36,6 +36,19 @@ export default {
       maxWidth: {
         screen: '390px',
       },
+      borderRadius: {
+        control: '10px',
+        element: '14px',
+        card: '20px',
+        pill: '50px',
+      },
+      boxShadow: {
+        card: '0 2px 16px rgba(0,0,0,0.04)',
+        float: '0 2px 10px rgba(0,0,0,0.08)',
+      },
+      borderWidth: {
+        1.5: '1.5px',
+      },
     },
   },
   plugins: [],
