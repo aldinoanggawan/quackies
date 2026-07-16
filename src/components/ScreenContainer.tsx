@@ -14,7 +14,7 @@ export const ScreenContainer = ({
   <div className="min-h-[100dvh]" style={{ background }}>
     <div
       className={classNames(
-        'mx-auto flex min-h-[100dvh] max-w-screen flex-col px-6 pb-[calc(40px+72px)]',
+        'mx-auto flex min-h-[100dvh] max-w-screen flex-col px-6 pb-28',
         className,
       )}
     >

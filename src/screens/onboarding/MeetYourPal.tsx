@@ -41,7 +41,7 @@ export const MeetYourPal = () => {
           <motion.div
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute right-[18px] top-10 max-w-[100px] rounded-[14px_14px_14px_4px] border-1.5 border-line bg-white py-2 px-3 leading-[1.4] shadow-float"
+            className="absolute right-5 top-10 max-w-[100px] rounded-[14px_14px_14px_4px] border-1.5 border-line bg-white py-2 px-3 leading-bubble shadow-float"
           >
             <Typography variant="label">Quack! Nice to meet you! 🐥</Typography>
           </motion.div>
@@ -77,7 +77,7 @@ export const MeetYourPal = () => {
             onChange={(e) => setName(e.target.value)}
             maxLength={20}
             placeholder="Enter name"
-            className="box-border w-full rounded-element border-1.5 border-line bg-white py-3.5 px-4 text-[17px] font-medium text-ink outline-none transition-colors duration-200 [font-family:inherit] focus:border-brand"
+            className="box-border w-full rounded-element border-1.5 border-line bg-white py-3.5 px-4 text-input font-medium text-ink outline-none transition-colors duration-200 [font-family:inherit] focus:border-brand"
           />
         </div>
 
@@ -108,14 +108,14 @@ export const MeetYourPal = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="mb-2.5 tracking-[-0.4px]"
+            className="mb-2.5 tracking-heading"
           >
             Meet your pal
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="m-0 leading-[1.65]"
+            className="m-0 leading-body"
           >
             Name your duck companion — they'll cheer you on every single day.
           </Typography>

@@ -69,7 +69,7 @@ export const PaceSelection = () => {
         <Typography
           variant="heading"
           as="h1"
-          className="mb-7 tracking-[-0.4px]"
+          className="mb-7 tracking-heading"
         >
           How fast do you want to reach your goal?
         </Typography>

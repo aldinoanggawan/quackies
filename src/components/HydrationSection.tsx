@@ -18,7 +18,7 @@ interface HydrationSectionProps {
 }
 
 const inputClass =
-  'box-border w-full rounded-control border border-line bg-transparent py-2.5 px-3 text-[15px] font-medium text-ink outline-none [font-family:inherit]';
+  'box-border w-full rounded-control border border-line bg-transparent py-2.5 px-3 text-body font-medium text-ink outline-none [font-family:inherit]';
 
 export const HydrationSection = ({ date }: HydrationSectionProps) => {
   const {
@@ -117,7 +117,7 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                 variant="label-strong"
                 as="p"
                 color={'var(--color-muted)'}
-                className="m-0 text-[11px] uppercase tracking-[0.4px]"
+                className="m-0 text-caption uppercase tracking-label"
               >
                 Set up your bottle
               </Typography>

@@ -109,7 +109,7 @@ export const ProfileSetup = () => {
           <Typography
             variant="heading-lg"
             as="h1"
-            className="mt-2 leading-[1.16]"
+            className="mt-2 leading-subheading"
           >
             Tell us about yourself
           </Typography>
@@ -240,7 +240,7 @@ export const ProfileSetup = () => {
           <Typography
             variant="heading"
             as="p"
-            className="mt-1 leading-[1.05] tabular-nums"
+            className="mt-1 leading-number tabular-nums"
           >
             {dailyBudgetKcal.toLocaleString()} kcal
           </Typography>

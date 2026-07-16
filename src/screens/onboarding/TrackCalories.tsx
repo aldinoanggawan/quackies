@@ -46,7 +46,7 @@ export const TrackCalories = () => {
 
       <div className="flex flex-1 flex-col justify-center gap-7">
         {/* Card */}
-        <div className="relative h-[300px] overflow-hidden rounded-3xl border border-line-brand bg-surface-brand">
+        <div className="relative h-72 overflow-hidden rounded-3xl border border-line-brand bg-surface-brand">
           {/* Floating calorie tags */}
           {TAGS.map((tag) => (
             <motion.div
@@ -75,18 +75,18 @@ export const TrackCalories = () => {
 
           {/* Plate with food */}
           <div className="absolute bottom-0 left-[18%] flex flex-col items-center">
-            <div className="relative z-[1] -mb-5 flex gap-1">
-              <div className="h-7 w-[22px] rounded-[50%] bg-plant-dark" />
-              <div className="mt-3 h-6 w-[18px] rounded-[50%] bg-plant-light" />
-              <div className="mt-1 h-[22px] w-7 rounded-[50%] bg-food" />
+            <div className="relative z-1 -mb-5 flex gap-1">
+              <div className="h-7 w-5 rounded-[50%] bg-plant-dark" />
+              <div className="mt-3 h-6 w-5 rounded-[50%] bg-plant-light" />
+              <div className="mt-2 h-5 w-7 rounded-[50%] bg-food" />
             </div>
-            <div className="h-7 w-[110px] rounded-[50%] bg-white shadow-plate" />
-            <div className="mt-0.5 h-2.5 w-[90px] rounded-[50%] bg-black/10" />
+            <div className="h-7 w-28 rounded-[50%] bg-white shadow-plate" />
+            <div className="mt-0.5 h-2.5 w-24 rounded-[50%] bg-black/10" />
           </div>
 
           {/* Duck peeking from bottom-right */}
           <motion.div
-            className="absolute bottom-[-22px] right-[14px]"
+            className="absolute -bottom-6 right-4"
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}
           >
@@ -99,14 +99,14 @@ export const TrackCalories = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="mb-2.5 tracking-[-0.4px]"
+            className="mb-2.5 tracking-heading"
           >
             Track calories
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="m-0 leading-[1.65]"
+            className="m-0 leading-body"
           >
             Snap a photo and let AI do the rest.
           </Typography>

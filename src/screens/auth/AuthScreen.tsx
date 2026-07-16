@@ -33,7 +33,7 @@ const STEP_CONFIG: Record<
 };
 
 const inputClass =
-  'box-border w-full rounded-element border-1.5 bg-white py-3 px-3.5 text-[17px] font-medium text-ink outline-none [font-family:inherit]';
+  'box-border w-full rounded-element border-1.5 bg-white py-3 px-3.5 text-input font-medium text-ink outline-none [font-family:inherit]';
 
 export const AuthScreen = () => {
   const navigate = useNavigate();
@@ -123,7 +123,7 @@ export const AuthScreen = () => {
 
   return (
     <div className="flex min-h-[100dvh] items-center justify-center bg-canvas py-6 px-4">
-      <div className="flex w-full max-w-[400px] flex-col items-center gap-6 rounded-3xl border-1.5 border-line bg-white py-8 px-7">
+      <div className="flex w-full max-w-sm flex-col items-center gap-6 rounded-3xl border-1.5 border-line bg-white py-8 px-7">
         <Duck emotion={config?.emotion ?? 'grumpy'} size={80} />
 
         <motion.div layout className="text-center">

@@ -37,7 +37,7 @@ export const Chip = ({
     >
       {value}
     </Typography>
-    <div className="relative mt-1.5 h-[3px] overflow-hidden rounded-full bg-black/10">
+    <div className="relative mt-1.5 h-1 overflow-hidden rounded-full bg-black/10">
       <div
         className="absolute inset-0 rounded-full"
         style={{ right: `${(1 - progress) * 100}%`, background: accentColor }}

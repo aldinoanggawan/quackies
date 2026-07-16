@@ -76,7 +76,7 @@ export const BottomNav = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[100] border-t border-line bg-canvas">
+    <div className="fixed inset-x-0 bottom-0 z-100 border-t border-line bg-canvas">
       <div className="mx-auto flex max-w-screen pb-[env(safe-area-inset-bottom)]">
         {NAV_ITEMS.map(({ path, label, Icon }) => {
           const active = location.pathname === path;

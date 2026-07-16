@@ -62,7 +62,7 @@ export const HomeScreen = () => {
       {/* Hero card */}
       <div className="relative overflow-visible rounded-3xl border border-line bg-white p-6 pb-5 shadow-card">
         {/* Big number */}
-        <div className="flex items-baseline gap-1.5 pr-[90px]">
+        <div className="flex items-baseline gap-1.5 pr-24">
           <Typography
             variant="display"
             color={'var(--color-brand)'}
@@ -80,7 +80,7 @@ export const HomeScreen = () => {
           variant="caption"
           as="p"
           color={'var(--color-muted)'}
-          className="my-1 uppercase tracking-[0.4px]"
+          className="my-1 uppercase tracking-label"
         >
           Calories remaining
         </Typography>

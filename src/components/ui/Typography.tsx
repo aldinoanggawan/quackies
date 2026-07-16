@@ -7,6 +7,7 @@ type Variant =
   | 'heading'
   | 'subheading'
   | 'body'
+  | 'title'
   | 'input-label'
   | 'input'
   | 'label-strong'
@@ -14,16 +15,17 @@ type Variant =
   | 'caption';
 
 const CLASSES: Record<Variant, string> = {
-  display: 'text-[48px] font-bold',
-  'heading-lg': 'text-[34px] font-extrabold',
-  heading: 'text-[30px] font-extrabold',
+  display: 'text-display font-bold',
+  'heading-lg': 'text-heading-lg font-extrabold',
+  heading: 'text-heading font-extrabold',
   subheading: 'text-lg font-bold',
-  body: 'text-[15px] font-normal',
-  'input-label': 'text-[15px] font-medium',
-  input: 'text-[17px] font-medium',
-  'label-strong': 'text-[13px] font-semibold',
-  label: 'text-[13px] font-medium',
-  caption: 'text-[11px] font-normal',
+  body: 'text-body font-normal',
+  title: 'text-body font-semibold',
+  'input-label': 'text-body font-medium',
+  input: 'text-input font-medium',
+  'label-strong': 'text-label font-semibold',
+  label: 'text-label font-medium',
+  caption: 'text-caption font-normal',
 };
 
 const DEFAULTS: Record<Variant, string> = {
@@ -32,6 +34,7 @@ const DEFAULTS: Record<Variant, string> = {
   heading: 'h2',
   subheading: 'p',
   body: 'p',
+  title: 'p',
   'input-label': 'label',
   input: 'span',
   'label-strong': 'span',

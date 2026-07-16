@@ -18,7 +18,7 @@ export const DailySummary = () => {
         {/* Card */}
         <div className="relative overflow-visible rounded-3xl border border-line bg-white p-6 pb-5 shadow-card">
           {/* Calories remaining */}
-          <div className="pr-[90px]">
+          <div className="pr-24">
             <div className="flex items-baseline gap-1.5">
               <Typography
                 variant="display"
@@ -35,7 +35,7 @@ export const DailySummary = () => {
               variant="caption"
               as="p"
               color="var(--color-muted)"
-              className="mb-1 uppercase tracking-[0.4px]"
+              className="mb-1 uppercase tracking-label"
             >
               Remaining today
             </Typography>
@@ -102,14 +102,14 @@ export const DailySummary = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="mb-2.5 tracking-[-0.4px]"
+            className="mb-2.5 tracking-heading"
           >
             Your day, at a glance
           </Typography>
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="m-0 leading-[1.65]"
+            className="m-0 leading-body"
           >
             See exactly where you stand — calories eaten, burned, and left for
             the day.

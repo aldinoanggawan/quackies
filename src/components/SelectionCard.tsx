@@ -33,7 +33,7 @@ export const SelectionCard = ({
     )}
   >
     <div
-      className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-element text-[26px] transition-colors duration-200"
+      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-element text-2xl transition-colors duration-200"
       style={{
         background:
           iconBg ??
@@ -46,10 +46,10 @@ export const SelectionCard = ({
     </div>
 
     <div className="flex-1">
-      <Typography variant="label-strong" as="div" className="mb-1 text-base">
+      <Typography variant="title" className="mb-2">
         {label}
       </Typography>
-      <Typography variant="label" color="var(--color-muted)">
+      <Typography variant="label" as="p" color="var(--color-muted)">
         {subtitle}
       </Typography>
     </div>

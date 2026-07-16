@@ -87,7 +87,7 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
               <Typography
                 variant="caption"
                 color={'var(--color-muted)'}
-                className="uppercase tracking-[0.4px]"
+                className="uppercase tracking-label"
               >
                 Calories burned
               </Typography>
@@ -106,7 +106,7 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
                 type="number"
                 value={kcalInput}
                 onChange={(e) => setKcalInput(e.target.value)}
-                className="w-[72px] border-0 bg-transparent text-right text-[28px] font-extrabold text-ink outline-none [font-family:inherit]"
+                className="w-20 border-0 bg-transparent text-right text-heading font-extrabold text-ink outline-none [font-family:inherit]"
               />
               <Typography variant="body" as="span" color={'var(--color-muted)'}>
                 kcal

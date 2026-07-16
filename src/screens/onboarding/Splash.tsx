@@ -54,13 +54,13 @@ export const Splash = () => {
         className="pointer-events-none absolute bottom-[-70px] right-[-70px] h-[220px] w-[220px] rounded-full bg-[rgba(232,64,96,0.35)] blur-[52px]"
       />
 
-      <div className="z-[1] flex w-full max-w-screen flex-col items-center">
+      <div className="z-1 flex w-full max-w-screen flex-col items-center">
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="mb-7 rounded-card border-1.5 border-line-brand bg-surface-brand-pale py-1 px-3.5 tracking-[0.2px]"
+          className="mb-7 rounded-card border-1.5 border-line-brand bg-surface-brand-pale py-1 px-3.5 tracking-badge"
         >
           <Typography variant="label-strong" color={'var(--color-brand)'}>
             ✦ Your pocket nutrition pal
@@ -86,7 +86,7 @@ export const Splash = () => {
           <Typography
             variant="heading-lg"
             as="h1"
-            className="mb-3 text-center leading-[1.15] tracking-[-0.5px]"
+            className="mb-3 text-center leading-heading tracking-heading-lg"
           >
             Eat well, <span className="text-brand">track</span> with{' '}
             <span className="text-success">joy</span>
@@ -102,7 +102,7 @@ export const Splash = () => {
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="mb-7 max-w-[300px] text-center leading-[1.65]"
+            className="mb-7 max-w-72 text-center leading-body"
           >
             Your playful daily companion for calories, hydration, and healthy
             habits.

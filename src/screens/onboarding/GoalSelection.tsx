@@ -77,7 +77,7 @@ export const GoalSelection = () => {
         <Typography
           variant="heading"
           as="h1"
-          className="mb-7 tracking-[-0.4px]"
+          className="mb-7 tracking-heading"
         >
           What's your main goal?
         </Typography>

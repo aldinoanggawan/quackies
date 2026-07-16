@@ -15,7 +15,7 @@ import type { MealType, AnalysisResult, AnalysisItem } from '../types/models';
 import { classNames } from '../lib/classNames';
 
 const inputClass =
-  'rounded-2xl border border-line bg-surface-warm text-[15px] font-medium text-ink outline-none [color-scheme:light] [font-family:inherit]';
+  'rounded-2xl border border-line bg-surface-warm text-body font-medium text-ink outline-none [color-scheme:light] [font-family:inherit]';
 
 export const MealLoggingScreen = () => {
   const { mealType } = useParams<{ mealType: MealType }>();
@@ -157,7 +157,7 @@ export const MealLoggingScreen = () => {
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="cursor-pointer border-0 bg-transparent py-1 pr-2 text-[22px] leading-none text-ink"
+          className="cursor-pointer border-0 bg-transparent py-1 pr-2 text-2xl leading-none text-ink"
         >
           ←
         </button>
@@ -202,7 +202,7 @@ export const MealLoggingScreen = () => {
             <Typography
               variant="body"
               color={'var(--color-muted)'}
-              className="max-w-[260px]"
+              className="max-w-64"
             >
               You've used all {limit} AI analyses for today. Come back tomorrow
               — Quackers will be ready!
@@ -395,7 +395,7 @@ export const MealLoggingScreen = () => {
                         autoFocus
                         className={classNames(
                           inputClass,
-                          'w-[60px] rounded-lg py-0.5 px-1.5 text-right text-[13px]',
+                          'w-16 rounded-lg py-0.5 px-1.5 text-right text-label',
                         )}
                       />
                     ) : (
@@ -442,7 +442,7 @@ export const MealLoggingScreen = () => {
                       autoFocus
                       className={classNames(
                         inputClass,
-                        'flex-1 rounded-control py-1 px-2.5 text-[13px]',
+                        'flex-1 rounded-control py-1 px-2.5 text-label',
                       )}
                     />
                     <input
@@ -453,7 +453,7 @@ export const MealLoggingScreen = () => {
                       onKeyDown={(e) => e.key === 'Enter' && handleAddItem()}
                       className={classNames(
                         inputClass,
-                        'w-[60px] rounded-control py-1 px-2 text-right text-[13px]',
+                        'w-16 rounded-control py-1 px-2 text-right text-label',
                       )}
                     />
                     <button
