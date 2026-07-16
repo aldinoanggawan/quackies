@@ -66,11 +66,7 @@ export const PaceSelection = () => {
         >
           Step 6 of 6
         </Typography>
-        <Typography
-          variant="heading"
-          as="h1"
-          className="mb-7 tracking-heading"
-        >
+        <Typography variant="heading" as="h1" className="mb-7 tracking-heading">
           How fast do you want to reach your goal?
         </Typography>
       </div>

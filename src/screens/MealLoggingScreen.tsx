@@ -149,10 +149,7 @@ export const MealLoggingScreen = () => {
     : 'grumpy';
 
   return (
-    <ScreenContainer
-      background={'var(--color-canvas)'}
-      className="gap-5 pt-10"
-    >
+    <ScreenContainer background={'var(--color-canvas)'} className="gap-5 pt-10">
       <div className="flex items-center gap-3">
         <button
           type="button"

@@ -35,10 +35,7 @@ export const HomeScreen = () => {
     useDailySummary(profile?.tdee ?? 0, today);
 
   return (
-    <ScreenContainer
-      background={'var(--color-canvas)'}
-      className="gap-5 pt-10"
-    >
+    <ScreenContainer background={'var(--color-canvas)'} className="gap-5 pt-10">
       {/* Top bar */}
       <div className="flex items-start justify-between">
         <div>
