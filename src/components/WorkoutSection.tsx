@@ -149,7 +149,7 @@ export const WorkoutSection = ({
             <Typography
               variant="caption"
               color={'var(--color-muted)'}
-              className="mt-[-4px]"
+              className="-mt-1"
             >
               App estimate: ~{appEstimate} kcal based on {durationMin} min
             </Typography>

@@ -24,7 +24,7 @@ export const Splash = () => {
   if (loading || session) return <LoadingScreen />;
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-canvas p-[48px_24px_44px]">
+    <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-canvas pt-12 px-6 pb-11">
       {/* Warm yellow blob — top right */}
       <motion.div
         animate={{ scale: [1, 1.12, 1], x: [0, 14, 0], y: [0, -14, 0] }}
@@ -60,7 +60,7 @@ export const Splash = () => {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="mb-7 rounded-[20px] border-[1.5px] border-line-brand bg-surface-brand-pale p-[5px_14px] tracking-[0.2px]"
+          className="mb-7 rounded-card border-1.5 border-line-brand bg-surface-brand-pale py-1 px-3.5 tracking-[0.2px]"
         >
           <Typography variant="label-strong" color={'var(--color-brand)'}>
             ✦ Your pocket nutrition pal
@@ -86,7 +86,7 @@ export const Splash = () => {
           <Typography
             variant="heading-lg"
             as="h1"
-            className="m-[0_0_12px] text-center leading-[1.15] tracking-[-0.5px]"
+            className="mb-3 text-center leading-[1.15] tracking-[-0.5px]"
           >
             Eat well, <span className="text-brand">track</span> with{' '}
             <span className="text-success">joy</span>
@@ -102,7 +102,7 @@ export const Splash = () => {
           <Typography
             variant="body"
             color="var(--color-muted)"
-            className="m-[0_0_28px] max-w-[300px] text-center leading-[1.65]"
+            className="mb-7 max-w-[300px] text-center leading-[1.65]"
           >
             Your playful daily companion for calories, hydration, and healthy
             habits.
@@ -121,7 +121,7 @@ export const Splash = () => {
               key={tag}
               variant="label"
               color="var(--color-muted)"
-              className="rounded-[20px] border border-line bg-[rgba(240,228,192,0.85)] p-[5px_14px]"
+              className="rounded-card border border-line bg-[rgba(240,228,192,0.85)] py-1 px-3.5"
             >
               {tag}
             </Typography>

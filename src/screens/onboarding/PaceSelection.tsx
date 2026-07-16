@@ -69,7 +69,7 @@ export const PaceSelection = () => {
         <Typography
           variant="heading"
           as="h1"
-          className="m-[0_0_28px] tracking-[-0.4px]"
+          className="mb-7 tracking-[-0.4px]"
         >
           How fast do you want to reach your goal?
         </Typography>
@@ -89,7 +89,7 @@ export const PaceSelection = () => {
         ))}
       </div>
 
-      <div className="mt-[52px] flex flex-1 items-start justify-center pb-2">
+      <div className="mt-12 flex flex-1 items-start justify-center pb-2">
         <motion.div
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 2.5, ease: 'easeInOut', repeat: Infinity }}

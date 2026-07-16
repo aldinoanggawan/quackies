@@ -20,7 +20,7 @@ export const Chip = ({
   progress,
 }: ChipProps) => (
   <div
-    className="flex flex-1 flex-col gap-0.5 rounded-[14px] border p-[6px_10px]"
+    className="flex flex-1 flex-col gap-0.5 rounded-element border py-1.5 px-2.5"
     style={{ background, borderColor }}
   >
     <Typography

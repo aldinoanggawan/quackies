@@ -58,7 +58,7 @@ export const TrackCalories = () => {
                 ease: 'easeInOut',
                 delay: tag.delay,
               }}
-              className="absolute flex items-center gap-[7px] whitespace-nowrap rounded-[20px] bg-white p-[6px_12px] shadow-[0_2px_10px_rgba(0,0,0,0.09)]"
+              className="absolute flex items-center gap-1.5 whitespace-nowrap rounded-card bg-white py-1.5 px-3 shadow-float"
               style={{
                 left: tag.left,
                 top: tag.top,
@@ -75,12 +75,12 @@ export const TrackCalories = () => {
 
           {/* Plate with food */}
           <div className="absolute bottom-0 left-[18%] flex flex-col items-center">
-            <div className="relative z-[1] mb-[-20px] flex gap-1">
+            <div className="relative z-[1] -mb-5 flex gap-1">
               <div className="h-7 w-[22px] rounded-[50%] bg-plant-dark" />
               <div className="mt-3 h-6 w-[18px] rounded-[50%] bg-plant-light" />
               <div className="mt-1 h-[22px] w-7 rounded-[50%] bg-food" />
             </div>
-            <div className="h-7 w-[110px] rounded-[50%] bg-white shadow-[0_3px_8px_rgba(0,0,0,0.12)]" />
+            <div className="h-7 w-[110px] rounded-[50%] bg-white shadow-plate" />
             <div className="mt-0.5 h-2.5 w-[90px] rounded-[50%] bg-black/10" />
           </div>
 
@@ -99,7 +99,7 @@ export const TrackCalories = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="m-[0_0_10px] tracking-[-0.4px]"
+            className="mb-2.5 tracking-[-0.4px]"
           >
             Track calories
           </Typography>

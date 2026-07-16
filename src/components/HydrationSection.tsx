@@ -164,7 +164,7 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                 <Typography
                   variant="caption"
                   color={'var(--color-muted)'}
-                  className="mt-[-4px]"
+                  className="-mt-1"
                 >
                   ≈{' '}
                   {unit === 'oz'

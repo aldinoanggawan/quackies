@@ -9,7 +9,7 @@ import { Typography } from '../../components/ui/Typography';
 import { ProgressDots } from '../../components/ProgressDots';
 
 const GlassRow = ({ value, total }: { value: number; total: number }) => (
-  <div className="flex items-end justify-center gap-[14px]">
+  <div className="flex items-end justify-center gap-3.5">
     {Array.from({ length: total }, (_, i) => (
       <GlassIcon key={i} index={i} value={value} />
     ))}
@@ -42,7 +42,7 @@ export const StayHydrated = () => {
           <motion.div
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute right-[18px] top-[18px] flex items-center gap-[5px] rounded-[14px] bg-white p-[7px_14px]"
+            className="absolute right-4 top-4 flex items-center gap-1 rounded-element bg-white py-1.5 px-3.5"
             style={{
               boxShadow: `0 2px 12px ${withOpacity('var(--color-success)', 0.22)}`,
             }}
@@ -85,7 +85,7 @@ export const StayHydrated = () => {
           <Typography
             variant="heading"
             as="h1"
-            className="m-[0_0_10px] tracking-[-0.4px]"
+            className="mb-2.5 tracking-[-0.4px]"
           >
             Stay hydrated
           </Typography>

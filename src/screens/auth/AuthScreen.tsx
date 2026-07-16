@@ -33,7 +33,7 @@ const STEP_CONFIG: Record<
 };
 
 const inputClass =
-  'box-border w-full rounded-[14px] border-[1.5px] bg-white p-[12px_14px] text-[17px] font-medium text-ink outline-none [font-family:inherit]';
+  'box-border w-full rounded-element border-1.5 bg-white py-3 px-3.5 text-[17px] font-medium text-ink outline-none [font-family:inherit]';
 
 export const AuthScreen = () => {
   const navigate = useNavigate();
@@ -122,8 +122,8 @@ export const AuthScreen = () => {
   };
 
   return (
-    <div className="flex min-h-[100dvh] items-center justify-center bg-canvas p-[24px_16px]">
-      <div className="flex w-full max-w-[400px] flex-col items-center gap-6 rounded-3xl border-[1.5px] border-line bg-white p-[32px_28px]">
+    <div className="flex min-h-[100dvh] items-center justify-center bg-canvas py-6 px-4">
+      <div className="flex w-full max-w-[400px] flex-col items-center gap-6 rounded-3xl border-1.5 border-line bg-white py-8 px-7">
         <Duck emotion={config?.emotion ?? 'grumpy'} size={80} />
 
         <motion.div layout className="text-center">
@@ -146,7 +146,7 @@ export const AuthScreen = () => {
                 setPasswordError('');
                 setFormError('');
               }}
-              className="flex cursor-pointer items-center justify-between gap-2 self-stretch rounded-full border-[1.5px] border-line bg-surface-brand p-[6px_14px_6px_10px] font-[inherit]"
+              className="flex cursor-pointer items-center justify-between gap-2 self-stretch rounded-full border-1.5 border-line bg-surface-brand py-1.5 pl-2.5 pr-3.5 font-[inherit]"
             >
               <Typography variant="label-strong" color={'var(--color-brand)'}>
                 @{username}
