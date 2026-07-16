@@ -24,7 +24,7 @@ export const Button = ({
       whileTap={{ scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 400, damping: 20 }}
       className={classNames(
-        'w-full cursor-pointer rounded-[50px] border-0 bg-[var(--button-color)] py-4 text-[17px] font-bold text-white shadow-[var(--button-shadow)]',
+        'w-full cursor-pointer rounded-pill border-0 bg-[var(--button-color)] py-4 text-[17px] font-bold text-white shadow-[var(--button-shadow)]',
         className,
       )}
       style={

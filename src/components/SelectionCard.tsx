@@ -28,12 +28,12 @@ export const SelectionCard = ({
     whileTap={{ scale: 0.98 }}
     onClick={onClick}
     className={classNames(
-      'flex cursor-pointer items-center gap-4 rounded-[20px] border-2 p-[16px_20px] text-left font-[inherit] transition-colors duration-200',
+      'flex cursor-pointer items-center gap-4 rounded-card border-1.5 p-4 px-5 text-left font-[inherit] transition-colors duration-200',
       isSelected ? 'border-brand bg-canvas' : 'border-line bg-white',
     )}
   >
     <div
-      className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-[14px] text-[26px] transition-colors duration-200"
+      className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-element text-[26px] transition-colors duration-200"
       style={{
         background:
           iconBg ??

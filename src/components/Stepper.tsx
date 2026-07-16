@@ -58,7 +58,7 @@ export const Stepper = ({
   };
 
   return (
-    <div className="box-border rounded-[14px] border-2 border-line bg-white p-[10px_14px]">
+    <div className="box-border rounded-element border-1.5 border-line bg-white py-2.5 px-3.5">
       <Typography
         variant="caption"
         color={'var(--color-muted)'}

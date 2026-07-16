@@ -40,9 +40,9 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl border-[1.5px] border-line-success bg-surface-success">
-      <div className="flex items-center gap-3 p-[12px_14px]">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-success">
+    <div className="overflow-hidden rounded-2xl border-1.5 border-line-success bg-surface-success">
+      <div className="flex items-center gap-3 py-3 px-3.5">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-control bg-success">
           <ActivityIcon size={20} />
         </div>
 
@@ -81,7 +81,7 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
       </div>
 
       {expanded && (
-        <div className="border-t border-line-success p-[14px_14px_16px]">
+        <div className="border-t border-line-success py-3.5 px-3.5 pb-4">
           <div className="flex items-center justify-between">
             <div>
               <Typography
@@ -116,7 +116,7 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
 
           {workout.source && workout.source !== 'estimated' && (
             <div className="mt-2.5">
-              <div className="inline-flex items-center rounded-full border border-line-success bg-white p-[3px_10px]">
+              <div className="inline-flex items-center rounded-full border border-line-success bg-white py-0.5 px-2.5">
                 <Typography
                   variant="label-strong"
                   color={'var(--color-success)'}
@@ -129,7 +129,7 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
 
           {estimate > 0 && (
             <>
-              <div className="m-[12px_0] flex items-center gap-2">
+              <div className="my-3 flex items-center gap-2">
                 <div className="h-px flex-1 bg-line" />
                 <Typography variant="caption" color={'var(--color-muted)'}>
                   or
@@ -157,11 +157,11 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
           )}
 
           {isDirty && (
-            <div className="mt-[14px] flex gap-2">
+            <div className="mt-3.5 flex gap-2">
               <button
                 type="button"
                 onClick={handleCancel}
-                className="flex-1 cursor-pointer rounded-[10px] border border-line bg-transparent p-[9px_0] font-[inherit]"
+                className="flex-1 cursor-pointer rounded-control border border-line bg-transparent py-2.5 font-[inherit]"
               >
                 <Typography variant="label-strong" color={'var(--color-muted)'}>
                   Cancel
@@ -171,7 +171,7 @@ export const WorkoutCard = ({ workout, onSaved }: WorkoutCardProps) => {
                 type="button"
                 onClick={handleSave}
                 disabled={saving}
-                className="flex-1 cursor-pointer rounded-[10px] border-0 bg-success p-[9px_0] font-[inherit] disabled:opacity-60"
+                className="flex-1 cursor-pointer rounded-control border-0 bg-success py-2.5 font-[inherit] disabled:opacity-60"
               >
                 <Typography variant="label-strong" color="white">
                   {saving ? 'Saving…' : 'Save'}

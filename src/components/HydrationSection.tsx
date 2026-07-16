@@ -18,7 +18,7 @@ interface HydrationSectionProps {
 }
 
 const inputClass =
-  'box-border w-full rounded-[10px] border border-line bg-transparent p-[10px_12px] text-[15px] font-medium text-ink outline-none [font-family:inherit]';
+  'box-border w-full rounded-control border border-line bg-transparent py-2.5 px-3 text-[15px] font-medium text-ink outline-none [font-family:inherit]';
 
 export const HydrationSection = ({ date }: HydrationSectionProps) => {
   const {
@@ -79,7 +79,7 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
       </div>
 
       {bottleConfig && (
-        <div className="flex items-center gap-[14px] rounded-2xl border-[1.5px] border-line-success bg-surface-water p-[14px_16px]">
+        <div className="flex items-center gap-3.5 rounded-2xl border-1.5 border-line-success bg-surface-water py-3.5 px-4">
           <div className="flex flex-1 flex-wrap items-end gap-1">
             {Array.from({ length: totalBlocks }).map((_, i) => (
               <GlassIcon key={i} index={i} value={filledValue} />
@@ -108,7 +108,7 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
         <div
           className={classNames(
             bottleConfig ? 'mt-2.5' : 'mt-0',
-            'flex flex-col gap-3 rounded-2xl border border-line bg-white p-[16px_14px]',
+            'flex flex-col gap-3 rounded-2xl border border-line bg-white py-4 px-3.5',
           )}
         >
           {!bottleConfig ? (
@@ -139,14 +139,14 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                   onChange={(e) => setBottleSize(e.target.value)}
                   className={classNames(inputClass, 'w-auto flex-1')}
                 />
-                <div className="flex shrink-0 overflow-hidden rounded-[10px] border border-line bg-canvas">
+                <div className="flex shrink-0 overflow-hidden rounded-control border border-line bg-canvas">
                   {(['ml', 'oz'] as const).map((u) => (
                     <button
                       key={u}
                       type="button"
                       onClick={() => setUnit(u)}
                       className={classNames(
-                        'cursor-pointer border-0 p-[0_14px] font-[inherit] transition-colors duration-150',
+                        'cursor-pointer border-0 px-3.5 font-[inherit] transition-colors duration-150',
                         unit === u ? 'bg-ink' : 'bg-transparent',
                       )}
                     >
@@ -176,7 +176,7 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                 <button
                   type="button"
                   onClick={() => setShowPanel(false)}
-                  className="flex-1 cursor-pointer rounded-[10px] border border-line bg-transparent p-[10px_0] font-[inherit]"
+                  className="flex-1 cursor-pointer rounded-control border border-line bg-transparent py-2.5 font-[inherit]"
                 >
                   <Typography
                     variant="label-strong"
@@ -189,7 +189,7 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                   type="button"
                   onClick={handleSetup}
                   disabled={!bottleName.trim() || !bottleSize || setupSaving}
-                  className="flex-1 cursor-pointer rounded-[10px] border-0 bg-success p-[10px_0] font-[inherit] disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex-1 cursor-pointer rounded-control border-0 bg-success py-2.5 font-[inherit] disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   <Typography variant="label-strong" color="white">
                     {setupSaving ? 'Saving...' : 'Save bottle'}
@@ -219,7 +219,7 @@ export const HydrationSection = ({ date }: HydrationSectionProps) => {
                     key={label}
                     type="button"
                     onClick={() => handleLog(value)}
-                    className="flex flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-xl border-[1.5px] border-line-success bg-surface-success p-[10px_4px] font-[inherit]"
+                    className="flex flex-1 cursor-pointer flex-col items-center gap-1.5 rounded-xl border-1.5 border-line-success bg-surface-success py-2.5 px-1 font-[inherit]"
                   >
                     <Typography
                       variant="subheading"
